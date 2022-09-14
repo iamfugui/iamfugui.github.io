@@ -4,9 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="你的第一个程序是&#34;Hello World&#34;？, iamfugui&#39; 小屋,iamfugui,小屋,iamfugui.github.io,博客,JavasSript,Vue,uni-app,React">
-    <meta name="description" content="我的第一门编程课是Java，而输出的第一个程序就是”Hello World”。
-javaScript php123System.out.println(&amp;quot;Hello World&amp;quot;);console.log(&amp;quot;H">
+    <meta name="keywords" content="JS-概念-按位非 (~)是什么操作？什么是原码、反码、补码？, iamfugui&#39; 小屋,iamfugui,小屋,iamfugui.github.io,博客,JavasSript,Vue,uni-app,React">
+    <meta name="description" content="前言本文你将会知道JS中的按位非 (~)，什么是原码、反码、补码，负数如何在计算机中表示，以及为什么要使用补码。
+起因是在复习运算符优先级的时候，发现了按位非（~）。
+以下是MDN官方给的示例：
+12345678const a = 5;  ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +20,7 @@ javaScript php123System.out.println(&amp;quot;Hello World&amp;quot;);console.log
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>你的第一个程序是&#34;Hello World&#34;？ | iamfugui&#39; 小屋</title>
+    <title>JS-概念-按位非 (~)是什么操作？什么是原码、反码、补码？ | iamfugui&#39; 小屋</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -273,12 +275,12 @@ javaScript php123System.out.println(&amp;quot;Hello World&amp;quot;);console.log
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">你的第一个程序是&#34;Hello World&#34;？</h1>
+                    <h1 class="description center-align post-title">JS-概念-按位非 (~)是什么操作？什么是原码、反码、补码？</h1>
                 </div>
             </div>
         </div>
@@ -314,7 +316,7 @@ javaScript php123System.out.println(&amp;quot;Hello World&amp;quot;);console.log
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-13
+                    2022-09-15
                 </div>
                 
 
@@ -335,9 +337,63 @@ javaScript php123System.out.println(&amp;quot;Hello World&amp;quot;);console.log
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>我的第一门编程课是Java，而输出的第一个程序就是”Hello World”。</p>
-<figure class="highlight java"><figcaption><span>javaScript php</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">console.log(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">echo <span class="string">&quot;Hello World&quot;</span>;</span><br></pre></td></tr></table></figure>
-<p><br>A：喂，第一个程序为什么都是”Hello World”啊？<br><br>B：老师教的。<br><br>A：为什么不教其它？<br><br>B：书上写着咯。<br><br>A：java C# js是同一本书？<br><br>B：诶，你很无聊诶…<br><br><br>根据维基百科记载，”Hello World”最早出现在Kernighan的B语言手册上。程序员出于某种仪式感或是洁癖，”Hello World”代代相传至今。</p>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>本文你将会知道JS中的按位非 (~)，什么是原码、反码、补码，负数如何在计算机中表示，以及为什么要使用补码。</strong></p>
+<p>起因是在复习运算符优先级的时候，发现了按位非（~）。</p>
+<p>以下是MDN官方给的示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">5</span>;     <span class="comment">// 00000000000000000000000000000101</span></span><br><span class="line"><span class="keyword">const</span> b = -<span class="number">3</span>;    <span class="comment">// 11111111111111111111111111111101</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(~a); <span class="comment">// 11111111111111111111111111111010</span></span><br><span class="line"><span class="comment">// expected output: -6</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(~b); <span class="comment">// 00000000000000000000000000000010</span></span><br><span class="line"><span class="comment">// expected output: 2</span></span><br></pre></td></tr></table></figure>
+
+<p>有点蒙，为什么~a等于-6？真是“基础不牢，地动山摇”，所以有了本文。</p>
+<p>我们知道计算机的数据存储是以0和1来表示的。那么为了能完整表示数据，就有了原码、反码、补码。</p>
+<p>在计算机中，存储和计算都是以补码来完成的。</p>
+<p>下面我们来看一下什么是原码、反码、补码：</p>
+<h2 id="1-原码"><a href="#1-原码" class="headerlink" title="1. 原码"></a>1. 原码</h2><p>负数在二进制中的表示是，最高位是1</p>
+<p>如-5： </p>
+<p>1000 0101 （原码）</p>
+<p>注意，无论8位表示还是多少位，负数最高位都应该是1。</p>
+<h2 id="2-反码"><a href="#2-反码" class="headerlink" title="2. 反码"></a>2. 反码</h2><p>对于正数，反码与原码一致。</p>
+<p>对于负数，原码按位取反（最高位不变）。</p>
+<p>如-5： </p>
+<p>1111 1010 （反码）</p>
+<h2 id="3-补码"><a href="#3-补码" class="headerlink" title="3. 补码"></a>3. 补码</h2><p>对于正数，补码与原码一致。</p>
+<p>对于负数，补码要在反码的基础上加1。</p>
+<p>如-5： </p>
+<p>1111 1011 （补码）</p>
+<h2 id="4-计算"><a href="#4-计算" class="headerlink" title="4. 计算"></a>4. 计算</h2><p>刚刚我们说了计算机的存储和计算都是以补码来完成的。</p>
+<p>那么为什么要使用补码？</p>
+<p>在论述之前，我们需要知道计算机只要加运算，要通过操作负数来完成减运算。</p>
+<p>例如：5 - 5</p>
+<p>（1）如果使用原码，有以下结果：</p>
+<p>0000 0101 （5原码）</p>
+<p>1000 0101 （-5原码）</p>
+<p>1000 1010 （-10）</p>
+<p>明显不对</p>
+<p>（2）如果使用反码，有以下结果：</p>
+<p>0000 0101 （5反码）</p>
+<p>1111 1010 （-5反码）</p>
+<p>1111 1111 （-0反码）</p>
+<p>为方便观看，将反码结果转成原码，有1000 0000（-0原码）。似乎结果是正确的？-0不就是0吗？但是我们要知道在计算机中0还有其它表示0000 0000。这样一来就有了两个二进制表示0，这样就乱套了。</p>
+<p>（3）如果使用补码，有以下结果：</p>
+<p> 0000 0101 （5补码）</p>
+<p> 1111 1011 （-5补码）</p>
+<p>10000 0000 （0）</p>
+<p>我们讨论的是8位的计算，结果得到了9位，这里就可以直接的舍弃第九位。那么久得到0000 0000，记过为0，完全正确。</p>
+<p>所以这就是使用补码的原因。</p>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><p>回到MDN官方示例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">5</span>;     <span class="comment">// 00000000000000000000000000000101</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(~a); <span class="comment">// 11111111111111111111111111111010</span></span><br><span class="line"><span class="comment">// expected output: -6</span></span><br></pre></td></tr></table></figure>
+
+<p>按位非就是将每一位反转。 </p>
+<p>原来我一开始是被这一大串1迷惑了，这一大串就是-6的二进制表示（补码），~5 &#x3D; -6。</p>
+<p>为了方便浏览，我们可以将其缩短致8位的原码：</p>
+<p>1111 1010（-6补码）</p>
+<p>1111 1001（-6反码）</p>
+<p>1000 0110（-6原码）</p>
+<p>所以，所以，110就是6</p>
+<p>所以，所以，1000 0110 就是-6的原码</p>
+<p>所以，所以，1111 1001 就是-6的反码</p>
+<p>所以，所以，1111 1010 就是-6的补码</p>
+<p>而11111111111111111111111111111010就是-6的补码的32位表示了！！！</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Bitwise_NOT">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Bitwise_NOT</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Y7411t7Fj">https://www.bilibili.com/video/BV1Y7411t7Fj</a></p>
 
                 
             </div>
@@ -364,7 +420,7 @@ javaScript php123System.out.println(&amp;quot;Hello World&amp;quot;);console.log
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://iamfugui.github.io/2022/08/13/hello-world/">http://iamfugui.github.io/2022/08/13/hello-world/</a>
+                    <a href="http://iamfugui.github.io/2022/09/15/JS-%E6%A6%82%E5%BF%B5-%E6%8C%89%E4%BD%8D%E9%9D%9E%20(~)%E6%98%AF%E4%BB%80%E4%B9%88%E6%93%8D%E4%BD%9C%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%E5%8E%9F%E7%A0%81%E3%80%81%E5%8F%8D%E7%A0%81%E3%80%81%E8%A1%A5%E7%A0%81%EF%BC%9F/">http://iamfugui.github.io/2022/09/15/JS-%E6%A6%82%E5%BF%B5-%E6%8C%89%E4%BD%8D%E9%9D%9E%20(~)%E6%98%AF%E4%BB%80%E4%B9%88%E6%93%8D%E4%BD%9C%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%E5%8E%9F%E7%A0%81%E3%80%81%E5%8F%8D%E7%A0%81%E3%80%81%E8%A1%A5%E7%A0%81%EF%BC%9F/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -480,9 +536,10 @@ javaScript php123System.out.println(&amp;quot;Hello World&amp;quot;);console.log
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/09/15/JS-%E6%A6%82%E5%BF%B5-%E6%8C%89%E4%BD%8D%E9%9D%9E%20(~)%E6%98%AF%E4%BB%80%E4%B9%88%E6%93%8D%E4%BD%9C%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%E5%8E%9F%E7%A0%81%E3%80%81%E5%8F%8D%E7%A0%81%E3%80%81%E8%A1%A5%E7%A0%81%EF%BC%9F/">
                     <div class="card-image">
@@ -500,9 +557,9 @@ javaScript php123System.out.println(&amp;quot;Hello World&amp;quot;);console.log
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-15
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -511,6 +568,7 @@ javaScript php123System.out.println(&amp;quot;Hello World&amp;quot;);console.log
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -518,7 +576,7 @@ javaScript php123System.out.println(&amp;quot;Hello World&amp;quot;);console.log
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2022/08/13/hello-world/">
@@ -548,7 +606,6 @@ javaScript php123System.out.println(&amp;quot;Hello World&amp;quot;);console.log
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
