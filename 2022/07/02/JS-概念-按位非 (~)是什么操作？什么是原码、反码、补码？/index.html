@@ -8,7 +8,7 @@
     <meta name="description" content="前言本文你将会知道JS中的按位非 (~)，什么是原码、反码、补码，负数如何在计算机中表示，以及为什么要使用补码。
 起因是在复习运算符优先级的时候，发现了按位非（~）。
 以下是MDN官方给的示例：
-12345678const a = 5;  ">
+const a &amp;#x3D; 5;     ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -348,6 +348,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
 
         
 
@@ -356,7 +359,14 @@
                 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>本文你将会知道JS中的按位非 (~)，什么是原码、反码、补码，负数如何在计算机中表示，以及为什么要使用补码。</strong></p>
 <p>起因是在复习运算符优先级的时候，发现了按位非（~）。</p>
 <p>以下是MDN官方给的示例：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">5</span>;     <span class="comment">// 00000000000000000000000000000101</span></span><br><span class="line"><span class="keyword">const</span> b = -<span class="number">3</span>;    <span class="comment">// 11111111111111111111111111111101</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(~a); <span class="comment">// 11111111111111111111111111111010</span></span><br><span class="line"><span class="comment">// expected output: -6</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(~b); <span class="comment">// 00000000000000000000000000000010</span></span><br><span class="line"><span class="comment">// expected output: 2</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">const a &#x3D; 5;     &#x2F;&#x2F; 00000000000000000000000000000101
+const b &#x3D; -3;    &#x2F;&#x2F; 11111111111111111111111111111101
+
+console.log(~a); &#x2F;&#x2F; 11111111111111111111111111111010
+&#x2F;&#x2F; expected output: -6
+
+console.log(~b); &#x2F;&#x2F; 00000000000000000000000000000010
+&#x2F;&#x2F; expected output: 2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>有点蒙，为什么~a等于-6？真是“基础不牢，地动山摇”，所以有了本文。</p>
 <p>我们知道计算机的数据存储是以0和1来表示的。那么为了能完整表示数据，就有了原码、反码、补码。</p>
@@ -395,7 +405,9 @@
 <p>我们讨论的是8位的计算，结果得到了9位，这里就可以直接的舍弃第九位。那么久得到0000 0000，记过为0，完全正确。</p>
 <p>所以这就是使用补码的原因。</p>
 <h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><p>回到MDN官方示例</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">5</span>;     <span class="comment">// 00000000000000000000000000000101</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(~a); <span class="comment">// 11111111111111111111111111111010</span></span><br><span class="line"><span class="comment">// expected output: -6</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">const a &#x3D; 5;     &#x2F;&#x2F; 00000000000000000000000000000101
+console.log(~a); &#x2F;&#x2F; 11111111111111111111111111111010
+&#x2F;&#x2F; expected output: -6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>按位非就是将每一位反转。 </p>
 <p>原来我一开始是被这一大串1迷惑了，这一大串就是-6的二进制表示（补码），~5 &#x3D; -6。</p>
@@ -708,6 +720,9 @@
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
