@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title></title>
+      <link href="/2022/09/24/1-js-gai-nian-console-shi-yi-bu-huan-shi-tong-bu/"/>
+      <url>/2022/09/24/1-js-gai-nian-console-shi-yi-bu-huan-shi-tong-bu/</url>
+      
+        <content type="html"><![CDATA[<p>开发的时候经常会输出对象类型</p><p>但遇到这种情况，会让我们以为console是异步：</p><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">let obj &#x3D;&#123;        name:&quot;小明&quot;&#125;console.log(obj);&#x2F;&#x2F;输出&#123;name:小李&#125;，但是手动点击展开时发现是小明obj.name &#x3D; &quot;小李&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>总结：</p><p>其实这并不是异步，而是谷歌浏览器的一种优化，对于引用类型的数据读取是存在延迟的。<br>默认只输出一层。当你点击展开时，又会重新输出内存中的新值和下一层的数据。<br>所以我们会展开是看到的是{name:小明}，展开后又变成了{name:小李}<br>所以console是同步的，而Node环境上是严格同步的，不存在这种情况</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>你的第一个程序是&quot;Hello World&quot;？</title>
       <link href="/2022/08/13/hello-world/"/>
       <url>/2022/08/13/hello-world/</url>
