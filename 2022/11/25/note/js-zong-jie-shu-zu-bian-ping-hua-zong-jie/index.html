@@ -4,11 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="数字不换行且忽视自适应宽度, iamfugui&#39; 小屋,iamfugui,小屋,iamfugui.github.io,博客,JavasSript,Vue,uni-app,React">
-    <meta name="description" content="问题描述：1.换行在HTML中数字或连续的英文被当成是一个整体 就像汉字
-2.width宽度就算换行了，如果盒子是弹性宽度，那么是会被撑开的
-解决办法：
-1.解决不换行：（数字作为一个整体，必须要声明每个字符）word-wrap:break">
+    <meta name="keywords" content="数组扁平化总结, iamfugui&#39; 小屋,iamfugui,小屋,iamfugui.github.io,博客,JavasSript,Vue,uni-app,React">
+    <meta name="description" content="所谓扁平化就是将一个多维数组转变成一维数组,可用于单个接口多场景下的数据处理。
+例如，某接口返回一个二维数组的category数据,0下标下是收入分类，1下标下是支出分类。这个数据在记账页面上可以直接用于收入和支出两个局部模块，但在列表页下">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>数字不换行且忽视自适应宽度 | iamfugui&#39; 小屋</title>
+    <title>数组扁平化总结 | iamfugui&#39; 小屋</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -41,7 +39,9 @@
 
 
 
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
     <link rel="stylesheet" href="/css/post.css">
+
 
 
 
@@ -269,7 +269,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">数字不换行且忽视自适应宽度</h1>
+                    <h1 class="description center-align post-title">数组扁平化总结</h1>
                 </div>
             </div>
         </div>
@@ -279,10 +279,12 @@
 
 
 
-<main class="container content">
+<main class="post-container content">
 
     
-    <!-- 文章内容详情 -->
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
@@ -291,12 +293,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/css/">
-                                <span class="chip bg-color">css</span>
+                            <a href="/tags/%E5%8D%B7/">
+                                <span class="chip bg-color">卷</span>
                             </a>
                         
-                            <a href="/tags/%E6%96%87%E6%9C%AC%E6%8D%A2%E8%A1%8C/">
-                                <span class="chip bg-color">文本换行</span>
+                            <a href="/tags/%E6%95%B0%E7%BB%84/">
+                                <span class="chip bg-color">数组</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%89%81%E5%B9%B3%E5%8C%96/">
+                                <span class="chip bg-color">扁平化</span>
                             </a>
                         
                     </div>
@@ -307,8 +313,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/html-css/" class="post-category">
-                                html&css
+                            <a href="/categories/js/" class="post-category">
+                                js
                             </a>
                         
                     </div>
@@ -320,7 +326,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-02-20
+                    2022-11-25
                 </div>
                 
 
@@ -329,7 +335,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    311
+                    391
                 </div>
                 
 
@@ -354,15 +360,46 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>问题描述：<br>1.换行<br>在HTML中数字或连续的英文被当成是一个整体 就像汉字</p>
-<p>2.width宽度<br>就算换行了，如果盒子是弹性宽度，那么是会被撑开的</p>
-<p>解决办法：</p>
-<p>1.解决不换行：<br>（数字作为一个整体，必须要声明每个字符）<br>word-wrap:break-word;&#x2F;&#x2F;允许单词换行，但不分割              （必要）<br>word-break:break-all;&#x2F;&#x2F;允许单词换行，分割                  （可选）<br>white-space:pre-wrap;&#x2F;&#x2F;保留空白且换行，空格在换行处会忽略    （可选）</p>
-<p>注意：word-wrap对行内元素是没有效果的</p>
-<p>2.对于宽度：<br>原本使用的是父盒子使用flex:1，内容盒子不设置宽度，当内容占满父盒子时换行<br>但无论是在内容盒子还是父盒子，这种方式是会被撑开的</p>
-<p>可以使用calc(100% - 50px)，配合box-sizing:border-box,替换父盒子的flex1，当然单位可以% vw px<br>内容盒子现在就可以设置宽度了，而且必须设置！！！否者内容不会换行，继续撑开，例如可以设置max-width:100%</p>
-<p>3.参考另一篇文章：HTML&amp;CSS-进阶-flex宽度如何被子元素继承</p>
+                <p>所谓扁平化就是将一个多维数组转变成一维数组,可用于单个接口多场景下的数据处理。</p>
+<p>例如，某接口返回一个二维数组的category数据,0下标下是收入分类，1下标下是支出分类。这个数据在记账页面上可以直接用于收入和支出两个局部模块，但在列表页下需要将两个数据进行一个合并处理。这时就需要到扁平化的概念。</p>
+<p>递归</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token class-name">Array</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">flat</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">arr</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token comment">//使用map遍历并拷贝响应结果</span>
+    <span class="token keyword">let</span> result <span class="token operator">=</span> arr<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">//递归数组，达到降维的作用</span>
+        <span class="token keyword">return</span> <span class="token function">flat</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">//返回普通元素，构成一维数组</span>
+        <span class="token keyword">return</span> item<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token comment">//result值因为递归的原因最高只有二维，那么使用...解构就能得到多个元素和一维数组；concant方法接收单个元素或数组，那么最后就能返回一个一维数组啦</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token operator">...</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>不使用concat进行扁平化：</p>
+<p>concat是接收一个值或数组进行浅拷贝，那么我们再写一个能接收多个参数进行push的函数就行了</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/**
+ * @description 拷贝n个数组或value
+ * @params &#123;*&#125; valArr n个数组或value
+ **/</span>
+<span class="token keyword">function</span> <span class="token function">pushVal</span><span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>valArr</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> res <span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>val <span class="token keyword">of</span> valArr<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token keyword">of</span> val<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                res<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+            res<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>当然js在数组原型上实现了flat方法，所以平时的时候可以使用</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token class-name">Array</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">flat</span><span class="token punctuation">(</span>infinite<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -388,7 +425,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://iamfugui.github.io/2021/02/20/note/html-css-te-xing-shu-zi-bu-huan-xing-qie-hu-shi-zi-gua-ying-kuan-dun/">https://iamfugui.github.io/2021/02/20/note/html-css-te-xing-shu-zi-bu-huan-xing-qie-hu-shi-zi-gua-ying-kuan-dun/</a>
+                    <a href="https://iamfugui.github.io/2022/11/25/note/js-zong-jie-shu-zu-bian-ping-hua-zong-jie/">https://iamfugui.github.io/2022/11/25/note/js-zong-jie-shu-zu-bian-ping-hua-zong-jie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -426,12 +463,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/css/">
-                                    <span class="chip bg-color">css</span>
+                                <a href="/tags/%E5%8D%B7/">
+                                    <span class="chip bg-color">卷</span>
                                 </a>
                             
-                                <a href="/tags/%E6%96%87%E6%9C%AC%E6%8D%A2%E8%A1%8C/">
-                                    <span class="chip bg-color">文本换行</span>
+                                <a href="/tags/%E6%95%B0%E7%BB%84/">
+                                    <span class="chip bg-color">数组</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%89%81%E5%B9%B3%E5%8C%96/">
+                                    <span class="chip bg-color">扁平化</span>
                                 </a>
                             
                         </div>
@@ -783,13 +824,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/02/21/note/js-gai-nian-break-he-continue/">
+                <a href="/2022/12/01/note/html-ye-mian-ru-he-qie-huan-hui-bai-mo-shi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="break和continue">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="大事件时页面如何设置成灰白模式">
                         
-                        <span class="card-title">break和continue</span>
+                        <span class="card-title">大事件时页面如何设置成灰白模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -800,14 +841,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-21
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-12-01
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/js/" class="post-category">
-                                    js
+                            <a href="/categories/html-css/" class="post-category">
+                                    html&css
                                 </a>
                             
                             
@@ -817,16 +858,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/js/">
-                        <span class="chip bg-color">js</span>
+                    <a href="/tags/css/">
+                        <span class="chip bg-color">css</span>
                     </a>
                     
-                    <a href="/tags/break/">
-                        <span class="chip bg-color">break</span>
+                    <a href="/tags/html/">
+                        <span class="chip bg-color">html</span>
                     </a>
                     
-                    <a href="/tags/continue/">
-                        <span class="chip bg-color">continue</span>
+                    <a href="/tags/filter/">
+                        <span class="chip bg-color">filter</span>
                     </a>
                     
                 </div>
@@ -840,13 +881,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/02/17/note/js-gai-nian-xun-huan-yu-bian-li-yu-ju-for-for...in-for...of-foreach-map/">
+                <a href="/2022/11/16/note/js-gai-nian-set-dui-xiang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="循环与遍历语句总结：for、for...in、for...of、forEach">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Set对象">
                         
-                        <span class="card-title">循环与遍历语句总结：for、for...in、for...of、forEach</span>
+                        <span class="card-title">Set对象</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -857,7 +898,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-16
                             </span>
                         <span class="publish-author">
                             
@@ -880,6 +921,10 @@
                     
                     <a href="/tags/js/">
                         <span class="chip bg-color">js</span>
+                    </a>
+                    
+                    <a href="/tags/Set/">
+                        <span class="chip bg-color">Set</span>
                     </a>
                     
                 </div>
@@ -954,6 +999,87 @@
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
 
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
 
     
 
@@ -1038,7 +1164,7 @@
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                106k
+                                                106.8k
                                             </span>
                                             
                                                 

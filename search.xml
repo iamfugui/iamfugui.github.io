@@ -60,6 +60,35 @@
     
     
     <entry>
+      <title>数组扁平化总结</title>
+      <link href="/2022/11/25/note/js-zong-jie-shu-zu-bian-ping-hua-zong-jie/"/>
+      <url>/2022/11/25/note/js-zong-jie-shu-zu-bian-ping-hua-zong-jie/</url>
+      
+        <content type="html"><![CDATA[<p>所谓扁平化就是将一个多维数组转变成一维数组,可用于单个接口多场景下的数据处理。</p><p>例如，某接口返回一个二维数组的category数据,0下标下是收入分类，1下标下是支出分类。这个数据在记账页面上可以直接用于收入和支出两个局部模块，但在列表页下需要将两个数据进行一个合并处理。这时就需要到扁平化的概念。</p><p>递归</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token class-name">Array</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">flat</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">arr</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>    <span class="token comment">//使用map遍历并拷贝响应结果</span>    <span class="token keyword">let</span> result <span class="token operator">=</span> arr<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>    <span class="token keyword">if</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>        <span class="token comment">//递归数组，达到降维的作用</span>        <span class="token keyword">return</span> <span class="token function">flat</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span>    <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>        <span class="token comment">//返回普通元素，构成一维数组</span>        <span class="token keyword">return</span> item<span class="token punctuation">;</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token comment">//result值因为递归的原因最高只有二维，那么使用...解构就能得到多个元素和一维数组；concant方法接收单个元素或数组，那么最后就能返回一个一维数组啦</span>    <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token operator">...</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>不使用concat进行扁平化：</p><p>concat是接收一个值或数组进行浅拷贝，那么我们再写一个能接收多个参数进行push的函数就行了</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/** * @description 拷贝n个数组或value * @params &#123;*&#125; valArr n个数组或value **/</span><span class="token keyword">function</span> <span class="token function">pushVal</span><span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>valArr</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>    <span class="token keyword">let</span> res <span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token keyword">for</span><span class="token punctuation">(</span>val <span class="token keyword">of</span> valArr<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>        <span class="token keyword">if</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>            <span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token keyword">of</span> val<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>                res<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token punctuation">&#125;</span>        <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>            res<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token punctuation">&#125;</span>    <span class="token punctuation">&#125;</span>    <span class="token keyword">return</span> res<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>当然js在数组原型上实现了flat方法，所以平时的时候可以使用</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token class-name">Array</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">flat</span><span class="token punctuation">(</span>infinite<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 卷 </tag>
+            
+            <tag> 数组 </tag>
+            
+            <tag> 扁平化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Set对象</title>
       <link href="/2022/11/16/note/js-gai-nian-set-dui-xiang/"/>
       <url>/2022/11/16/note/js-gai-nian-set-dui-xiang/</url>
@@ -93,7 +122,7 @@
       <link href="/2022/11/08/note/qian-duan-bian-cheng-bian-ma-yun-kai-fa-zhong-excel-cvs-wen-jian-dao-ru-luan-ma-de-yuan-yin-yi-ji-ansi-bian-ma-he-dai-bom-de-utf-8-shi-shi-me/"/>
       <url>/2022/11/08/note/qian-duan-bian-cheng-bian-ma-yun-kai-fa-zhong-excel-cvs-wen-jian-dao-ru-luan-ma-de-yuan-yin-yi-ji-ansi-bian-ma-he-dai-bom-de-utf-8-shi-shi-me/</url>
       
-        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><img src="https://qiniu.guet.link/asset/202211071715684.png"><br>在做项目的时候发现支付宝账单是ANSI编码；微信账单是带BOM的utf-8编码。<br>这两个账单都是CVS文件，但在读取的时候ANSI发生了乱码。记录一下解决过程。</p><h2 id="1-了解-ANSI-与-utf-8-with-BOM"><a href="#1-了解-ANSI-与-utf-8-with-BOM" class="headerlink" title="1. 了解 ANSI 与 utf-8 with BOM"></a>1. 了解 ANSI 与 utf-8 with BOM</h2><h3 id="（1）什么是-ANSI-编码？"><a href="#（1）什么是-ANSI-编码？" class="headerlink" title="（1）什么是 ANSI 编码？"></a>（1）什么是 ANSI 编码？</h3><p>不同的国家和地区制定了不同的标准，由此产生了 GB2312、GBK、GB18030、Big5、Shift_JIS 等各自的编码标准。<strong>这些使用多个字节来代表一个字符的各种汉字延伸编码方式，称为 ANSI 编码。</strong>在简体中文Windows操作系统中，ANSI 编码代表 GB2312编码；在繁体中文Windows操作系统中，ANSI编码代表Big5；在日文Windows操作系统中，ANSI 编码代表 JIS 编码。</p><h3 id="（2）什么是-带BOM的utf-8-编码？"><a href="#（2）什么是-带BOM的utf-8-编码？" class="headerlink" title="（2）什么是 带BOM的utf-8 编码？"></a>（2）什么是 带BOM的utf-8 编码？</h3><p>utf-8我们知道是基于UTF万国码的一种编码，那么BOM呢？</p><p>直接看wiki的定义：</p><p>字节顺序标记（英语：byte-order mark，BOM）是位于码点U+FEFF的统一码字符的名称。当以UTF-16或UTF-32来将UCS&#x2F;统一码字符所组成的字符串编码时，这个字符被用来标示其字节序。它常被用来当做标示文件是以UTF-8、UTF-16或UTF-32编码的标记。</p><p>字节顺序标记通常有几种涵义：</p><ol><li><p>在16位和32位的情况下，文字流的字节顺序。</p></li><li><p>表示文字流非常有可能是Unicode编码。</p></li><li><p>使用的是哪一种Unicode字符编码。</p></li></ol><p>每个Unicode编码（包括Unicode标准以外的编码，如UTF-7，见下表）的BOM字节序列都不一样，而且这些序列都不可能出现在以其他编码存储的文字流的开头。因此，在文字流的开头放置一个编码的BOM，可以表明文本是Unicode，并识别所使用的编码方案。这种对BOM字符的使用被称为“Unicode签名”。</p><h2 id="2-解决导入cvs乱码"><a href="#2-解决导入cvs乱码" class="headerlink" title="2.解决导入cvs乱码"></a>2.解决导入cvs乱码</h2><p>现在回过来看为什么导入的cvs会乱码</p><p>云存储在存储文件的时候是不会改变其文件编码的，而在云函数的 node 中，我使用的是 node-xlsx 来进行 excel 导入。从 node-xlsx 给出的例子来看，node-xlsx 是只接收 utf-8 文件的。那么，一个 ANSI （简中为GB2312）编码必然不能被 node-xlsx 解析，这就需要转成 utf-8 。</p><p>我们很自然的会想到用toString方法，再 Buffer.form 回去，但是 node 中这些方法都没有 GB2312 编码。</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">switch</span><span class="token punctuation">(</span>encoding<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>      <span class="token keyword">case</span> <span class="token string">'hex'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'utf8'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'utf-8'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'ascii'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'binary'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'base64'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'ucs2'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'ucs-2'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'utf16le'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'utf-16le'</span><span class="token operator">:</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>所以我们需要另一个插件 iconv-lite 转换。 </p><p>核心代码：</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//buffer根据原编码GB2312解码成字符串，不舍弃BOM</span><span class="token keyword">let</span> sourceString <span class="token operator">=</span> iconv<span class="token punctuation">.</span><span class="token function">decode</span><span class="token punctuation">(</span>sourceBuffer<span class="token punctuation">,</span><span class="token string">"GB2312"</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token literal-property property">stripBOM</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token comment">//字符串转码成utf-8的buffer，添加BOM</span><span class="token keyword">let</span> buff <span class="token operator">=</span> iconv<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>sourceString<span class="token punctuation">,</span><span class="token string">"utf8"</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token literal-property property">addBOM</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p>代码片段：</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> cloud <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'wx-server-sdk'</span><span class="token punctuation">)</span><span class="token keyword">const</span> xlsx <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'node-xlsx'</span><span class="token punctuation">)</span><span class="token keyword">const</span> iconv <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'iconv-lite'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>cloud<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token comment">// 初始化云开发环境</span>    <span class="token literal-property property">env</span><span class="token operator">:</span> cloud<span class="token punctuation">.</span><span class="token constant">DYNAMIC_CURRENT_ENV</span> <span class="token comment">// 当前环境的常量</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token comment">// 云函数入口函数</span>exports<span class="token punctuation">.</span><span class="token function-variable function">main</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">event<span class="token punctuation">,</span> context</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>    <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> fileID <span class="token punctuation">&#125;</span> <span class="token operator">=</span> event<span class="token punctuation">;</span>    <span class="token comment">// 下载文件</span>    <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token keyword">await</span> cloud<span class="token punctuation">.</span><span class="token function">downloadFile</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> fileID <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>    <span class="token keyword">let</span> sourceBuffer <span class="token operator">=</span> res<span class="token punctuation">.</span>fileContent<span class="token punctuation">;</span>        <span class="token comment">//buffer根据原编码GB2312解码成字符串，不舍弃BOM</span>    <span class="token keyword">let</span> sourceString <span class="token operator">=</span> iconv<span class="token punctuation">.</span><span class="token function">decode</span><span class="token punctuation">(</span>sourceBuffer<span class="token punctuation">,</span><span class="token string">"GB2312"</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token literal-property property">stripBOM</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>    <span class="token comment">//字符串转码成utf-8的buffer，添加BOM</span>    <span class="token keyword">let</span> buff <span class="token operator">=</span> iconv<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>sourceString<span class="token punctuation">,</span><span class="token string">"utf8"</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token literal-property property">addBOM</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">//开始解析</span>    <span class="token keyword">let</span> sheet <span class="token operator">=</span> xlsx<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>buff<span class="token punctuation">,</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">cellDates</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token keyword">return</span> sheet<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>至于为什么需要BOM，其实即使不使用BOM，字符串utf-8的输出也没有乱码了，但是excel插件没有BOM，解析不行。大胆推测一下，插件需要BOM来正确的解析excel。</p><h2 id="3-注意"><a href="#3-注意" class="headerlink" title="3. 注意"></a>3. 注意</h2><p>我看网上很多人的代码在字符串已经出现乱码的情况下，还要进行转码，这就非常离谱了，你把乱码转成另外一种编码有什么用呢？解码出来不还是乱码吗？这完全是对编码解码与buffer之间关系的不理解。</p><h2 id="4-参考"><a href="#4-参考" class="headerlink" title="4. 参考"></a>4. 参考</h2><p><a href="https://zh.wikipedia.org/wiki/%E4%BD%8D%E5%85%83%E7%B5%84%E9%A0%86%E5%BA%8F%E8%A8%98%E8%99%9F">https://zh.wikipedia.org/wiki/%E4%BD%8D%E5%85%83%E7%B5%84%E9%A0%86%E5%BA%8F%E8%A8%98%E8%99%9F</a></p><p><a href="https://gitee.com/mihome/iconv-lite#bom-handling">https://gitee.com/mihome/iconv-lite#bom-handling</a></p><p><a href="https://github.com/mgcrea/node-xlsx">https://github.com/mgcrea/node-xlsx</a></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><img src="https://qiniu.guet.link/asset/202211071715684.png"><br>在做项目的时候发现支付宝账单是ANSI编码；微信账单是带BOM的utf-8编码。<br>这两个账单都是CVS文件，但在读取的时候ANSI发生了乱码。记录一下解决过程。</p><h2 id="1-了解-ANSI-与-utf-8-with-BOM"><a href="#1-了解-ANSI-与-utf-8-with-BOM" class="headerlink" title="1. 了解 ANSI 与 utf-8 with BOM"></a>1. 了解 ANSI 与 utf-8 with BOM</h2><h3 id="（1）什么是-ANSI-编码？"><a href="#（1）什么是-ANSI-编码？" class="headerlink" title="（1）什么是 ANSI 编码？"></a>（1）什么是 ANSI 编码？</h3><p>不同的国家和地区制定了不同的标准，由此产生了 GB2312、GBK、GB18030、Big5、Shift_JIS 等各自的编码标准。<strong>这些使用多个字节来代表一个字符的各种汉字延伸编码方式，称为 ANSI 编码。</strong>在简体中文Windows操作系统中，ANSI 编码代表 GB2312编码；在繁体中文Windows操作系统中，ANSI编码代表Big5；在日文Windows操作系统中，ANSI 编码代表 JIS 编码。</p><h3 id="（2）什么是-带BOM的utf-8-编码？"><a href="#（2）什么是-带BOM的utf-8-编码？" class="headerlink" title="（2）什么是 带BOM的utf-8 编码？"></a>（2）什么是 带BOM的utf-8 编码？</h3><p>utf-8我们知道是基于UTF万国码的一种编码，那么BOM呢？</p><p>直接看wiki的定义：</p><p>字节顺序标记（英语：byte-order mark，BOM）是位于码点U+FEFF的统一码字符的名称。当以UTF-16或UTF-32来将UCS&#x2F;统一码字符所组成的字符串编码时，这个字符被用来标示其字节序。它常被用来当做标示文件是以UTF-8、UTF-16或UTF-32编码的标记。</p><p>字节顺序标记通常有几种涵义：</p><ol><li><p>在16位和32位的情况下，文字流的字节顺序。</p></li><li><p>表示文字流非常有可能是Unicode编码。</p></li><li><p>使用的是哪一种Unicode字符编码。</p></li></ol><p>每个Unicode编码（包括Unicode标准以外的编码，如UTF-7，见下表）的BOM字节序列都不一样，而且这些序列都不可能出现在以其他编码存储的文字流的开头。因此，在文字流的开头放置一个编码的BOM，可以表明文本是Unicode，并识别所使用的编码方案。这种对BOM字符的使用被称为“Unicode签名”。</p><h2 id="2-解决导入cvs乱码"><a href="#2-解决导入cvs乱码" class="headerlink" title="2.解决导入cvs乱码"></a>2.解决导入cvs乱码</h2><p>现在回过来看为什么导入的cvs会乱码</p><p>云存储在存储文件的时候是不会改变其文件编码的，而在云函数的 node 中，我使用的是 node-xlsx 来进行 excel 导入。从 node-xlsx 给出的例子来看，node-xlsx 是只接收 utf-8 文件的。那么，一个 ANSI （简中为GB2312）编码必然不能被 node-xlsx 解析，这就需要转成 utf-8 。</p><p>我们很自然的会想到用toString方法，再 Buffer.form 回去，但是 node 中这些方法都没有 GB2312 编码。</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">switch</span><span class="token punctuation">(</span>encoding<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>      <span class="token keyword">case</span> <span class="token string">'hex'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'utf8'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'utf-8'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'ascii'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'binary'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'base64'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'ucs2'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'ucs-2'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'utf16le'</span><span class="token operator">:</span>      <span class="token keyword">case</span> <span class="token string">'utf-16le'</span><span class="token operator">:</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>所以我们需要另一个插件 iconv-lite 转换。 </p><p>核心代码：</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//buffer根据原编码GB2312解码成字符串，不舍弃BOM</span><span class="token keyword">let</span> sourceString <span class="token operator">=</span> iconv<span class="token punctuation">.</span><span class="token function">decode</span><span class="token punctuation">(</span>sourceBuffer<span class="token punctuation">,</span><span class="token string">"GB2312"</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token literal-property property">stripBOM</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token comment">//字符串转码成utf-8的buffer，添加BOM</span><span class="token keyword">let</span> buff <span class="token operator">=</span> iconv<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>sourceString<span class="token punctuation">,</span><span class="token string">"utf8"</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token literal-property property">addBOM</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p>代码片段：</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> cloud <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'wx-server-sdk'</span><span class="token punctuation">)</span><span class="token keyword">const</span> xlsx <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'node-xlsx'</span><span class="token punctuation">)</span><span class="token keyword">const</span> iconv <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'iconv-lite'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>cloud<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token comment">// 初始化云开发环境</span>    <span class="token literal-property property">env</span><span class="token operator">:</span> cloud<span class="token punctuation">.</span><span class="token constant">DYNAMIC_CURRENT_ENV</span> <span class="token comment">// 当前环境的常量</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token comment">// 云函数入口函数</span>exports<span class="token punctuation">.</span><span class="token function-variable function">main</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">event<span class="token punctuation">,</span> context</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>    <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> fileID <span class="token punctuation">&#125;</span> <span class="token operator">=</span> event<span class="token punctuation">;</span>    <span class="token comment">// 下载文件</span>    <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token keyword">await</span> cloud<span class="token punctuation">.</span><span class="token function">downloadFile</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> fileID <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>    <span class="token keyword">let</span> sourceBuffer <span class="token operator">=</span> res<span class="token punctuation">.</span>fileContent<span class="token punctuation">;</span>        <span class="token comment">//buffer根据原编码GB2312解码成字符串，不舍弃BOM</span>    <span class="token keyword">let</span> sourceString <span class="token operator">=</span> iconv<span class="token punctuation">.</span><span class="token function">decode</span><span class="token punctuation">(</span>sourceBuffer<span class="token punctuation">,</span><span class="token string">"GB2312"</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token literal-property property">stripBOM</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>    <span class="token comment">//字符串转码成utf-8的buffer，添加BOM</span>    <span class="token keyword">let</span> buff <span class="token operator">=</span> iconv<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span>sourceString<span class="token punctuation">,</span><span class="token string">"utf8"</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token literal-property property">addBOM</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">//开始解析</span>    <span class="token keyword">let</span> sheet <span class="token operator">=</span> xlsx<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>buff<span class="token punctuation">,</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">cellDates</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token keyword">return</span> sheet<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>至于为什么需要BOM，其实即使不使用BOM，字符串的输出也没有乱码了，但是excel插件没有BOM，解析不行。大胆推测一下，插件需要BOM来正确的解析excel。</p><h2 id="3-注意"><a href="#3-注意" class="headerlink" title="3. 注意"></a>3. 注意</h2><p>我看网上很多人的代码在字符串已经出现乱码的情况下，还要进行转码，这就非常离谱了，你把乱码转成另外一种编码有什么用呢？解码出来不还是乱码吗？这完全是对编码解码与buffer之间关系的不理解。</p><h2 id="4-参考"><a href="#4-参考" class="headerlink" title="4. 参考"></a>4. 参考</h2><p><a href="https://zh.wikipedia.org/wiki/%E4%BD%8D%E5%85%83%E7%B5%84%E9%A0%86%E5%BA%8F%E8%A8%98%E8%99%9F">https://zh.wikipedia.org/wiki/%E4%BD%8D%E5%85%83%E7%B5%84%E9%A0%86%E5%BA%8F%E8%A8%98%E8%99%9F</a></p><p><a href="https://gitee.com/mihome/iconv-lite#bom-handling">https://gitee.com/mihome/iconv-lite#bom-handling</a></p><p><a href="https://github.com/mgcrea/node-xlsx">https://github.com/mgcrea/node-xlsx</a></p>]]></content>
       
       
       <categories>
@@ -142,9 +171,9 @@
       
         <tags>
             
-            <tag> node </tag>
-            
             <tag> buffer </tag>
+            
+            <tag> node </tag>
             
         </tags>
       
@@ -184,7 +213,7 @@
       <link href="/2022/11/01/note/wei-xin-xiao-cheng-xu-wei-xin-kai-fa-yu-yun-han-shu-kai-fa-zhu-yi-shi-xiang/"/>
       <url>/2022/11/01/note/wei-xin-xiao-cheng-xu-wei-xin-kai-fa-yu-yun-han-shu-kai-fa-zhu-yi-shi-xiang/</url>
       
-        <content type="html"><![CDATA[<p>为什么使用云函数？<br><img src="https://qiniu.guet.link/asset/202211022145867.png"></p><p>设置数据的时候不能设置undefined,否则不生效</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">oneOpacityTimeoutId</span><span class="token operator">:</span><span class="token keyword">undefined</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>云函数添加</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">db<span class="token punctuation">.</span><span class="token function">collection</span><span class="token punctuation">(</span><span class="token string">'text'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>        data：array<span class="token comment">//可以是数组也可以是对象，数组是多条，对象是一条</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span>      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="1-云函数调用openid在短时间的只能调用7到12次-之后拿不到-环境是开发工具-线上部署没确认-未找到官方说明-已经关注开发者社区相关问题"><a href="#1-云函数调用openid在短时间的只能调用7到12次-之后拿不到-环境是开发工具-线上部署没确认-未找到官方说明-已经关注开发者社区相关问题" class="headerlink" title="1. 云函数调用openid在短时间的只能调用7到12次 之后拿不到 环境是开发工具 线上部署没确认 未找到官方说明 已经关注开发者社区相关问题"></a>1. 云函数调用openid在短时间的只能调用7到12次 之后拿不到 环境是开发工具 线上部署没确认 未找到官方说明 已经关注开发者社区相关问题</h2><h2 id="2-云开发性能不好，文档不齐"><a href="#2-云开发性能不好，文档不齐" class="headerlink" title="2. 云开发性能不好，文档不齐"></a>2. 云开发性能不好，文档不齐</h2><p><img src="https://qiniu.guet.link/asset/202211100535902.png"></p><p><img src="https://qiniu.guet.link/asset/202211100602715.png"></p><h2 id="3-数据库限制多，数据库查询每条限制20，云函数查询每条限制100，使用limit限制1000"><a href="#3-数据库限制多，数据库查询每条限制20，云函数查询每条限制100，使用limit限制1000" class="headerlink" title="3. 数据库限制多，数据库查询每条限制20，云函数查询每条限制100，使用limit限制1000"></a>3. 数据库限制多，数据库查询每条限制20，云函数查询每条限制100，使用limit限制1000</h2><p><a href="https://developers.weixin.qq.com/community/develop/doc/000826392c4a88c7aa0a1fedb5b400">https://developers.weixin.qq.com/community/develop/doc/000826392c4a88c7aa0a1fedb5b400</a></p><h2 id="4-云函数默认使用中时区，需要切换成东八区"><a href="#4-云函数默认使用中时区，需要切换成东八区" class="headerlink" title="4. 云函数默认使用中时区，需要切换成东八区"></a>4. 云函数默认使用中时区，需要切换成东八区</h2><p>需要在上传的云函数中设置</p><p><img src="https://qiniu.guet.link/asset/202211171754978.jpg"></p><p><a href="https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/functions/notice.html">https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/functions/notice.html</a></p><p><img src="https://qiniu.guet.link/asset/202211171808673.png"></p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//main下 此方法仅在本地有效</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">TZ</span> <span class="token operator">=</span> <span class="token string">'Asia/Shanghai'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<h3 id="1-为什么使用云函数？"><a href="#1-为什么使用云函数？" class="headerlink" title="1. 为什么使用云函数？"></a>1. 为什么使用云函数？</h3><p><img src="https://qiniu.guet.link/asset/202211022145867.png"></p><p>云函数的传入参数有两个，一个是 event 对象，一个是 context 对象。 event指的是触发云函数的事件，当小程序端调用云函数时，</p><ul><li>event 就是小程序端调用云函数时传入的参数，外加后端自动注入的小程序用户的 openid 和小程序的 appid。</li><li>context 对象包含了此处调用的调用信息和运行状态，可以用它来了解服务运行的情况。在模板中也默认 require 了 wx-server-sdk，</li><li>wx-server-sdk这是一个帮助我们在云函数中操作数据库、存储以及调用其他云函数的微信提供的库</li></ul><h3 id="2-设置数据的时候不能设置undefined-否则并不会存入数据库"><a href="#2-设置数据的时候不能设置undefined-否则并不会存入数据库" class="headerlink" title="2. 设置数据的时候不能设置undefined,否则并不会存入数据库"></a>2. 设置数据的时候不能设置undefined,否则并不会存入数据库</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">oneOpacityTimeoutId</span><span class="token operator">:</span><span class="token keyword">undefined</span><span class="token comment">//可以设置成null</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><h2 id="3-云函数添加为数组时是插入多条"><a href="#3-云函数添加为数组时是插入多条" class="headerlink" title="3. 云函数添加为数组时是插入多条"></a>3. 云函数添加为数组时是插入多条</h2><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">db<span class="token punctuation">.</span><span class="token function">collection</span><span class="token punctuation">(</span><span class="token string">'text'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>        data：array<span class="token comment">//可以是数组也可以是对象，数组是多条，对象是一条</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span>      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="4-云函数获取openid一定时间内有限制"><a href="#4-云函数获取openid一定时间内有限制" class="headerlink" title="4. 云函数获取openid一定时间内有限制"></a>4. 云函数获取openid一定时间内有限制</h2><p>在短时间的只能调用7到12次 之后拿不到 环境是开发工具 线上部署没确认 未找到官方说明 已经关注开发者社区相关问题</p><p>目前的方法是，先全局获取一次openid缓存起来避免频繁获取</p><h2 id="5-云开发的限制有点多"><a href="#5-云开发的限制有点多" class="headerlink" title="5. 云开发的限制有点多"></a>5. 云开发的限制有点多</h2><p><img src="https://qiniu.guet.link/asset/202211100535902.png"></p><p><img src="https://qiniu.guet.link/asset/202211100602715.png"></p><h2 id="6-数据库查询有限制"><a href="#6-数据库查询有限制" class="headerlink" title="6. 数据库查询有限制"></a>6. 数据库查询有限制</h2><p>数据库查询每条限制20，云函数查询每条限制100，利用limit规避也有限制1000</p><p><a href="https://developers.weixin.qq.com/community/develop/doc/000826392c4a88c7aa0a1fedb5b400">https://developers.weixin.qq.com/community/develop/doc/000826392c4a88c7aa0a1fedb5b400</a></p><h2 id="7-云函数默认使用中时区"><a href="#7-云函数默认使用中时区" class="headerlink" title="7. 云函数默认使用中时区"></a>7. 云函数默认使用中时区</h2><p>和很多第三方服务一样，需要手动切换成东八区，否则插入数据库的时间不对。如下配置：</p><p>需要在上传的云函数中设置</p><p><img src="https://qiniu.guet.link/asset/202211171754978.jpg"></p><p><img src="https://qiniu.guet.link/asset/202211171808673.png"></p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//main下 此方法仅在本地有效</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">TZ</span> <span class="token operator">=</span> <span class="token string">'Asia/Shanghai'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p><a href="https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/functions/notice.html">https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/functions/notice.html</a></p>]]></content>
       
       
       <categories>
@@ -211,7 +240,7 @@
       <link href="/2022/11/01/note/suan-fa-jiang-shu-zu-zhong-de-ling-yi-dao-zui-hou/"/>
       <url>/2022/11/01/note/suan-fa-jiang-shu-zu-zhong-de-ling-yi-dao-zui-hou/</url>
       
-        <content type="html"><![CDATA[<p>问题描述：将数组中的零移到最后位，且其它数相对位置不变。要求不能新建数组。</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//输入</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token comment">//输出</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><h2 id="方法一：移除填补法"><a href="#方法一：移除填补法" class="headerlink" title="方法一：移除填补法"></a>方法一：移除填补法</h2><p>遍历发现0移除并填补到最后位置。</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token keyword">function</span> <span class="token function">zeroMoveLast</span><span class="token punctuation">(</span><span class="token parameter">arr</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>    <span class="token keyword">let</span> count <span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>arr<span class="token punctuation">.</span>length<span class="token operator">-</span>count<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>        <span class="token keyword">if</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>            arr<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            arr<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>            i<span class="token operator">--</span><span class="token punctuation">;</span><span class="token comment">//避免数组塌陷带来的遍历不完全</span>            count<span class="token operator">++</span><span class="token punctuation">;</span><span class="token comment">//避免移除后面填补的0</span>        <span class="token punctuation">&#125;</span>    <span class="token punctuation">&#125;</span>    <span class="token keyword">return</span> arr<span class="token punctuation">;</span><span class="token punctuation">&#125;</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">zeroMoveLast</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="方法二：冒泡交换法"><a href="#方法二：冒泡交换法" class="headerlink" title="方法二：冒泡交换法"></a>方法二：冒泡交换法</h2><p>此方法不使用api，性能最优</p><p>设置一个index记录0的个数， <strong>当遍历0的个数不为0 且 下标到非0元素时，这时是可交换的。此时用下标 减去0的个数 就等于最前面0的下标</strong>（应该好理解吧），那么将他们两两交换，就可以让非0冒泡向前。</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span> i项为<span class="token number">0</span>，不交换，index<span class="token operator">++</span>，此时i<span class="token operator">=</span><span class="token number">0</span> index<span class="token operator">=</span><span class="token number">1</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span> i项为<span class="token number">0</span>，不交换，index<span class="token operator">++</span>，此时i<span class="token operator">=</span><span class="token number">1</span> index<span class="token operator">=</span><span class="token number">2</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span> i项不为<span class="token number">0</span>，交换，此时i<span class="token operator">=</span><span class="token number">2</span> index<span class="token operator">=</span><span class="token number">2</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token keyword">function</span> <span class="token function">zeroMoveLast</span><span class="token punctuation">(</span><span class="token parameter">arr</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>    <span class="token keyword">let</span> index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>        <span class="token comment">//将0统计</span>        <span class="token keyword">if</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">===</span><span class="token number">0</span> <span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>             index<span class="token operator">++</span><span class="token punctuation">;</span>        <span class="token comment">//项不为0 且 已统计0数量不等于0的时候 进行交换</span>        <span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">!==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>            <span class="token comment">//</span>            arr<span class="token punctuation">[</span>i <span class="token operator">-</span> index<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span>            arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>        <span class="token punctuation">&#125;</span>    <span class="token punctuation">&#125;</span>    <span class="token keyword">return</span> arr<span class="token punctuation">;</span><span class="token punctuation">&#125;</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">zeroMoveLast</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p>问题描述：将数组中的零移到最后位，且其它数相对位置不变。要求不能新建数组。</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//输入</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token comment">//输出</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><h2 id="方法一：移除填补法"><a href="#方法一：移除填补法" class="headerlink" title="方法一：移除填补法"></a>方法一：移除填补法</h2><p>遍历发现0移除并填补到最后位置。</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token keyword">function</span> <span class="token function">zeroMoveLast</span><span class="token punctuation">(</span><span class="token parameter">arr</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>    <span class="token keyword">let</span> count <span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>arr<span class="token punctuation">.</span>length<span class="token operator">-</span>count<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>        <span class="token keyword">if</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>            arr<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            arr<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>            i<span class="token operator">--</span><span class="token punctuation">;</span><span class="token comment">//避免数组塌陷带来的遍历不完全</span>            count<span class="token operator">++</span><span class="token punctuation">;</span><span class="token comment">//避免移除后面填补的0</span>        <span class="token punctuation">&#125;</span>    <span class="token punctuation">&#125;</span>    <span class="token keyword">return</span> arr<span class="token punctuation">;</span><span class="token punctuation">&#125;</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">zeroMoveLast</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="方法二：类冒泡交换法"><a href="#方法二：类冒泡交换法" class="headerlink" title="方法二：类冒泡交换法"></a>方法二：类冒泡交换法</h2><p>此方法不使用api，性能最优</p><p>设置一个index记录0的个数， <strong>当遍历0的个数不为0 且 下标到非0元素时，这时是可交换的。此时用下标 减去0的个数 就等于最前面0的下标</strong>（应该好理解吧），那么将他们两两交换，就可以让非0冒泡向前。</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span> i项为<span class="token number">0</span>，不交换，index<span class="token operator">++</span>，此时i<span class="token operator">=</span><span class="token number">0</span> index<span class="token operator">=</span><span class="token number">1</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span> i项为<span class="token number">0</span>，不交换，index<span class="token operator">++</span>，此时i<span class="token operator">=</span><span class="token number">1</span> index<span class="token operator">=</span><span class="token number">2</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span> i项不为<span class="token number">0</span>，交换，此时i<span class="token operator">=</span><span class="token number">2</span> index<span class="token operator">=</span><span class="token number">2</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token keyword">function</span> <span class="token function">zeroMoveLast</span><span class="token punctuation">(</span><span class="token parameter">arr</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>    <span class="token keyword">let</span> index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>        <span class="token comment">//将0统计</span>        <span class="token keyword">if</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">===</span><span class="token number">0</span> <span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>             index<span class="token operator">++</span><span class="token punctuation">;</span>        <span class="token comment">//项不为0 且 已统计0数量不等于0的时候 进行交换</span>        <span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token operator">!==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>            <span class="token comment">//</span>            arr<span class="token punctuation">[</span>i <span class="token operator">-</span> index<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span>            arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>        <span class="token punctuation">&#125;</span>    <span class="token punctuation">&#125;</span>    <span class="token keyword">return</span> arr<span class="token punctuation">;</span><span class="token punctuation">&#125;</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">zeroMoveLast</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       <categories>
@@ -446,7 +475,7 @@
       <link href="/2022/09/23/note/yun-wei-linux-chang-yong-ming-ling-he-ji-dai-xu/"/>
       <url>/2022/09/23/note/yun-wei-linux-chang-yong-ming-ling-he-ji-dai-xu/</url>
       
-        <content type="html"><![CDATA[<p>杀进程</p><p>如： 通过”netstat -anp | grep 端口号或其它信息”</p><p>有显示： tcp 0 127.0.0.1:2121 0.0.0.0:* LISTEN 7546&#x2F;ssh</p><p>则： “kill -9 7546（PID）”</p><p>作为一名开发人员，不可避免的与服务器打交道，以下是我整理的一些linux常用命令:</p><h1 id="添加一个名为-git-的用户"><a href="#添加一个名为-git-的用户" class="headerlink" title="添加一个名为 git 的用户"></a>添加一个名为 git 的用户</h1><p>linux 用户名建议符合[a-z_][a-z0-9_-]*[$]正则表达式，并且长度不超过 32 位</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adduser userName<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h1 id="设置-git-用户的密码"><a href="#设置-git-用户的密码" class="headerlink" title="设置 git 用户的密码"></a>设置 git 用户的密码</h1><p>passwd git<br>复制代码<br>但是由于创建的用户权限较低，有的时候我们需要为用户提权，此时我们可以这样做：</p><h1 id="会打开-sudoers-配置文件"><a href="#会打开-sudoers-配置文件" class="headerlink" title="会打开 sudoers 配置文件"></a>会打开 sudoers 配置文件</h1><p>sudo visudo<br>复制代码<br>注意同样是编辑 sudoers 配置文件，使用这个命令会比使用 sudo vim &#x2F;etc&#x2F; sudoers 更安全， 除了对语法有校验，并且还会在多用户编辑的时候锁住文件。<br>打开 sudoers 配置文件后，我们添加这样一行配置：</p><h1 id="Allow-git-to-run-any-commands-anywhere"><a href="#Allow-git-to-run-any-commands-anywhere" class="headerlink" title="Allow git to run any commands anywhere"></a>Allow git to run any commands anywhere</h1><p>git ALL&#x3D;(ALL:ALL) ALL<br>复制代码<br>简单解释下这句话 git ALL&#x3D;(ALL:ALL) ALL ：</p><p>git 表示规则应用的用户名<br>第一个 ALL 表示规则应用于所有 hosts<br>第二个 ALL 表示规则应用于所有 users<br>第三个 ALL 表示规则应用于所有 groups<br>第四个 ALL 表示规则应用于所有 commands</p><p>我们保存退出后，git 用户就会获得 root 权限。<br>2. ls 列出文件和目录</p><p>ls 列出文件和目录</p><p>[root@iZ2ze learn-typescript.git]# ls<br>branches  config  description  HEAD  hooks  index  info  objects  refs<br>复制代码</p><p>ls -la 由 -a 显示所有文件和目录（包括隐藏）和 -l 显示详细列表组成：</p><p>[root@iZ2ze learn-typescript.git]# ls -la<br>总用量 20</p><p>drwxrwxr-x  7 git git  132 12月 15 12:33 .<br>drwx——  3 git git  127 12月 15 14:51 ..<br>drwxrwxr-x  2 git git    6 12月 15 12:21 branches<br>-rw-rw-r–  1 git git   66 12月 15 12:21 config<br>-rw-rw-r–  1 git git   73 12月 15 12:21 description<br>-rw-rw-r–  1 git git   23 12月 15 12:21 HEAD<br>drwxrwxr-x  2 git git 4096 12月 15 13:10 hooks<br>-rw-rw-r–  1 git git  217 12月 15 12:33 index<br>drwxrwxr-x  2 git git   21 12月 15 12:21 info<br>drwxrwxr-x 10 git git   90 12月 15 12:33 objects<br>drwxrwxr-x  4 git git   31 12月 15 12:21 refs<br>复制代码<br>每一行都有 7 列，我们以 branches 为例讲解每列的含义：</p><p>drwxrwxr-x2gitgit612月 15 12:21branches文件类型和权限信息链接数或者一级子目录数所有者所属组文件大小，单位字节最后修改时间文件名​<br>重点看第 1 列的内容，以 drwxrwxr-x 为例，这里一共 10 位，第 1 位表示文件类型，其中 - 表示普通文件，d 表示目录文件。<br>第 2 到第 4 位，表示所有者权限，其中 r 表示读权限，w 表示写权限，x 表示可执行权限， -表示无权限，第 2 到 5 位为 rwx，表示所有者可读可写可执行。<br>第 5 到第 7 位，表示组用户权限，这里也是 rwx。<br>第 8 到第 10 位，表示其他用户权限，这里是 r-x，表示有可读可执行权限，无写入权限。<br>这里再额外补充一点：<br>像 root 用户创建文件夹的默认权限为 rwxr-xr-x:<br>[root@iZ2ze www]# mkdir test<br>[root@iZ2ze www]# ls -l</p><p>drwxr-xr-x  2 root root  6 12月 17 23:53 test<br>复制代码<br>而创建文件的默认权限是 rw-r–r–，注意创建文件默认会去掉 x 权限：<br>[root@iZ2ze www]# touch index.html<br>[root@iZ2ze www]# ls -l</p><p>-rw-r–r–  1 root root  0 12月 17 23:54 index.html<br>复制代码<br>这就是为什么我们有的时候需要在创建文件后，又加上执行权限。<br>3. chown 更改文件属主，也可以同时更改文件属组<br>chown (change owner) 语法：</p><h1 id="R：递归更改文件属组"><a href="#R：递归更改文件属组" class="headerlink" title="-R：递归更改文件属组"></a>-R：递归更改文件属组</h1><p>chown [–R] 属主名 文件名<br>chown [-R] 属主名：属组名 文件名<br>复制代码<br>将 index.html 的所有者更改为 git：<br>[root@iZ2ze www]# chown git index.html<br>[root@iZ2ze www]# ls -</p><p>-rw-r–r– 1 git  root  0 12月 17 23:54 index.html<br>复制代码<br>将 index.html 的所有者和群组都改为 git：<br>[root@iZ2ze www]# chown git:git index.html<br>[root@iZ2ze www]# ls -l</p><p>-rw-r–r– 1 git  git   0 12月 17 23:54 index.html<br>复制代码<br>4. chmod 更改文件权限<br>权限除了用 r w x 这种方式表示，也可以用数字表示，数字与字母的对应关系为：</p><p>r:4<br>w:2<br>x:1</p><p>之所有如此对应关系，主要还是为了方便推导，比如我们希望一个文件可读可写，那我们可以方便的设置权限为 6（4 + 2），同样，如果我们知道一个权限为 3，我们也可以推导出权限为可写可执行，因为只有 2 + 1 才可能等于 3。​<br>我们看下 chmod （change mode） 的具体语法：</p><h1 id="R：递归更改文件属组-1"><a href="#R：递归更改文件属组-1" class="headerlink" title="-R：递归更改文件属组"></a>-R：递归更改文件属组</h1><p>chmod [-R] xyz 文件或目录<br>复制代码<br>其中 xyz 分别表示 Owner、Group、Others 的权限，如果我们这样设置一个文件的权限：<br>chmod 750 index.html<br>复制代码<br>我们可以得知，Owner 的权限为 7，为可读可写可执行，Group 的权限为 5，为可读可执行，Others 的权限为 0，表示不可读写不可执行。对应字母为：rwxr-x—。<br>除了这种数字的方式，还有一种使用符号类型改变权限的方式：<br>在这种方式里，我们将三种身份 Owner、Group、Others，分别简写为 u（User）、g、o，用 a 表示所有身份，再使用 + - &#x3D; 表示加入、去除、设定一个权限，r w x 则继续表示读，写，执行权限，举个例子：<br>chmod u+x,g-x,o-x index.html<br>复制代码<br>意思就是 Owner 加上执行权限，Group 和 Others 去除执行权限。<br>当然我们也可以直接设定权限<br>chmod u&#x3D;rwx,g&#x3D;rx,o&#x3D;r index.html<br>复制代码<br>此时文件的权限就相当于 -rwxr-xr–。<br>此外，我们还可以省略不写 ugoa 这类身份内容，直接写：<br>chmod +x index.html<br>复制代码<br>此时相当于使用了 a，会给所有身份添加执行权限。<br>5. su 切换身份</p><h1 id="切换为-git-用户"><a href="#切换为-git-用户" class="headerlink" title="切换为 git 用户"></a>切换为 git 用户</h1><p>su git<br>复制代码<br>6. whoami 显示用户名</p><h1 id="whoami"><a href="#whoami" class="headerlink" title="whoami"></a>whoami</h1><p>root<br>复制代码<br>7. pwd 显示当前目录<br>[git@iZ2ze www]$ pwd<br>&#x2F;home&#x2F;www<br>复制代码<br>9. cd 切换工作目录</p><h1 id="进入-x2F-home-x2F-www-x2F"><a href="#进入-x2F-home-x2F-www-x2F" class="headerlink" title="进入 &#x2F;home&#x2F;www&#x2F;"></a>进入 &#x2F;home&#x2F;www&#x2F;</h1><p>cd &#x2F;home&#x2F;www</p><h1 id="进入自己的主目录"><a href="#进入自己的主目录" class="headerlink" title="进入自己的主目录"></a>进入自己的主目录</h1><p>cd ~</p><h1 id="进入当前目录的上上两层"><a href="#进入当前目录的上上两层" class="headerlink" title="进入当前目录的上上两层 :"></a>进入当前目录的上上两层 :</h1><p>cd ..&#x2F;..<br>复制代码<br>10. mkdir 创建目录</p><p>mkdir 创建目录：</p><p>mkdir new_folder<br>复制代码</p><p>mkdir -p 递归创建目录：</p><p>mkdir -p one&#x2F;two&#x2F;three<br>复制代码<br>11. touch 创建文件<br>用于修改文件或者目录的时间属性，当文件不存在，系统会创建空白文件<br>touch new_file<br>复制代码<br>12. echo 打印输出<br>echo 是 Shell 命令，用于打印输出：</p><h1 id="显示转义字符"><a href="#显示转义字符" class="headerlink" title="显示转义字符"></a>显示转义字符</h1><p>echo “&quot;test content&quot;“<br>复制代码<br>创建或覆盖文件内容为 “test content”：<br>echo “test content” &gt; index.html<br>复制代码<br>如果是想追加内容，就用 &gt;&gt; ：<br>[root@iZ2ze www]# echo “test content” &gt; index.html<br>[root@iZ2ze www]# cat index.html<br>test content<br>[root@iZ2ze www]# echo “test content” &gt;&gt; index.html<br>[root@iZ2ze www]# cat index.html<br>test content<br>test content<br>复制代码<br>13. cat 连接文件并打印输出<br>查看文件内容：<br>cat ~&#x2F;.ssh&#x2F;id_rsa.pub<br>复制代码<br>清空 index.html 内容：<br>cat &#x2F;dev&#x2F;null &gt; index.html<br>复制代码<br>把 index.html 的内容写入 second.html：<br>cat index.html &gt; second.html<br>复制代码<br>把 index.html 的内容追加写入 second.html：<br>cat index.html &gt;&gt; second.html<br>复制代码<br>把 index.html 和 second.html 追加写入 third.html：<br>cat index.html second.html &gt;&gt; third.html<br>复制代码<br>14. cp 复制文件或目录<br>将目录 website&#x2F; 下的所有文件复制到新目录 static 下：</p><h1 id="r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。"><a href="#r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。" class="headerlink" title="-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。"></a>-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。</h1><p>cp –r website&#x2F; static<br>复制代码<br>15. mv 移动并重命名<br>文件改名：<br>mv index.html index2.html<br>复制代码<br>隐藏文件：</p><h1 id="文件名上加上"><a href="#文件名上加上" class="headerlink" title="文件名上加上 ."></a>文件名上加上 .</h1><p>mv index.html .index.html<br>复制代码<br>移动文件：</p><h1 id="仅仅移动"><a href="#仅仅移动" class="headerlink" title="仅仅移动"></a>仅仅移动</h1><p>mv  &#x2F;home&#x2F;www&#x2F;index.html   &#x2F;home&#x2F;static&#x2F;</p><h1 id="移动又重命名"><a href="#移动又重命名" class="headerlink" title="移动又重命名"></a>移动又重命名</h1><p>mv &#x2F;home&#x2F;www&#x2F;index.html   &#x2F;home&#x2F;static&#x2F;index2.html<br>复制代码<br>批量移动：<br>mv  &#x2F;home&#x2F;www&#x2F;website&#x2F;*  &#x2F;home&#x2F;www&#x2F;static<br>复制代码<br>16. rm 删除一个文件或者目录</p><h1 id="系统会询问"><a href="#系统会询问" class="headerlink" title="系统会询问"></a>系统会询问</h1><p>rm file</p><h1 id="f-表示直接删除"><a href="#f-表示直接删除" class="headerlink" title="-f 表示直接删除"></a>-f 表示直接删除</h1><h1 id="r-表示目录下的所有文件删除"><a href="#r-表示目录下的所有文件删除" class="headerlink" title="-r 表示目录下的所有文件删除"></a>-r 表示目录下的所有文件删除</h1><h1 id="删除当前目录下的所有文件及目录"><a href="#删除当前目录下的所有文件及目录" class="headerlink" title="删除当前目录下的所有文件及目录"></a>删除当前目录下的所有文件及目录</h1><p>rm -r  * </p><h1 id="跑路"><a href="#跑路" class="headerlink" title="跑路"></a>跑路</h1><p>rm -rf &#x2F;*<br>复制代码<br>17. vi&#x2F;vim<br>Linux 内建 vi 文书编辑器，Vim 是从 vi 发展出来的一个文本编辑器。<br>基本上 vi&#x2F;vim 共分为三种模式，分别是命令模式（Command mode），输入模式（Insert mode）和底线命令模式（Last line mode）。我们边操作边介绍这三种模式：<br>​<br>我们执行 vim index.html，如果没有该文件，则会创建文件：<br>vim index.html<br>复制代码<br>此时界面为：</p><p>此时是命令模式，在命令模式下，输入的任何字符都会被视为命令，接下来几个常用的命令：​</p><dl><dt>i  切换到输入模式。<br>x 删除当前光标所在处的字符。</dt><dd>切换到底线命令模式。</dd></dl><p>我们按下 i，便会进入输入模式：</p><p>输入模式下，左下角有 – INSERT – 标志：<br>此时我们可以进行各种输入，当输入完毕后，按下 ESC 回到命令模式：</p><p>此时左下角的 INSERT已经消失不见了，如果我们要保存退出，我们先输入 : ，进入底线命令模式：</p><p>在底线命令模式中，常见的命令有：</p><p>w 保存文件<br>q 退出程序</p><p>我们输入 wq，表示保存并退出，此时我们就会发现并创建了一个 HTML 文件。<br>18. ssh 远程连接工具<br>注意 ssh 监听是 22 端口。<br>其基本语法为：<br>ssh [OPTIONS] [-p PORT] [USER@]HOSTNAME [COMMAND]<br>复制代码<br>监听端口示例：<br>ssh -p 300 <a href="mailto:&#103;&#x69;&#x74;&#x40;&#x38;&#x2e;&#56;&#46;&#56;&#46;&#56;">&#103;&#x69;&#x74;&#x40;&#x38;&#x2e;&#56;&#46;&#56;&#46;&#56;</a><br>复制代码<br>打开调试模式：</p><h1 id="v-冗详模式，打印关于运行情况的调试信息"><a href="#v-冗详模式，打印关于运行情况的调试信息" class="headerlink" title="-v 冗详模式，打印关于运行情况的调试信息"></a>-v 冗详模式，打印关于运行情况的调试信息</h1><p>ssh -v <a href="mailto:&#x67;&#x69;&#x74;&#x40;&#56;&#46;&#x38;&#x2e;&#x38;&#46;&#56;">&#x67;&#x69;&#x74;&#x40;&#56;&#46;&#x38;&#x2e;&#x38;&#46;&#56;</a></p><p>作者：冴羽<br>链接：<a href="https://juejin.cn/post/7044099175838908424">https://juejin.cn/post/7044099175838908424</a><br>来源：稀土掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>]]></content>
+        <content type="html"><![CDATA[<p>杀进程</p><p>如： 通过”netstat -anp | grep 端口号或其它信息”</p><p>有显示： tcp 0 127.0.0.1:2121 0.0.0.0:* LISTEN 7546&#x2F;ssh</p><p>则： “kill -9 7546（PID）”</p><p>作为一名开发人员，不可避免的与服务器打交道，以下是我整理的一些linux常用命令:</p><h1 id="添加一个名为-git-的用户"><a href="#添加一个名为-git-的用户" class="headerlink" title="添加一个名为 git 的用户"></a>添加一个名为 git 的用户</h1><p>linux 用户名建议符合[a-z_][a-z0-9_-]*[$]正则表达式，并且长度不超过 32 位</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adduser userName<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h1 id="设置-git-用户的密码"><a href="#设置-git-用户的密码" class="headerlink" title="设置 git 用户的密码"></a>设置 git 用户的密码</h1><p>passwd git<br>复制代码<br>但是由于创建的用户权限较低，有的时候我们需要为用户提权，此时我们可以这样做：</p><h1 id="会打开-sudoers-配置文件"><a href="#会打开-sudoers-配置文件" class="headerlink" title="会打开 sudoers 配置文件"></a>会打开 sudoers 配置文件</h1><p>sudo visudo<br>复制代码<br>注意同样是编辑 sudoers 配置文件，使用这个命令会比使用 sudo vim &#x2F;etc&#x2F; sudoers 更安全， 除了对语法有校验，并且还会在多用户编辑的时候锁住文件。<br>打开 sudoers 配置文件后，我们添加这样一行配置：</p><h1 id="Allow-git-to-run-any-commands-anywhere"><a href="#Allow-git-to-run-any-commands-anywhere" class="headerlink" title="Allow git to run any commands anywhere"></a>Allow git to run any commands anywhere</h1><p>git ALL&#x3D;(ALL:ALL) ALL<br>复制代码<br>简单解释下这句话 git ALL&#x3D;(ALL:ALL) ALL ：</p><p>git 表示规则应用的用户名<br>第一个 ALL 表示规则应用于所有 hosts<br>第二个 ALL 表示规则应用于所有 users<br>第三个 ALL 表示规则应用于所有 groups<br>第四个 ALL 表示规则应用于所有 commands</p><p>我们保存退出后，git 用户就会获得 root 权限。<br>2. ls 列出文件和目录</p><p>ls 列出文件和目录</p><p>[root@iZ2ze learn-typescript.git]# ls<br>branches  config  description  HEAD  hooks  index  info  objects  refs<br>复制代码</p><p>ls -la 由 -a 显示所有文件和目录（包括隐藏）和 -l 显示详细列表组成：</p><p>[root@iZ2ze learn-typescript.git]# ls -la<br>总用量 20</p><p>drwxrwxr-x  7 git git  132 12月 15 12:33 .<br>drwx——  3 git git  127 12月 15 14:51 ..<br>drwxrwxr-x  2 git git    6 12月 15 12:21 branches<br>-rw-rw-r–  1 git git   66 12月 15 12:21 config<br>-rw-rw-r–  1 git git   73 12月 15 12:21 description<br>-rw-rw-r–  1 git git   23 12月 15 12:21 HEAD<br>drwxrwxr-x  2 git git 4096 12月 15 13:10 hooks<br>-rw-rw-r–  1 git git  217 12月 15 12:33 index<br>drwxrwxr-x  2 git git   21 12月 15 12:21 info<br>drwxrwxr-x 10 git git   90 12月 15 12:33 objects<br>drwxrwxr-x  4 git git   31 12月 15 12:21 refs<br>复制代码<br>每一行都有 7 列，我们以 branches 为例讲解每列的含义：</p><p>drwxrwxr-x2gitgit612月 15 12:21branches文件类型和权限信息链接数或者一级子目录数所有者所属组文件大小，单位字节最后修改时间文件名​<br>重点看第 1 列的内容，以 drwxrwxr-x 为例，这里一共 10 位，第 1 位表示文件类型，其中 - 表示普通文件，d 表示目录文件。<br>第 2 到第 4 位，表示所有者权限，其中 r 表示读权限，w 表示写权限，x 表示可执行权限， -表示无权限，第 2 到 5 位为 rwx，表示所有者可读可写可执行。<br>第 5 到第 7 位，表示组用户权限，这里也是 rwx。<br>第 8 到第 10 位，表示其他用户权限，这里是 r-x，表示有可读可执行权限，无写入权限。<br>这里再额外补充一点：<br>像 root 用户创建文件夹的默认权限为 rwxr-xr-x:<br>[root@iZ2ze www]# mkdir test<br>[root@iZ2ze www]# ls -l</p><p>drwxr-xr-x  2 root root  6 12月 17 23:53 test<br>复制代码<br>而创建文件的默认权限是 rw-r–r–，注意创建文件默认会去掉 x 权限：<br>[root@iZ2ze www]# touch index.html<br>[root@iZ2ze www]# ls -l</p><p>-rw-r–r–  1 root root  0 12月 17 23:54 index.html<br>复制代码<br>这就是为什么我们有的时候需要在创建文件后，又加上执行权限。<br>3. chown 更改文件属主，也可以同时更改文件属组<br>chown (change owner) 语法：</p><h1 id="R：递归更改文件属组"><a href="#R：递归更改文件属组" class="headerlink" title="-R：递归更改文件属组"></a>-R：递归更改文件属组</h1><p>chown [–R] 属主名 文件名<br>chown [-R] 属主名：属组名 文件名<br>复制代码<br>将 index.html 的所有者更改为 git：<br>[root@iZ2ze www]# chown git index.html<br>[root@iZ2ze www]# ls -</p><p>-rw-r–r– 1 git  root  0 12月 17 23:54 index.html<br>复制代码<br>将 index.html 的所有者和群组都改为 git：<br>[root@iZ2ze www]# chown git:git index.html<br>[root@iZ2ze www]# ls -l</p><p>-rw-r–r– 1 git  git   0 12月 17 23:54 index.html<br>复制代码<br>4. chmod 更改文件权限<br>权限除了用 r w x 这种方式表示，也可以用数字表示，数字与字母的对应关系为：</p><p>r:4<br>w:2<br>x:1</p><p>之所有如此对应关系，主要还是为了方便推导，比如我们希望一个文件可读可写，那我们可以方便的设置权限为 6（4 + 2），同样，如果我们知道一个权限为 3，我们也可以推导出权限为可写可执行，因为只有 2 + 1 才可能等于 3。​<br>我们看下 chmod （change mode） 的具体语法：</p><h1 id="R：递归更改文件属组-1"><a href="#R：递归更改文件属组-1" class="headerlink" title="-R：递归更改文件属组"></a>-R：递归更改文件属组</h1><p>chmod [-R] xyz 文件或目录<br>复制代码<br>其中 xyz 分别表示 Owner、Group、Others 的权限，如果我们这样设置一个文件的权限：<br>chmod 750 index.html<br>复制代码<br>我们可以得知，Owner 的权限为 7，为可读可写可执行，Group 的权限为 5，为可读可执行，Others 的权限为 0，表示不可读写不可执行。对应字母为：rwxr-x—。<br>除了这种数字的方式，还有一种使用符号类型改变权限的方式：<br>在这种方式里，我们将三种身份 Owner、Group、Others，分别简写为 u（User）、g、o，用 a 表示所有身份，再使用 + - &#x3D; 表示加入、去除、设定一个权限，r w x 则继续表示读，写，执行权限，举个例子：<br>chmod u+x,g-x,o-x index.html<br>复制代码<br>意思就是 Owner 加上执行权限，Group 和 Others 去除执行权限。<br>当然我们也可以直接设定权限<br>chmod u&#x3D;rwx,g&#x3D;rx,o&#x3D;r index.html<br>复制代码<br>此时文件的权限就相当于 -rwxr-xr–。<br>此外，我们还可以省略不写 ugoa 这类身份内容，直接写：<br>chmod +x index.html<br>复制代码<br>此时相当于使用了 a，会给所有身份添加执行权限。<br>5. su 切换身份</p><h1 id="切换为-git-用户"><a href="#切换为-git-用户" class="headerlink" title="切换为 git 用户"></a>切换为 git 用户</h1><p>su git<br>复制代码<br>6. whoami 显示用户名</p><h1 id="whoami"><a href="#whoami" class="headerlink" title="whoami"></a>whoami</h1><p>root<br>复制代码<br>7. pwd 显示当前目录<br>[git@iZ2ze www]$ pwd<br>&#x2F;home&#x2F;www<br>复制代码<br>9. cd 切换工作目录</p><h1 id="进入-x2F-home-x2F-www-x2F"><a href="#进入-x2F-home-x2F-www-x2F" class="headerlink" title="进入 &#x2F;home&#x2F;www&#x2F;"></a>进入 &#x2F;home&#x2F;www&#x2F;</h1><p>cd &#x2F;home&#x2F;www</p><h1 id="进入自己的主目录"><a href="#进入自己的主目录" class="headerlink" title="进入自己的主目录"></a>进入自己的主目录</h1><p>cd ~</p><h1 id="进入当前目录的上上两层"><a href="#进入当前目录的上上两层" class="headerlink" title="进入当前目录的上上两层 :"></a>进入当前目录的上上两层 :</h1><p>cd ..&#x2F;..<br>复制代码<br>10. mkdir 创建目录</p><p>mkdir 创建目录：</p><p>mkdir new_folder<br>复制代码</p><p>mkdir -p 递归创建目录：</p><p>mkdir -p one&#x2F;two&#x2F;three<br>复制代码<br>11. touch 创建文件<br>用于修改文件或者目录的时间属性，当文件不存在，系统会创建空白文件<br>touch new_file<br>复制代码<br>12. echo 打印输出<br>echo 是 Shell 命令，用于打印输出：</p><h1 id="显示转义字符"><a href="#显示转义字符" class="headerlink" title="显示转义字符"></a>显示转义字符</h1><p>echo “&quot;test content&quot;“<br>复制代码<br>创建或覆盖文件内容为 “test content”：<br>echo “test content” &gt; index.html<br>复制代码<br>如果是想追加内容，就用 &gt;&gt; ：<br>[root@iZ2ze www]# echo “test content” &gt; index.html<br>[root@iZ2ze www]# cat index.html<br>test content<br>[root@iZ2ze www]# echo “test content” &gt;&gt; index.html<br>[root@iZ2ze www]# cat index.html<br>test content<br>test content<br>复制代码<br>13. cat 连接文件并打印输出<br>查看文件内容：<br>cat ~&#x2F;.ssh&#x2F;id_rsa.pub<br>复制代码<br>清空 index.html 内容：<br>cat &#x2F;dev&#x2F;null &gt; index.html<br>复制代码<br>把 index.html 的内容写入 second.html：<br>cat index.html &gt; second.html<br>复制代码<br>把 index.html 的内容追加写入 second.html：<br>cat index.html &gt;&gt; second.html<br>复制代码<br>把 index.html 和 second.html 追加写入 third.html：<br>cat index.html second.html &gt;&gt; third.html<br>复制代码<br>14. cp 复制文件或目录<br>将目录 website&#x2F; 下的所有文件复制到新目录 static 下：</p><h1 id="r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。"><a href="#r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。" class="headerlink" title="-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。"></a>-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。</h1><p>cp –r website&#x2F; static<br>复制代码<br>15. mv 移动并重命名<br>文件改名：<br>mv index.html index2.html<br>复制代码<br>隐藏文件：</p><h1 id="文件名上加上"><a href="#文件名上加上" class="headerlink" title="文件名上加上 ."></a>文件名上加上 .</h1><p>mv index.html .index.html<br>复制代码<br>移动文件：</p><h1 id="仅仅移动"><a href="#仅仅移动" class="headerlink" title="仅仅移动"></a>仅仅移动</h1><p>mv  &#x2F;home&#x2F;www&#x2F;index.html   &#x2F;home&#x2F;static&#x2F;</p><h1 id="移动又重命名"><a href="#移动又重命名" class="headerlink" title="移动又重命名"></a>移动又重命名</h1><p>mv &#x2F;home&#x2F;www&#x2F;index.html   &#x2F;home&#x2F;static&#x2F;index2.html<br>复制代码<br>批量移动：<br>mv  &#x2F;home&#x2F;www&#x2F;website&#x2F;*  &#x2F;home&#x2F;www&#x2F;static<br>复制代码<br>16. rm 删除一个文件或者目录</p><h1 id="系统会询问"><a href="#系统会询问" class="headerlink" title="系统会询问"></a>系统会询问</h1><p>rm file</p><h1 id="f-表示直接删除"><a href="#f-表示直接删除" class="headerlink" title="-f 表示直接删除"></a>-f 表示直接删除</h1><h1 id="r-表示目录下的所有文件删除"><a href="#r-表示目录下的所有文件删除" class="headerlink" title="-r 表示目录下的所有文件删除"></a>-r 表示目录下的所有文件删除</h1><h1 id="删除当前目录下的所有文件及目录"><a href="#删除当前目录下的所有文件及目录" class="headerlink" title="删除当前目录下的所有文件及目录"></a>删除当前目录下的所有文件及目录</h1><p>rm -r  * </p><h1 id="跑路"><a href="#跑路" class="headerlink" title="跑路"></a>跑路</h1><p>rm -rf &#x2F;*<br>复制代码<br>17. vi&#x2F;vim<br>Linux 内建 vi 文书编辑器，Vim 是从 vi 发展出来的一个文本编辑器。<br>基本上 vi&#x2F;vim 共分为三种模式，分别是命令模式（Command mode），输入模式（Insert mode）和底线命令模式（Last line mode）。我们边操作边介绍这三种模式：<br>​<br>我们执行 vim index.html，如果没有该文件，则会创建文件：<br>vim index.html<br>复制代码<br>此时界面为：</p><p>此时是命令模式，在命令模式下，输入的任何字符都会被视为命令，接下来几个常用的命令：​</p><dl><dt>i  切换到输入模式。<br>x 删除当前光标所在处的字符。</dt><dd>切换到底线命令模式。</dd></dl><p>我们按下 i，便会进入输入模式：</p><p>输入模式下，左下角有 – INSERT – 标志：<br>此时我们可以进行各种输入，当输入完毕后，按下 ESC 回到命令模式：</p><p>此时左下角的 INSERT已经消失不见了，如果我们要保存退出，我们先输入 : ，进入底线命令模式：</p><p>在底线命令模式中，常见的命令有：</p><p>w 保存文件<br>q 退出程序</p><p>我们输入 wq，表示保存并退出，此时我们就会发现并创建了一个 HTML 文件。<br>18. ssh 远程连接工具<br>注意 ssh 监听是 22 端口。<br>其基本语法为：<br>ssh [OPTIONS] [-p PORT] [USER@]HOSTNAME [COMMAND]<br>复制代码<br>监听端口示例：<br>ssh -p 300 <a href="mailto:&#x67;&#x69;&#116;&#64;&#x38;&#x2e;&#56;&#46;&#x38;&#46;&#56;">&#x67;&#x69;&#116;&#64;&#x38;&#x2e;&#56;&#46;&#x38;&#46;&#56;</a><br>复制代码<br>打开调试模式：</p><h1 id="v-冗详模式，打印关于运行情况的调试信息"><a href="#v-冗详模式，打印关于运行情况的调试信息" class="headerlink" title="-v 冗详模式，打印关于运行情况的调试信息"></a>-v 冗详模式，打印关于运行情况的调试信息</h1><p>ssh -v <a href="mailto:&#x67;&#105;&#116;&#x40;&#56;&#x2e;&#x38;&#x2e;&#x38;&#46;&#x38;">&#x67;&#105;&#116;&#x40;&#56;&#x2e;&#x38;&#x2e;&#x38;&#46;&#x38;</a></p><p>作者：冴羽<br>链接：<a href="https://juejin.cn/post/7044099175838908424">https://juejin.cn/post/7044099175838908424</a><br>来源：稀土掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>]]></content>
       
       
       
@@ -558,9 +587,9 @@
             
             <tag> 卷 </tag>
             
-            <tag> uniapp </tag>
-            
             <tag> 响应式 </tag>
+            
+            <tag> uniapp </tag>
             
         </tags>
       
@@ -614,9 +643,9 @@
             
             <tag> 卷 </tag>
             
-            <tag> 图片懒加载 </tag>
-            
             <tag> 优化 </tag>
+            
+            <tag> 图片懒加载 </tag>
             
         </tags>
       
@@ -994,35 +1023,6 @@
     
     
     <entry>
-      <title>数组扁平化总结</title>
-      <link href="/2022/07/25/note/js-zong-jie-shu-zu-bian-ping-hua-zong-jie/"/>
-      <url>/2022/07/25/note/js-zong-jie-shu-zu-bian-ping-hua-zong-jie/</url>
-      
-        <content type="html"><![CDATA[<p>所谓扁平化就是将一个多维数组转变成一维数组,可用于各种场景下的数据处理。</p><p>例如，某接口返回一个二维数组的category数据,0下标下是收入分类，1下标下是支出分类。这个数据在记账页面上可以直接用于收入和支出两个局部模块，但在列表页下，需要将两个数据进行一个合并处理，这时就需要到扁平化的概念。</p><p>递归</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//因为我们要用到this，所以不要使用箭头函数，箭头函数this指向定义时。</span><span class="token class-name">Array</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">flat</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">arr</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>    <span class="token comment">//使用map遍历并拷贝响应结果</span>    <span class="token keyword">let</span> result <span class="token operator">=</span> arr<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>    <span class="token keyword">if</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>        <span class="token comment">//递归数组，达到降维的作用</span>        <span class="token keyword">return</span> <span class="token function">flat</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span>    <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>        <span class="token comment">//返回普通元素，构成一维数组</span>        <span class="token keyword">return</span> item<span class="token punctuation">;</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token comment">//concant方法接收单个元素或数组，result值因为递归的原因最高只有二维，那么使用...解构就能得到多个元素和一维数组</span>    <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token operator">...</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>不使用concat进行扁平化：</p><p>concat是接收一个值或数组进行浅拷贝，那么我们再写一个能接收多个参数进行push的函数就行了</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/** * @description 拷贝n个数组或value * @params &#123;*&#125; valArr n个数组或value **/</span><span class="token keyword">function</span> <span class="token function">pushVal</span><span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>valArr</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>    <span class="token keyword">let</span> res <span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token keyword">for</span><span class="token punctuation">(</span>val <span class="token keyword">of</span> valArr<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>        <span class="token keyword">if</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>            <span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token keyword">of</span> val<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>                res<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token punctuation">&#125;</span>        <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>            res<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token punctuation">&#125;</span>    <span class="token punctuation">&#125;</span>    <span class="token keyword">return</span> res<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>当然js在数组原型上实现了flat方法，所以平时的时候可以使用</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token class-name">Array</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">flat</span><span class="token punctuation">(</span>infinite<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> js </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 卷 </tag>
-            
-            <tag> 数组 </tag>
-            
-            <tag> 扁平化 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>hash</title>
       <link href="/2022/07/25/note/suan-fa-hash/"/>
       <url>/2022/07/25/note/suan-fa-hash/</url>
@@ -1236,9 +1236,9 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> 性能优化 </tag>
+            
+            <tag> 卷 </tag>
             
             <tag> 响应式 </tag>
             
@@ -1325,9 +1325,9 @@
       
         <tags>
             
-            <tag> 二进制 </tag>
-            
             <tag> js </tag>
+            
+            <tag> 二进制 </tag>
             
         </tags>
       
@@ -1352,9 +1352,9 @@
       
         <tags>
             
-            <tag> 前端安全 </tag>
-            
             <tag> 卷 </tag>
+            
+            <tag> 前端安全 </tag>
             
             <tag> 接口安全 </tag>
             
@@ -2019,11 +2019,11 @@
       
         <tags>
             
-            <tag> 命令式编程 </tag>
+            <tag> js </tag>
             
             <tag> 函数式编程 </tag>
             
-            <tag> js </tag>
+            <tag> 命令式编程 </tag>
             
         </tags>
       
@@ -2061,7 +2061,7 @@
     
     
     <entry>
-      <title>Git的基本使用</title>
+      <title>Git的使用</title>
       <link href="/2022/03/29/note/qian-duan-gong-cheng-hua-git-de-shi-yong/"/>
       <url>/2022/03/29/note/qian-duan-gong-cheng-hua-git-de-shi-yong/</url>
       
@@ -2189,9 +2189,9 @@
       
         <tags>
             
-            <tag> 兼容 </tag>
-            
             <tag> 卷 </tag>
+            
+            <tag> 兼容 </tag>
             
         </tags>
       
@@ -2394,15 +2394,15 @@
             
             <tag> 卷 </tag>
             
+            <tag> 函数式编程 </tag>
+            
+            <tag> 命令式编程 </tag>
+            
             <tag> 前端编程 </tag>
             
             <tag> 编程范式 </tag>
             
             <tag> 声明式编程 </tag>
-            
-            <tag> 命令式编程 </tag>
-            
-            <tag> 函数式编程 </tag>
             
             <tag> 未完待续 </tag>
             
@@ -2628,9 +2628,9 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> bug </tag>
+            
+            <tag> 卷 </tag>
             
             <tag> js </tag>
             
@@ -2825,9 +2825,9 @@
       
         <tags>
             
-            <tag> uniapp </tag>
-            
             <tag> this </tag>
+            
+            <tag> uniapp </tag>
             
         </tags>
       
@@ -3225,9 +3225,9 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> bug </tag>
+            
+            <tag> 卷 </tag>
             
             <tag> js </tag>
             
@@ -3289,11 +3289,11 @@
       
         <tags>
             
-            <tag> base64 </tag>
+            <tag> php </tag>
             
             <tag> url </tag>
             
-            <tag> php </tag>
+            <tag> base64 </tag>
             
         </tags>
       
@@ -3318,11 +3318,11 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> 重绘回流 </tag>
             
             <tag> 性能优化 </tag>
+            
+            <tag> 卷 </tag>
             
         </tags>
       
@@ -3830,9 +3830,9 @@
       
         <tags>
             
-            <tag> webpack </tag>
-            
             <tag> vue </tag>
+            
+            <tag> webpack </tag>
             
         </tags>
       
@@ -4682,11 +4682,11 @@
             
             <tag> 卷 </tag>
             
-            <tag> 优化 </tag>
-            
             <tag> js </tag>
             
             <tag> 闭包 </tag>
+            
+            <tag> 优化 </tag>
             
         </tags>
       
@@ -4699,7 +4699,7 @@
       <link href="/2021/05/18/note/js-gai-nian-h-han-shu-new-yi-ge-han-shu-de-guo-cheng/"/>
       <url>/2021/05/18/note/js-gai-nian-h-han-shu-new-yi-ge-han-shu-de-guo-cheng/</url>
       
-        <content type="html"><![CDATA[<p>new一个函数主要分为四步，如下：</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//注意点：</span><span class="token comment">//构造函数一般不需要return。</span><span class="token comment">//如果return了，并且是引用类型，那么将使用其return值，这时不会存在原型链继承。 </span><span class="token comment">/** * @description: person构造函数 * @return &#123;*&#125; */</span><span class="token keyword">function</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> age</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>    <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token comment">//设置原型方法</span><span class="token class-name">Person</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">say</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">说我今年</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>age<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">岁了</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token comment">//模拟new定义</span><span class="token keyword">function</span> <span class="token function">newFn</span><span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">let</span> newObj <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token comment">//1.创建一个新对象</span>    newObj<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> fn<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span><span class="token comment">//2.设置原型链 达到新对象对构造函数的继承</span>    <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>newObj<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//3.将this指向新对象 并执行构造函数返回执行结果（一般没有结果）</span>    <span class="token keyword">return</span> <span class="token keyword">typeof</span> result <span class="token operator">===</span> <span class="token string">'object'</span> <span class="token operator">?</span> result <span class="token operator">:</span> newObj<span class="token punctuation">;</span><span class="token comment">//4.判断执行结果是否为 object，为object返回执行结果，不为返回新对象</span><span class="token punctuation">&#125;</span><span class="token comment">//new调用</span><span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token function">newFn</span><span class="token punctuation">(</span>Person<span class="token punctuation">,</span><span class="token string">'张三'</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">;</span>obj<span class="token punctuation">.</span><span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p>new一个函数主要分为四步，如下：</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//注意点：</span><span class="token comment">//构造函数一般不需要return。</span><span class="token comment">//如果return了，并且是引用类型，那么将使用其return值，这时不会存在原型链继承。 </span><span class="token comment">/** * @description: person构造函数 * @return &#123;*&#125; */</span><span class="token keyword">function</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> age</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>    <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token comment">//设置原型方法</span><span class="token class-name">Person</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">say</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">说我今年</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>age<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">岁了</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token comment">//模拟new定义</span><span class="token keyword">function</span> <span class="token function">newFn</span><span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">let</span> newObj <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token comment">//1.设置新对象</span>    newObj<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> fn<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span><span class="token comment">//2.设置原型链 让新对象继承构造函数</span>    <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>newObj<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//3.将this指向新对象 并执行构造函数返回执行结果（一般没有结果）</span>    <span class="token keyword">return</span> <span class="token keyword">typeof</span> result <span class="token operator">===</span> <span class="token string">'object'</span> <span class="token operator">?</span> result <span class="token operator">:</span> newObj<span class="token punctuation">;</span><span class="token comment">//4.判断执行结果是否为 object，为object返回执行结果，不为返回新对象</span><span class="token punctuation">&#125;</span><span class="token comment">//new调用</span><span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token function">newFn</span><span class="token punctuation">(</span>Person<span class="token punctuation">,</span><span class="token string">'张三'</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">;</span>obj<span class="token punctuation">.</span><span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       <categories>
@@ -4728,7 +4728,7 @@
       <link href="/2021/05/12/note/vue-zhong-de/"/>
       <url>/2021/05/12/note/vue-zhong-de/</url>
       
-        <content type="html"><![CDATA[<p>this.$data </p><p> this.$watch </p><p> $on   &#x2F;&#x2F;为vue绑定中转站</p><p> this.$el    &#x2F;&#x2F;与document.getElementById(‘ID名’)是严格等于的。其他属性以此类推</p><p> this.$set  &#x2F;&#x2F;vue2 设置响应式数据</p><p> this.$options &#x2F;&#x2F;记录设置初始化的属性</p><p> this.$nextTick(()&#x3D;&gt;{</p><p> })</p><p> this.$refs </p><p> &#x2F;&#x2F;ref 被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs 对象上。如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例：</p><p> <a href="https://blog.csdn.net/weixin_44774062/article/details/120513426">https://blog.csdn.net/weixin_44774062/article/details/120513426</a></p>]]></content>
+        <content type="html"><![CDATA[<p>this.$data &#x2F;&#x2F;存放响应式数据</p><p> this.$watch watch监听的实例方法，是不一样的监听写法</p><p> this.$emit   &#x2F;&#x2F;触发事件</p><p> this.$on   &#x2F;&#x2F;监听事件</p><p> this.$el    &#x2F;&#x2F;与document.getElementById(‘ID名’)是严格等于的。其他属性以此类推</p><p> this.$set  &#x2F;&#x2F;vue2 设置响应式数据 和Vue.set 除了是挂载在原型链上都一致</p><p> this.$options &#x2F;&#x2F;记录设置初始化的属性</p><p> this.$nextTick(()&#x3D;&gt;{</p><p> })</p><p> this.$refs </p><p> &#x2F;&#x2F;ref 被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs 对象上。如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例：</p><p> <a href="https://blog.csdn.net/weixin_44774062/article/details/120513426">https://blog.csdn.net/weixin_44774062/article/details/120513426</a></p>]]></content>
       
       
       <categories>
@@ -4817,9 +4817,9 @@
       
         <tags>
             
-            <tag> bug </tag>
-            
             <tag> flex </tag>
+            
+            <tag> bug </tag>
             
         </tags>
       
@@ -5161,11 +5161,11 @@
       
         <tags>
             
+            <tag> flex </tag>
+            
             <tag> 卷 </tag>
             
             <tag> css </tag>
-            
-            <tag> flex </tag>
             
         </tags>
       
@@ -5252,9 +5252,9 @@
       
         <tags>
             
-            <tag> bug </tag>
-            
             <tag> flex </tag>
+            
+            <tag> bug </tag>
             
         </tags>
       
@@ -5267,7 +5267,7 @@
       <link href="/2021/03/02/note/vue-zu-jian-feng-zhuang-ji-qiao-xue-xi/"/>
       <url>/2021/03/02/note/vue-zu-jian-feng-zhuang-ji-qiao-xue-xi/</url>
       
-        <content type="html"><![CDATA[<h2 id="1-概括"><a href="#1-概括" class="headerlink" title="1. 概括"></a>1. 概括</h2><ul><li>$attrs 简化多层组件之间props传值；</li><li>$listeners 简化多层组件之间事件传递；</li><li>$Slots 更多拓展自定义组件传值，包括自定义html元素，及对象；</li><li>props validator 增强组件传值稳健性，可自定义业务代码效验参数；</li><li>$refs 对外提供API 增强组件灵活度和可控性；</li></ul><h2 id="2-详细介绍"><a href="#2-详细介绍" class="headerlink" title="2. 详细介绍"></a>2. 详细介绍</h2><h3 id="2-1-attrs-简化多层组件之间props传值"><a href="#2-1-attrs-简化多层组件之间props传值" class="headerlink" title="2.1 $attrs 简化多层组件之间props传值"></a>2.1 $attrs 简化多层组件之间props传值</h3><p>封装业务组件的常规手段需要声明props，但是一个个声明属性传递太麻烦</p><p><img src="https://qiniu.guet.link/asset/202211232330863.png"></p><p>这时我们可以使用$attrs </p><p><img src="https://qiniu.guet.link/asset/202211232332512.png"></p><p>这里可以看到官方也是推荐我们使用这个属性来进行封装的，注意不能生命prop。</p><p>假如我们在my-input中的created生命周期函数中打印this.attrs,会看到刚刚传递的clearable</p><p><img src="https://qiniu.guet.link/asset/202211232335160.png"></p><p>那么要怎么给封装组件使用呢？很简单v-bind&#x3D;”$attrs” 在原子组件上就可以应用了</p><p><img src="https://qiniu.guet.link/asset/202211232337416.png"></p><p>可以看到clearable已经给原子组件应用小叉叉了</p><p><img src="https://qiniu.guet.link/asset/202211232338466.png"></p><p>这里需要注意vue会将被传入但未生命prop的元素作为html元素的属性放在跟元素上，所以需要设置inheritAttrs为false</p><p><img src="https://qiniu.guet.link/asset/202211232342035.png"></p><h3 id="2-2-listeners-简化多层组件之间props传值"><a href="#2-2-listeners-简化多层组件之间props传值" class="headerlink" title="2.2 $listeners 简化多层组件之间props传值"></a>2.2 $listeners 简化多层组件之间props传值</h3><p>业务组件将原子组件的事件传递给父组件，我们常规是这样写</p><p>父组件：</p><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-input</span> <span class="token attr-name">@clear</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>clearCallFn<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-input</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">  <span class="token operator">...</span>  <span class="token literal-property property">methods</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>    <span class="token function">clearCallFn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>      <span class="token operator">...</span>    <span class="token punctuation">&#125;</span>  <span class="token punctuation">&#125;</span></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>业务组件：<br><img src="https://qiniu.guet.link/asset/202211240000815.png"></p><p>但还是上面说的，太麻烦，所以vue给我们提供了一个好方法，利用listeners属性（vue3迁移到了attrs）</p><p>在my-input中给原子属性使用$listeners转发父组件的监听进去，父组件的写法不变就可以。</p><p><img src="https://qiniu.guet.link/asset/202211240026930.png"></p><p>需要注意的是不能同时使用两种写法（如下边蓝色框框），否则会调用两次。<br><img src="https://qiniu.guet.link/asset/202211240037288.png"></p><h3 id="2-3-slots和-scopedSlots的使用"><a href="#2-3-slots和-scopedSlots的使用" class="headerlink" title="2.3 $slots和$scopedSlots的使用"></a>2.3 $slots和$scopedSlots的使用</h3><h4 id="（1）-slots"><a href="#（1）-slots" class="headerlink" title="（1）$slots"></a>（1）$slots</h4><p>这个属性包含了给父组件的非作用域插槽</p><p><img src="https://qiniu.guet.link/asset/202211240042529.png"></p><p>看一下有什么值</p><p><img src="https://qiniu.guet.link/asset/202211240329093.png"></p><p>for循环拿到原子组件插槽再定义业务组件的插槽</p><p><img src="https://qiniu.guet.link/asset/202211240336200.png"></p><h4 id="（2）-scopedSlots"><a href="#（2）-scopedSlots" class="headerlink" title="（2）$scopedSlots"></a>（2）$scopedSlots</h4><p><img src="https://qiniu.guet.link/asset/202211240337741.png"></p><p>如果想使用作用域插槽，那么使用scopedSlots看下图scopedSlots循环</p><p><img src="https://qiniu.guet.link/asset/202211240352423.png"></p><h3 id="2-4-props-validator"><a href="#2-4-props-validator" class="headerlink" title="2.4 props validator"></a>2.4 props validator</h3><p>一般我们会用对象的方式来生命prop，我们可以在对象中指定prop的默认值，也可以指定类型来对prop进行验证。</p><p>一个更灵活的方式是，传入并编写一个验证函数。</p><p>prop会作为一个参数传入该函数，函数返回false值时会抛出控制台警告，适合验证枚举值</p><p>如下例子：</p><p>在子组件有props</p><p><img src="https://qiniu.guet.link/asset/202211240358165.png"></p><p>在父组件故意传错</p><p><img src="https://qiniu.guet.link/asset/202211240359707.png"></p><p>会发现控制台</p><p><img src="https://qiniu.guet.link/asset/202211240400208.png"></p><h3 id="2-5-refs"><a href="#2-5-refs" class="headerlink" title="2.5 $refs"></a>2.5 $refs</h3><p>我们知道$refs可以访问被引用的组件，并访问其实例方法，但是如果我们封装了业务组件，主页面对原子组件的调用往往可读性较差，如下：</p><p><img src="https://qiniu.guet.link/asset/202211240409805.png"></p><p>那么其实我们可以在业务组件methods写一个api来暴露引用，如下：</p><p><img src="https://qiniu.guet.link/asset/202211240410241.png"></p><p>这时候我们就可以直接在主页面调用业务组件暴露出来的api，以此来调用原子组件方法。</p><h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><p><a href="https://www.bilibili.com/video/BV1h44y1v7Jr">https://www.bilibili.com/video/BV1h44y1v7Jr</a></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="1-概括"><a href="#1-概括" class="headerlink" title="1. 概括"></a>1. 概括</h2><ul><li>$attrs 简化多层组件之间props传值；</li><li>$listeners 简化多层组件之间事件传递；</li><li>$Slots 更多拓展自定义组件传值，包括自定义html元素，及对象；</li><li>props validator 增强组件传值稳健性，可自定义业务代码效验参数；</li><li>$refs 对外提供API 增强组件灵活度和可控性；</li></ul><h2 id="2-详细介绍"><a href="#2-详细介绍" class="headerlink" title="2. 详细介绍"></a>2. 详细介绍</h2><h3 id="2-1-attrs-简化多层组件之间props传值"><a href="#2-1-attrs-简化多层组件之间props传值" class="headerlink" title="2.1 $attrs 简化多层组件之间props传值"></a>2.1 $attrs 简化多层组件之间props传值</h3><p>封装业务组件的常规手段需要声明props，但是一个个声明属性传递太麻烦</p><p><img src="https://qiniu.guet.link/asset/202211232330863.png"></p><p>这时我们可以使用$attrs </p><p><img src="https://qiniu.guet.link/asset/202211232332512.png"></p><p>这里可以看到官方也是推荐我们使用这个属性来进行封装的，注意不能生命prop。</p><p>假如我们在my-input中的created生命周期函数中打印this.attrs,会看到刚刚传递的clearable</p><p><img src="https://qiniu.guet.link/asset/202211232335160.png"></p><p>那么要怎么给封装组件使用呢？很简单v-bind&#x3D;”$attrs” 在原子组件上就可以应用了</p><p><img src="https://qiniu.guet.link/asset/202211232337416.png"></p><p>可以看到clearable已经给原子组件应用小叉叉了</p><p><img src="https://qiniu.guet.link/asset/202211232338466.png"></p><p>这里需要注意vue会将被传入但未生命prop的元素作为html元素的属性放在跟元素上，所以需要设置inheritAttrs为false</p><p><img src="https://qiniu.guet.link/asset/202211232342035.png"></p><h3 id="2-2-listeners-简化多层组件之间事件传递"><a href="#2-2-listeners-简化多层组件之间事件传递" class="headerlink" title="2.2 $listeners 简化多层组件之间事件传递"></a>2.2 $listeners 简化多层组件之间事件传递</h3><p>业务组件将原子组件的事件传递给父组件，我们常规是这样写</p><p>父组件：</p><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-input</span> <span class="token attr-name">@clear</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>clearCallFn<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-input</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">  <span class="token operator">...</span>  <span class="token literal-property property">methods</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>    <span class="token function">clearCallFn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>      <span class="token operator">...</span>    <span class="token punctuation">&#125;</span>  <span class="token punctuation">&#125;</span></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>业务组件：<br><img src="https://qiniu.guet.link/asset/202211240000815.png"></p><p>但还是上面说的，太麻烦，所以vue给我们提供了一个好方法，利用listeners属性（vue3迁移到了attrs）</p><p>在my-input中给原子属性使用$listeners转发父组件的监听进去，父组件的写法不变就可以。</p><p><img src="https://qiniu.guet.link/asset/202211240026930.png"></p><p>需要注意的是不能同时使用两种写法（如下边蓝色框框），否则会调用两次。<br><img src="https://qiniu.guet.link/asset/202211240037288.png"></p><h3 id="2-3-slots和-scopedSlots的使用"><a href="#2-3-slots和-scopedSlots的使用" class="headerlink" title="2.3 $slots和$scopedSlots的使用"></a>2.3 $slots和$scopedSlots的使用</h3><h4 id="（1）-slots"><a href="#（1）-slots" class="headerlink" title="（1）$slots"></a>（1）$slots</h4><p>这个属性包含了给父组件的非作用域插槽</p><p><img src="https://qiniu.guet.link/asset/202211240042529.png"></p><p>看一下有什么值</p><p><img src="https://qiniu.guet.link/asset/202211240329093.png"></p><p>for循环拿到原子组件插槽再定义业务组件的插槽</p><p><img src="https://qiniu.guet.link/asset/202211240336200.png"></p><h4 id="（2）-scopedSlots"><a href="#（2）-scopedSlots" class="headerlink" title="（2）$scopedSlots"></a>（2）$scopedSlots</h4><p><img src="https://qiniu.guet.link/asset/202211240337741.png"></p><p>如果想使用作用域插槽，那么使用scopedSlots看下图scopedSlots循环</p><p><img src="https://qiniu.guet.link/asset/202211240352423.png"></p><h3 id="2-4-props-validator"><a href="#2-4-props-validator" class="headerlink" title="2.4 props validator"></a>2.4 props validator</h3><p>一般我们会用对象的方式来生命prop，我们可以在对象中指定prop的默认值，也可以指定类型来对prop进行验证。</p><p>一个更灵活的方式是，传入并编写一个验证函数。</p><p>prop会作为一个参数传入该函数，函数返回false值时会抛出控制台警告，适合验证枚举值</p><p>如下例子：</p><p>在子组件有props</p><p><img src="https://qiniu.guet.link/asset/202211240358165.png"></p><p>在父组件故意传错</p><p><img src="https://qiniu.guet.link/asset/202211240359707.png"></p><p>会发现控制台</p><p><img src="https://qiniu.guet.link/asset/202211240400208.png"></p><h3 id="2-5-refs"><a href="#2-5-refs" class="headerlink" title="2.5 $refs"></a>2.5 $refs</h3><p>我们知道$refs可以访问被引用的组件，并访问其实例方法，但是如果我们封装了业务组件，主页面对原子组件的调用往往可读性较差，如下：</p><p><img src="https://qiniu.guet.link/asset/202211240409805.png"></p><p>那么其实我们可以在业务组件methods写一个api来暴露引用，如下：</p><p><img src="https://qiniu.guet.link/asset/202211240410241.png"></p><p>这时候我们就可以直接在主页面调用业务组件暴露出来的api，以此来调用原子组件方法。</p>]]></content>
       
       
       <categories>
@@ -5426,9 +5426,9 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> 重绘回流 </tag>
+            
+            <tag> 卷 </tag>
             
             <tag> html </tag>
             
@@ -5469,8 +5469,8 @@
     
     <entry>
       <title>数字不换行且忽视自适应宽度</title>
-      <link href="/2021/02/20/note/html-css-te-xing-shu-zi-bu-huan-xing-qie-hu-shi-zi-gua-ying-kuan-dun/"/>
-      <url>/2021/02/20/note/html-css-te-xing-shu-zi-bu-huan-xing-qie-hu-shi-zi-gua-ying-kuan-dun/</url>
+      <link href="/2021/02/20/note/html-css-bug-shu-zi-bu-huan-xing-qie-hu-shi-zi-gua-ying-kuan-dun/"/>
+      <url>/2021/02/20/note/html-css-bug-shu-zi-bu-huan-xing-qie-hu-shi-zi-gua-ying-kuan-dun/</url>
       
         <content type="html"><![CDATA[<p>问题描述：<br>1.换行<br>在HTML中数字或连续的英文被当成是一个整体 就像汉字</p><p>2.width宽度<br>就算换行了，如果盒子是弹性宽度，那么是会被撑开的</p><p>解决办法：</p><p>1.解决不换行：<br>（数字作为一个整体，必须要声明每个字符）<br>word-wrap:break-word;&#x2F;&#x2F;允许单词换行，但不分割              （必要）<br>word-break:break-all;&#x2F;&#x2F;允许单词换行，分割                  （可选）<br>white-space:pre-wrap;&#x2F;&#x2F;保留空白且换行，空格在换行处会忽略    （可选）</p><p>注意：word-wrap对行内元素是没有效果的</p><p>2.对于宽度：<br>原本使用的是父盒子使用flex:1，内容盒子不设置宽度，当内容占满父盒子时换行<br>但无论是在内容盒子还是父盒子，这种方式是会被撑开的</p><p>可以使用calc(100% - 50px)，配合box-sizing:border-box,替换父盒子的flex1，当然单位可以% vw px<br>内容盒子现在就可以设置宽度了，而且必须设置！！！否者内容不会换行，继续撑开，例如可以设置max-width:100%</p><p>3.参考另一篇文章：HTML&amp;CSS-进阶-flex宽度如何被子元素继承</p>]]></content>
       
@@ -5483,6 +5483,8 @@
       
       
         <tags>
+            
+            <tag> bug </tag>
             
             <tag> css </tag>
             
@@ -5889,11 +5891,11 @@
     
     
     <entry>
-      <title>数据劫持（响应式原理）</title>
-      <link href="/2021/02/06/note/vue-mian-shi-yuan-ma-4-shu-ju-jie-chi-xiang-ying-shi-yuan-li/"/>
-      <url>/2021/02/06/note/vue-mian-shi-yuan-ma-4-shu-ju-jie-chi-xiang-ying-shi-yuan-li/</url>
+      <title>Vue源码是如何实现事件绑定</title>
+      <link href="/2021/02/06/note/vue-mian-shi-yuan-ma-3-shi-jian-bang-ding/"/>
+      <url>/2021/02/06/note/vue-mian-shi-yuan-ma-3-shi-jian-bang-ding/</url>
       
-        <content type="html"><![CDATA[<p>Vue的响应式原理是使用数据劫持<br><a href="https://blog.csdn.net/weixin_44019523/article/details/113574552">https://blog.csdn.net/weixin_44019523/article/details/113574552</a></p><p>Vue2是Object.defineProperty(ES5)</p><p>Vue3是Proxy对象（ES6）</p><h2 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty()"></a>Object.defineProperty()</h2><p>本章将介绍Vue2使用的Object.defineProperty(obj,prop,description)接收三个3个参数</p><p>我们把重点集中在第三个参数，description是属性描述符</p><p><strong>属性描述符</strong>的拥有两种表现形式：<strong>数据描述符</strong>和<strong>存取描述符</strong>。这两种描述符不能同时存在。</p><blockquote><p>如果一个描述符不具有 value、writable、get 和 set 中的任意一个键，那么它将被认为是一个数据描述符。如果一个描述符同时拥有 value 或 writable 和 get 或 set 键，则会产生一个异常。 –MDN</p></blockquote><ol><li>两种描述符均有以下键值：</li></ol><p>（1） configurable ：配置。可以修改属性描述符，且属性能被删除，默认false\</p><pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">let student &#x3D; &#123;&#125;;Object.defineProperty(student, &quot;sex&quot;, &#123;    &#x2F;&#x2F;默认false    &#x2F;&#x2F;configurable: false,&#125;);&#x2F;&#x2F;没有办法在进行配置，以下都无效Object.defineProperty(student, &quot;sex&quot;, &#123;    value:12,    configurable:true&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>（2） enumerable ：枚举。是否读取该属性访问for…in，默认false</p><pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">let student &#x3D; &#123;&#125;;Object.defineProperty(student, &quot;job&quot;, &#123;    enumerable: false,&#125;)&#x2F;&#x2F;for...in 是没办法访问的，student.job却可以<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ol start="2"><li><strong>数据描述符</strong>可选键值</li></ol><p>value ： 该属性的初始值。可以是任何（数值，对象，函数等）默认undefined。</p><p>writable ： 当且进档该属性的writable为true时，该属性才能被写入值。默认为false</p><pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">let student &#x3D; &#123;&#125;;Object.defineProperty(student, &quot;name&quot;, &#123;    &#x2F;&#x2F;设置值    value: &#39;小明&#39;,    &#x2F;&#x2F;是否可改写    writable:true,    &#x2F;&#x2F;配置    configurable:true,    &#x2F;&#x2F;枚举    enumerable: true,&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ol start="3"><li><strong>存取描述符</strong>可选键值</li></ol><p>get : 一个给属性提供getter的方法。如果没有getter则为undefined。当访问属性时，该方法会被执行。会传入this，但由于继承关系，this并不一定是定义改属性的对象。默认为undefined</p><p>set : 一个给属性提供setter的方法。如果没有setter则为undefined。当属性被修改时，该方法会被执行。该方法将接受唯一参数。默认为undefined</p><p><strong>注意不能在getset方法内写对象属性，会造成栈溢出</strong></p><pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">let student &#x3D; &#123;&#125;;&#x2F;&#x2F;不可以直接在get方法和set方法内使用student.name输出和写入，因为会被检测到 要使用val代存 let val &#x3D; student.name;Object.defineProperty(student, &quot;name&quot;, &#123;        get()&#123;        console.log(&#39;拦截到获取&#39;);        return val    &#125;,    set(newVal)&#123;        console.log(&#39;拦截到写入&#39;);        &#x2F;&#x2F;val自然不等于student.name，但是在get方法上输出的是val呀 没有影响        val &#x3D; newVal;    &#125;    configurable:true,    enumerable: true,&#125;)&#x2F;&#x2F;也可以这么写，使用形参let student &#x3D; &#123;&#125;;(function(val)&#123;    Object.defineProperty(student, &quot;name&quot;, &#123;    get()&#123;        console.log(&#39;拦截到获取&#39;);        return val    &#125;,    set(newVal)&#123;        console.log(&#39;拦截到写入&#39;);        val &#x3D; newVal;    &#125;,    configurable:true,    enumerable: true,&#125;)&#125;)(student.name)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p>此文记录myVue.js对于事件绑定的处理</p><pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">&#x2F;** * 编译 * 对模板变量 *&#x2F;compile(node) &#123;    node.childNodes.forEach((item, index) &#x3D;&gt; &#123;        &#x2F;&#x2F;元素节点        if (item.nodeType &#x3D;&#x3D;&#x3D; 1) &#123;            &#x2F;&#x2F;事件监听            if (item.hasAttribute(&quot;@click&quot;)) &#123;                let vmKey &#x3D; item.getAttribute(&quot;@click&quot;);                &#x2F;&#x2F;做函数监听                if (Object.prototype.toString.call(this.$options.methods[vmKey]) &#x3D;&#x3D;&#x3D; &quot;[object Function]&quot;) &#123;                    item.addEventListener(&#39;click&#39;, (event) &#x3D;&gt; &#123;                        this.$options.methods[vmKey].call(this, event);                    &#125;);                &#125;;            &#125;;            &#x2F;&#x2F;递归查看元素节点的子节点             this.compile(item);        &#125;    &#125;)&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       <categories>
@@ -5916,11 +5918,11 @@
     
     
     <entry>
-      <title>Vue源码是如何实现事件绑定</title>
-      <link href="/2021/02/06/note/vue-mian-shi-yuan-ma-3-shi-jian-bang-ding/"/>
-      <url>/2021/02/06/note/vue-mian-shi-yuan-ma-3-shi-jian-bang-ding/</url>
+      <title>数据劫持（响应式原理）</title>
+      <link href="/2021/02/06/note/vue-mian-shi-yuan-ma-4-shu-ju-jie-chi-xiang-ying-shi-yuan-li/"/>
+      <url>/2021/02/06/note/vue-mian-shi-yuan-ma-4-shu-ju-jie-chi-xiang-ying-shi-yuan-li/</url>
       
-        <content type="html"><![CDATA[<p>此文记录myVue.js对于事件绑定的处理</p><pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">&#x2F;** * 编译 * 对模板变量 *&#x2F;compile(node) &#123;    node.childNodes.forEach((item, index) &#x3D;&gt; &#123;        &#x2F;&#x2F;元素节点        if (item.nodeType &#x3D;&#x3D;&#x3D; 1) &#123;            &#x2F;&#x2F;事件监听            if (item.hasAttribute(&quot;@click&quot;)) &#123;                let vmKey &#x3D; item.getAttribute(&quot;@click&quot;);                &#x2F;&#x2F;做函数监听                if (Object.prototype.toString.call(this.$options.methods[vmKey]) &#x3D;&#x3D;&#x3D; &quot;[object Function]&quot;) &#123;                    item.addEventListener(&#39;click&#39;, (event) &#x3D;&gt; &#123;                        this.$options.methods[vmKey].call(this, event);                    &#125;);                &#125;;            &#125;;            &#x2F;&#x2F;递归查看元素节点的子节点             this.compile(item);        &#125;    &#125;)&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+        <content type="html"><![CDATA[<p>Vue的响应式原理是使用数据劫持<br><a href="https://blog.csdn.net/weixin_44019523/article/details/113574552">https://blog.csdn.net/weixin_44019523/article/details/113574552</a></p><p>Vue2是Object.defineProperty(ES5)</p><p>Vue3是Proxy对象（ES6）</p><h2 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty()"></a>Object.defineProperty()</h2><p>本章将介绍Vue2使用的Object.defineProperty(obj,prop,description)接收三个3个参数</p><p>我们把重点集中在第三个参数，description是属性描述符</p><p><strong>属性描述符</strong>的拥有两种表现形式：<strong>数据描述符</strong>和<strong>存取描述符</strong>。这两种描述符不能同时存在。</p><blockquote><p>如果一个描述符不具有 value、writable、get 和 set 中的任意一个键，那么它将被认为是一个数据描述符。如果一个描述符同时拥有 value 或 writable 和 get 或 set 键，则会产生一个异常。 –MDN</p></blockquote><ol><li>两种描述符均有以下键值：</li></ol><p>（1） configurable ：配置。可以修改属性描述符，且属性能被删除，默认false\</p><pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">let student &#x3D; &#123;&#125;;Object.defineProperty(student, &quot;sex&quot;, &#123;    &#x2F;&#x2F;默认false    &#x2F;&#x2F;configurable: false,&#125;);&#x2F;&#x2F;没有办法在进行配置，以下都无效Object.defineProperty(student, &quot;sex&quot;, &#123;    value:12,    configurable:true&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>（2） enumerable ：枚举。是否读取该属性访问for…in，默认false</p><pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">let student &#x3D; &#123;&#125;;Object.defineProperty(student, &quot;job&quot;, &#123;    enumerable: false,&#125;)&#x2F;&#x2F;for...in 是没办法访问的，student.job却可以<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ol start="2"><li><strong>数据描述符</strong>可选键值</li></ol><p>value ： 该属性的初始值。可以是任何（数值，对象，函数等）默认undefined。</p><p>writable ： 当且进档该属性的writable为true时，该属性才能被写入值。默认为false</p><pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">let student &#x3D; &#123;&#125;;Object.defineProperty(student, &quot;name&quot;, &#123;    &#x2F;&#x2F;设置值    value: &#39;小明&#39;,    &#x2F;&#x2F;是否可改写    writable:true,    &#x2F;&#x2F;配置    configurable:true,    &#x2F;&#x2F;枚举    enumerable: true,&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ol start="3"><li><strong>存取描述符</strong>可选键值</li></ol><p>get : 一个给属性提供getter的方法。如果没有getter则为undefined。当访问属性时，该方法会被执行。会传入this，但由于继承关系，this并不一定是定义改属性的对象。默认为undefined</p><p>set : 一个给属性提供setter的方法。如果没有setter则为undefined。当属性被修改时，该方法会被执行。该方法将接受唯一参数。默认为undefined</p><p><strong>注意不能在getset方法内写对象属性，会造成栈溢出</strong></p><pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">let student &#x3D; &#123;&#125;;&#x2F;&#x2F;不可以直接在get方法和set方法内使用student.name输出和写入，因为会被检测到 要使用val代存 let val &#x3D; student.name;Object.defineProperty(student, &quot;name&quot;, &#123;        get()&#123;        console.log(&#39;拦截到获取&#39;);        return val    &#125;,    set(newVal)&#123;        console.log(&#39;拦截到写入&#39;);        &#x2F;&#x2F;val自然不等于student.name，但是在get方法上输出的是val呀 没有影响        val &#x3D; newVal;    &#125;    configurable:true,    enumerable: true,&#125;)&#x2F;&#x2F;也可以这么写，使用形参let student &#x3D; &#123;&#125;;(function(val)&#123;    Object.defineProperty(student, &quot;name&quot;, &#123;    get()&#123;        console.log(&#39;拦截到获取&#39;);        return val    &#125;,    set(newVal)&#123;        console.log(&#39;拦截到写入&#39;);        val &#x3D; newVal;    &#125;,    configurable:true,    enumerable: true,&#125;)&#125;)(student.name)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
       
       
       <categories>
@@ -6040,11 +6042,11 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> 重绘回流 </tag>
             
             <tag> 性能优化 </tag>
+            
+            <tag> 卷 </tag>
             
         </tags>
       
@@ -6113,6 +6115,33 @@
     
     
     <entry>
+      <title>\@import和link的区别</title>
+      <link href="/2021/01/13/note/html-css-mian-shi-import-he-link-de-qu-bie/"/>
+      <url>/2021/01/13/note/html-css-mian-shi-import-he-link-de-qu-bie/</url>
+      
+        <content type="html"><![CDATA[<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sty1.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">        <span class="token atrule"><span class="token rule">@import</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'sty2.css'</span><span class="token punctuation">)</span></span><span class="token punctuation">;</span></span>    </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>    <span class="token comment">&lt;!-- link和import都可以引入样式1.1、link属于html标签，而@import是css提供的。1.2、页面被加载时，link会同时被加载，而@import引用的css会等到页面被加载完再加载的。1.3、兼容性问题：@import只在IE5以上才能识别，而link是html标签，无兼容性问题。（@import css2才出来）1.4、DOM操作:DOM可以操作link中的样式，而不可以操作@import中的样式。(理由是第一点)    --></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">height</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span>  <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">height</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">        <span class="token keyword">var</span> val1<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>        <span class="token keyword">var</span> val2<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>        <span class="token keyword">var</span> num1<span class="token operator">=</span><span class="token punctuation">&#123;</span>            <span class="token literal-property property">a</span><span class="token operator">:</span><span class="token number">2</span><span class="token punctuation">,</span>        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>        <span class="token keyword">var</span> num2<span class="token operator">=</span><span class="token punctuation">&#123;</span>            <span class="token literal-property property">a</span><span class="token operator">:</span><span class="token number">2</span>        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>        <span class="token comment">//console.log(val1===val2);//引用值1true</span>        <span class="token comment">//console.log(num1===num2);//引用地址false</span>        <span class="token comment">//console.log(num1.a===num2.a);//true</span>        <span class="token comment">//console.log(document.getElementsByTagNameNS()); xml的API</span>    </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> html&amp;css </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 卷 </tag>
+            
+            <tag> css </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>stram流</title>
       <link href="/2021/01/07/note/node-steam-liu-dai/"/>
       <url>/2021/01/07/note/node-steam-liu-dai/</url>
@@ -6129,9 +6158,9 @@
       
         <tags>
             
-            <tag> steam </tag>
-            
             <tag> node </tag>
+            
+            <tag> steam </tag>
             
         </tags>
       
@@ -6156,9 +6185,9 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> bug </tag>
+            
+            <tag> 卷 </tag>
             
             <tag> z-index </tag>
             
@@ -6249,9 +6278,9 @@
             
             <tag> 数组 </tag>
             
-            <tag> es6 </tag>
-            
             <tag> 迭代器 </tag>
+            
+            <tag> es6 </tag>
             
         </tags>
       
@@ -6281,6 +6310,37 @@
             <tag> js </tag>
             
             <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>sprite（雪碧图、精灵图）</title>
+      <link href="/2020/12/20/note/html-css-shi-li-dong-hua-de-shi-yong/"/>
+      <url>/2020/12/20/note/html-css-shi-li-dong-hua-de-shi-yong/</url>
+      
+        <content type="html"><![CDATA[<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">        <span class="token comment">/* // animation-name规定需要绑定到选择器的 keyframe 名称。。        // animation-duration规定完成动画所花费的时间，以秒或毫秒计。        // animation-timing-function规定动画的速度曲线。 steps        // animation-delay规定在动画开始之前的延迟。        // animation-iteration-count规定动画应该播放的次数。infinite        // animation-direction规定是否应该轮流反向播放动画。 */</span>        <span class="token selector">.ns-frame-4910729</span> <span class="token punctuation">&#123;</span>            <span class="token property">width</span><span class="token punctuation">:</span> 2.6300rem<span class="token punctuation">;</span>            <span class="token property">height</span><span class="token punctuation">:</span> 2.0000rem<span class="token punctuation">;</span>            <span class="token property">background</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>./image/ns-frame-4910729.png<span class="token punctuation">)</span></span> no-repeat 0 0<span class="token punctuation">;</span>            <span class="token property">background-size</span><span class="token punctuation">:</span> 10.5200rem 2.0000rem<span class="token punctuation">;</span>            <span class="token property">animation</span><span class="token punctuation">:</span> key-ns-frame-4910729 1000.00ms infinite <span class="token function">steps</span><span class="token punctuation">(</span>4<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token punctuation">&#125;</span>        <span class="token atrule"><span class="token rule">@keyframes</span> key-ns-frame-4910729</span> <span class="token punctuation">&#123;</span>            <span class="token selector">0%</span> <span class="token punctuation">&#123;</span>                <span class="token property">background-position</span><span class="token punctuation">:</span> 0 0<span class="token punctuation">;</span>            <span class="token punctuation">&#125;</span>            <span class="token selector">100%</span> <span class="token punctuation">&#123;</span>                <span class="token property">background-position</span><span class="token punctuation">:</span> -10.5200rem 0<span class="token punctuation">;</span>            <span class="token punctuation">&#125;</span>        <span class="token punctuation">&#125;</span>    </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ns-frame-4910729<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://qiniu.guet.link/img/c7477a56b9f0b5f294a77013734f1d0c.jpeg<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> html&amp;css </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 卷 </tag>
+            
+            <tag> html </tag>
+            
+            <tag> animation </tag>
+            
+            <tag> \@keyframes </tag>
             
         </tags>
       
@@ -6394,13 +6454,13 @@
       
         <tags>
             
+            <tag> 卷 </tag>
+            
             <tag> 前端安全 </tag>
             
             <tag> xss攻击 </tag>
             
             <tag> sql注入 </tag>
-            
-            <tag> 卷 </tag>
             
         </tags>
       
@@ -6425,9 +6485,9 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> bug </tag>
+            
+            <tag> 卷 </tag>
             
             <tag> overflow </tag>
             
@@ -6701,9 +6761,9 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> 性能优化 </tag>
+            
+            <tag> 卷 </tag>
             
         </tags>
       
@@ -6728,9 +6788,9 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> 性能优化 </tag>
+            
+            <tag> 卷 </tag>
             
             <tag> 渲染优化 </tag>
             
@@ -6757,9 +6817,9 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> 性能优化 </tag>
+            
+            <tag> 卷 </tag>
             
             <tag> 图片优化 </tag>
             
@@ -6786,9 +6846,9 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> 性能优化 </tag>
+            
+            <tag> 卷 </tag>
             
             <tag> 首屏优化 </tag>
             
@@ -6815,9 +6875,9 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> 性能优化 </tag>
+            
+            <tag> 卷 </tag>
             
             <tag> Vue优化 </tag>
             
@@ -6875,9 +6935,9 @@
       
         <tags>
             
-            <tag> 卷 </tag>
-            
             <tag> 性能优化 </tag>
+            
+            <tag> 卷 </tag>
             
             <tag> 加载优化 </tag>
             
@@ -7223,13 +7283,13 @@
       
         <tags>
             
-            <tag> 兼容 </tag>
-            
             <tag> 卷 </tag>
             
             <tag> css </tag>
             
             <tag> html </tag>
+            
+            <tag> 兼容 </tag>
             
         </tags>
       
@@ -7254,13 +7314,69 @@
       
         <tags>
             
+            <tag> 卷 </tag>
+            
+            <tag> css </tag>
+            
+            <tag> html </tag>
+            
             <tag> 兼容 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>基线对齐</title>
+      <link href="/2020/10/02/note/html-css-gai-nian-ji-xian-dui-qi/"/>
+      <url>/2020/10/02/note/html-css-gai-nian-ji-xian-dui-qi/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-什么是基线"><a href="#1-什么是基线" class="headerlink" title="1. 什么是基线?"></a>1. 什么是基线?</h2><p><img src="https://qiniu.guet.link/asset/202208261735371.png" alt="基线"></p><h2 id="2-利用其它对齐，垂直居中-有偏移"><a href="#2-利用其它对齐，垂直居中-有偏移" class="headerlink" title="2. 利用其它对齐，垂直居中(有偏移)"></a>2. 利用其它对齐，垂直居中(有偏移)</h2><pre class="line-numbers language-scss" data-language="scss"><code class="language-scss"><span class="token selector">.father</span><span class="token punctuation">&#123;</span>    <span class="token comment">/*设置表格*/</span>    <span class="token property">display</span><span class="token punctuation">:</span>table<span class="token punctuation">;</span>    <span class="token selector">.son</span><span class="token punctuation">&#123;</span>        <span class="token comment">/*设置表格项*/</span>        <span class="token property">display</span><span class="token punctuation">:</span>table-cell<span class="token punctuation">;</span>        <span class="token comment">/*根据表格的中线对齐*/</span>        <span class="token property">vertical-align</span><span class="token punctuation">:</span>middle<span class="token punctuation">;</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="3-基线对齐的影响"><a href="#3-基线对齐的影响" class="headerlink" title="3. 基线对齐的影响"></a>3. 基线对齐的影响</h2><p>基线对齐是默认对齐，作用是给留给g这样的字母一定空间，但是这可能会导致图片和下边的块元素存在空格，那么我们可以设置成top和bottom对齐。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> html&amp;css </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 基线 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>禁止iOS&amp;Android用户选中文字</title>
+      <link href="/2020/10/02/note/html-css-mian-shi-jian-rong-jin-zhi-ios-android-yong-hu-xuan-zhong-wen-zi/"/>
+      <url>/2020/10/02/note/html-css-mian-shi-jian-rong-jin-zhi-ios-android-yong-hu-xuan-zhong-wen-zi/</url>
+      
+        <content type="html"><![CDATA[<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">        <span class="token selector">html,        body</span> <span class="token punctuation">&#123;</span>            <span class="token property">user-select</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>            <span class="token property">-webkit-user-select</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>        <span class="token punctuation">&#125;</span>        <span class="token comment">/* 直接用ui组件了 */</span>    </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> html&amp;css </category>
+          
+      </categories>
+      
+      
+        <tags>
             
             <tag> 卷 </tag>
             
             <tag> css </tag>
             
             <tag> html </tag>
+            
+            <tag> 兼容 </tag>
             
         </tags>
       
@@ -7325,62 +7441,6 @@
     
     
     <entry>
-      <title>基线对齐</title>
-      <link href="/2020/10/02/note/html-css-gai-nian-ji-xian-dui-qi/"/>
-      <url>/2020/10/02/note/html-css-gai-nian-ji-xian-dui-qi/</url>
-      
-        <content type="html"><![CDATA[<h2 id="1-什么是基线"><a href="#1-什么是基线" class="headerlink" title="1. 什么是基线?"></a>1. 什么是基线?</h2><p><img src="https://qiniu.guet.link/asset/202208261735371.png" alt="基线"></p><h2 id="2-利用其它对齐，垂直居中-有偏移"><a href="#2-利用其它对齐，垂直居中-有偏移" class="headerlink" title="2. 利用其它对齐，垂直居中(有偏移)"></a>2. 利用其它对齐，垂直居中(有偏移)</h2><pre class="line-numbers language-scss" data-language="scss"><code class="language-scss"><span class="token selector">.father</span><span class="token punctuation">&#123;</span>    <span class="token comment">/*设置表格*/</span>    <span class="token property">display</span><span class="token punctuation">:</span>table<span class="token punctuation">;</span>    <span class="token selector">.son</span><span class="token punctuation">&#123;</span>        <span class="token comment">/*设置表格项*/</span>        <span class="token property">display</span><span class="token punctuation">:</span>table-cell<span class="token punctuation">;</span>        <span class="token comment">/*根据表格的中线对齐*/</span>        <span class="token property">vertical-align</span><span class="token punctuation">:</span>middle<span class="token punctuation">;</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="3-基线对齐的影响"><a href="#3-基线对齐的影响" class="headerlink" title="3. 基线对齐的影响"></a>3. 基线对齐的影响</h2><p>基线对齐是默认对齐，作用是给留给g这样的字母一定空间，但是这可能会导致图片和下边的块元素存在空格，那么我们可以设置成top和bottom对齐。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> html&amp;css </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 基线 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>禁止iOS&amp;Android用户选中文字</title>
-      <link href="/2020/10/02/note/html-css-mian-shi-jian-rong-jin-zhi-ios-android-yong-hu-xuan-zhong-wen-zi/"/>
-      <url>/2020/10/02/note/html-css-mian-shi-jian-rong-jin-zhi-ios-android-yong-hu-xuan-zhong-wen-zi/</url>
-      
-        <content type="html"><![CDATA[<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">        <span class="token selector">html,        body</span> <span class="token punctuation">&#123;</span>            <span class="token property">user-select</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>            <span class="token property">-webkit-user-select</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>        <span class="token punctuation">&#125;</span>        <span class="token comment">/* 直接用ui组件了 */</span>    </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> html&amp;css </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 兼容 </tag>
-            
-            <tag> 卷 </tag>
-            
-            <tag> css </tag>
-            
-            <tag> html </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>禁止iOS&amp;Android长按时触发系统菜单下载</title>
       <link href="/2020/10/02/note/html-css-mian-shi-jian-rong-jin-zhi-ios-android-chang-an-shi-hong-fa-xi-tong-cai-dan-xia-zai/"/>
       <url>/2020/10/02/note/html-css-mian-shi-jian-rong-jin-zhi-ios-android-chang-an-shi-hong-fa-xi-tong-cai-dan-xia-zai/</url>
@@ -7397,13 +7457,13 @@
       
         <tags>
             
-            <tag> 兼容 </tag>
-            
             <tag> 卷 </tag>
             
             <tag> css </tag>
             
             <tag> html </tag>
+            
+            <tag> 兼容 </tag>
             
         </tags>
       
@@ -7428,11 +7488,11 @@
       
         <tags>
             
+            <tag> flex </tag>
+            
             <tag> 卷 </tag>
             
             <tag> css </tag>
-            
-            <tag> flex </tag>
             
         </tags>
       

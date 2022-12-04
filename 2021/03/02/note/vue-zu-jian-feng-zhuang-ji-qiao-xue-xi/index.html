@@ -338,7 +338,7 @@ props validator 增强组件传值稳健性，可自定">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    794
+                    786
                 </div>
                 
 
@@ -383,7 +383,7 @@ props validator 增强组件传值稳健性，可自定">
 <p><img src="https://qiniu.guet.link/asset/202211232338466.png"></p>
 <p>这里需要注意vue会将被传入但未生命prop的元素作为html元素的属性放在跟元素上，所以需要设置inheritAttrs为false</p>
 <p><img src="https://qiniu.guet.link/asset/202211232342035.png"></p>
-<h3 id="2-2-listeners-简化多层组件之间props传值"><a href="#2-2-listeners-简化多层组件之间props传值" class="headerlink" title="2.2 $listeners 简化多层组件之间props传值"></a>2.2 $listeners 简化多层组件之间props传值</h3><p>业务组件将原子组件的事件传递给父组件，我们常规是这样写</p>
+<h3 id="2-2-listeners-简化多层组件之间事件传递"><a href="#2-2-listeners-简化多层组件之间事件传递" class="headerlink" title="2.2 $listeners 简化多层组件之间事件传递"></a>2.2 $listeners 简化多层组件之间事件传递</h3><p>业务组件将原子组件的事件传递给父组件，我们常规是这样写</p>
 <p>父组件：</p>
 <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-input</span> <span class="token attr-name">@clear</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>clearCallFn<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-input</span><span class="token punctuation">></span></span>
@@ -424,7 +424,6 @@ props validator 增强组件传值稳健性，可自定">
 <p>那么其实我们可以在业务组件methods写一个api来暴露引用，如下：</p>
 <p><img src="https://qiniu.guet.link/asset/202211240410241.png"></p>
 <p>这时候我们就可以直接在主页面调用业务组件暴露出来的api，以此来调用原子组件方法。</p>
-<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1h44y1v7Jr">https://www.bilibili.com/video/BV1h44y1v7Jr</a></p>
 
                 
             </div>
@@ -884,12 +883,12 @@ props validator 增强组件传值稳健性，可自定">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/bug/">
-                        <span class="chip bg-color">bug</span>
-                    </a>
-                    
                     <a href="/tags/flex/">
                         <span class="chip bg-color">flex</span>
+                    </a>
+                    
+                    <a href="/tags/bug/">
+                        <span class="chip bg-color">bug</span>
                     </a>
                     
                 </div>
@@ -1182,7 +1181,7 @@ props validator 增强组件传值稳健性，可自定">
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                106k
+                                                106.8k
                                             </span>
                                             
                                                 
