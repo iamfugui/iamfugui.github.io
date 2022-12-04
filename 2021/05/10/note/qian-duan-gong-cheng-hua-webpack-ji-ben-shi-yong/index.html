@@ -1,0 +1,1812 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="webpack基本使用.md, iamfugui&#39; 小屋,iamfugui,小屋,iamfugui.github.io,博客,JavasSript,Vue,uni-app,React">
+    <meta name="description" content="1. webpack的简单使用一般vue自带webpack，不用手动配置，该文档目的是认识webpack\
+配套实例文件见同名文件夹
+1.1 是什么是一个模块化打包工具
+1.2 作用1.2.1 打包开发中：如jquery.js，空格，回车，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>webpack基本使用.md | iamfugui&#39; 小屋</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                        <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                        
+                            <span class="logo-span">
+                                iamfugui&#39; 小屋
+                            </span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags/" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories/" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives/" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about/" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends/" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">iamfugui&#39; 小屋</div>
+        <div class="logo-desc">
+            
+            分享工作，分享生活，给世界留下足迹
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">webpack基本使用.md</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%8D%B7/">
+                                <span class="chip bg-color">卷</span>
+                            </a>
+                        
+                            <a href="/tags/webpack/">
+                                <span class="chip bg-color">webpack</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" class="post-category">
+                                前端工程化
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-05-10
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    15 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="1-webpack的简单使用"><a href="#1-webpack的简单使用" class="headerlink" title="1. webpack的简单使用"></a>1. webpack的简单使用</h1><p>一般vue自带webpack，不用手动配置，该文档目的是认识webpack\</p>
+<p>配套实例文件见同名文件夹</p>
+<h2 id="1-1-是什么"><a href="#1-1-是什么" class="headerlink" title="1.1 是什么"></a>1.1 是什么</h2><p>是一个模块化打包工具</p>
+<h2 id="1-2-作用"><a href="#1-2-作用" class="headerlink" title="1.2 作用"></a>1.2 作用</h2><h3 id="1-2-1-打包"><a href="#1-2-1-打包" class="headerlink" title="1.2.1 打包"></a>1.2.1 打包</h3><p>开发中：如jquery.js，空格，回车，注释… <br>使用上线：jquery.min.，js空格，回车，注释 webpack&#x3D;&#x3D;&gt;没有</p>
+<h3 id="1-2-2-模块化"><a href="#1-2-2-模块化" class="headerlink" title="1.2.2 模块化"></a>1.2.2 模块化</h3><p>swiper.js jquery.js zepto.js ajax.js event.js 合并模块</p>
+<h2 id="1-3-整体流程"><a href="#1-3-整体流程" class="headerlink" title="1.3 整体流程"></a>1.3 整体流程</h2><p>开发 &#x3D;&#x3D;》 打包:webpack &#x3D;&#x3D;》上线</p>
+<h2 id="1-4-安装"><a href="#1-4-安装" class="headerlink" title="1.4 安装"></a>1.4 安装</h2><p>cnpm install webpack -g <br>cnpm install webpack-cli -g <br><br>注：cli就是脚手架的意思，建房子时用竹子搭建好架子就是脚手架。自己创建项目时要创建各种目录和环境，脚手架就是做这种东西。</p>
+<h2 id="1-5-简单使用webpack"><a href="#1-5-简单使用webpack" class="headerlink" title="1.5 简单使用webpack"></a>1.5 简单使用webpack</h2><p>webpack本身只能打包js，如果要打包:html、css…需要借助一些东西。使用如下：<br><br>1.进入项目目录，随便创建一个js文件 src&#x2F;index.js<br><br>2.在该目录中下载webpack cnpm install webpack -S<br><br>3.在项目执行webpack命令</p>
+<h2 id="1-6-webpack的web服务"><a href="#1-6-webpack的web服务" class="headerlink" title="1.6 webpack的web服务"></a>1.6 webpack的web服务</h2><p>因为有时候项目不是在根目录，所以不用liveServer<br>下载</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cnpm webpack-dev-server@3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>配置webpack.config.js</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">module.exports &#x3D; &#123;
+    entry: &#123;
+        index: &#39;.&#x2F;src&#x2F;index.js&#39;
+    &#125;,
+    output: &#123;
+        path: __dirname + &quot;&#x2F;public&quot;,
+        filename: &quot;.&#x2F;js&#x2F;[name].js&quot;
+    &#125;,
+    devServer: &#123;
+        contentBase: &quot;.&#x2F;public&quot;,
+        inline: true
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>package.json</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"snabbdom"</span><span class="token punctuation">,</span>
+  <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span>
+  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+  <span class="token property">"main"</span><span class="token operator">:</span> <span class="token string">"index.js"</span><span class="token punctuation">,</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"start"</span><span class="token operator">:</span> <span class="token string">"webpack-dev-server --open"</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"keywords"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"author"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+  <span class="token property">"license"</span><span class="token operator">:</span> <span class="token string">"ISC"</span><span class="token punctuation">,</span>
+  <span class="token property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"snabbdom"</span><span class="token operator">:</span> <span class="token string">"^3.5.1"</span><span class="token punctuation">,</span>
+    <span class="token property">"webpack"</span><span class="token operator">:</span> <span class="token string">"^5.74.0"</span><span class="token punctuation">,</span>
+    <span class="token property">"webpack-cli"</span><span class="token operator">:</span> <span class="token string">"^3.3.12"</span><span class="token punctuation">,</span>
+    <span class="token property">"webpack-dev-server"</span><span class="token operator">:</span> <span class="token string">"^3.11.3"</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后就可以使用命令 npm run start启动了</p>
+<h2 id="1-6-webpac-server"><a href="#1-6-webpac-server" class="headerlink" title="1.6 webpac-server"></a>1.6 webpac-server</h2><h1 id="2-webpack的入口和输出"><a href="#2-webpack的入口和输出" class="headerlink" title="2. webpack的入口和输出"></a>2. webpack的入口和输出</h1><h2 id="2-1-安装脚手架webpack-cli"><a href="#2-1-安装脚手架webpack-cli" class="headerlink" title="2.1 安装脚手架webpack-cli"></a>2.1 安装脚手架webpack-cli</h2><p>这里需要webpack和webpack-cli配合<br>cnpm install webpack-cli -S<br><br>这样才能使用一些模块如require(‘path’);</p>
+<h2 id="2-2-创建配置文件"><a href="#2-2-创建配置文件" class="headerlink" title="2.2 创建配置文件"></a>2.2 创建配置文件</h2><p>手动创建webpack.config.js</p>
+<h2 id="2-3-配置入口出口"><a href="#2-3-配置入口出口" class="headerlink" title="2.3 配置入口出口"></a>2.3 配置入口出口</h2><p>官网说明<br><a target="_blank" rel="noopener" href="https://webpack.docschina.org/concepts/#output">https://webpack.docschina.org/concepts/#output</a><br><br>模板字符串<br><a target="_blank" rel="noopener" href="https://webpack.docschina.org/configuration/output/#template-strings">https://webpack.docschina.org/configuration/output/#template-strings</a></p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const path &#x3D; require(&#39;path&#39;);
+
+module.exports &#x3D; &#123;
+  entry: &#39;.&#x2F;path&#x2F;to&#x2F;my&#x2F;entry&#x2F;file.js&#39;,
+  output: &#123;
+    path: path.resolve(__dirname, &#39;dist&#39;),
+    filename: &#39;[name].js&#39;,
+  &#125;,
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="3-入口的多种配置"><a href="#3-入口的多种配置" class="headerlink" title="3. 入口的多种配置"></a>3. 入口的多种配置</h1><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">&#x2F;&#x2F; 1. String ：单入口， 打包成一个chunk,输出一个bundle文件，chunk的名称为默认。
+        entry:&#39;.&#x2F;src&#x2F;index.js&#39;,
+ &#x2F;&#x2F; 2. Array ： 多入口， 写多个入口，所有入口文件形成一个chunk(名称默认), 输出只有一个bundle, chunk名称默认
+        entry: [&quot;.&#x2F;src&#x2F;two.js&quot;,&#39;.&#x2F;src&#x2F;index.js&#39;],
+&#x2F;&#x2F; 3. Object: 多入口， 有几个入口文件就生成几个chunk， 并输出几个bundle文件， chunk的名称是key
+        entry: &#123;
+           two: &quot;.&#x2F;src&#x2F;two.js&quot;,
+            index:&#39;.&#x2F;src&#x2F;index.js&#39;
+        &#125;,
+		output:&#123;
+			filename: “[name].js”,
+			path: resolve(__dirname, “build”)
+		&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3-1-多文件打包成一个文件"><a href="#3-1-多文件打包成一个文件" class="headerlink" title="3.1 多文件打包成一个文件"></a>3.1 多文件打包成一个文件</h2><p>问题：多个入口文件 &#x3D;&#x3D;》 单文件出口<br><br>解决：entry改成数组形式</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const path &#x3D; require(&#39;path&#39;);
+
+module.exports &#x3D; &#123;
+    entry: [&#39;.&#x2F;src&#x2F;main.js&#39;, &#39;.&#x2F;src&#x2F;main.js&#39;],
+    output: &#123;
+        path: path.resolve(__dirname, &#39;dist&#39;),
+        filename: &#39;[hash].js&#39;,
+    &#125;,
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3-2-多文件打包成多文件"><a href="#3-2-多文件打包成多文件" class="headerlink" title="3.2 多文件打包成多文件"></a>3.2 多文件打包成多文件</h2><p>问题：多个入口文件 &#x3D;&#x3D;》 多文件出口<br><br>解决：将filename属性删去，entry改为属性</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const path &#x3D; require(&#39;path&#39;);
+
+module.exports &#x3D; &#123;
+    entry: &#123; a: &#39;.&#x2F;src&#x2F;main1.js&#39;, b: &#39;.&#x2F;src&#x2F;main.js&#39; &#125;,
+    output: &#123;
+        path: path.resolve(__dirname, &#39;dist&#39;),
+    &#125;,
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="4-loader"><a href="#4-loader" class="headerlink" title="4. loader"></a>4. loader</h1><h2 id="4-1-loader概念"><a href="#4-1-loader概念" class="headerlink" title="4.1 loader概念"></a>4.1 loader概念</h2><p>webpack 只能理解 JavaScript 和 JSON 文件，这是 webpack 开箱可用的自带能力。<br><br>loader 让 webpack 能够去处理其他类型的文件，并将它们转换为有效 模块，以供应用程序使用，以及被添加到依赖图中。</p>
+<h2 id="4-2-loader的使用"><a href="#4-2-loader的使用" class="headerlink" title="4.2 loader的使用"></a>4.2 loader的使用</h2><h3 id="4-2-1-安装webpack-cli、webpack"><a href="#4-2-1-安装webpack-cli、webpack" class="headerlink" title="4.2.1 安装webpack-cli、webpack"></a>4.2.1 安装webpack-cli、webpack</h3><p>cnpm i -S webpack webpack-cli</p>
+<h3 id="4-2-2-安装loader"><a href="#4-2-2-安装loader" class="headerlink" title="4.2.2 安装loader"></a>4.2.2 安装loader</h3><p>cnpm i -S style-loader css-loader</p>
+<h3 id="4-2-3-将css文件import-到-js"><a href="#4-2-3-将css文件import-到-js" class="headerlink" title="4.2.3 将css文件import 到 js"></a>4.2.3 将css文件import 到 js</h3><p>在js文件里import css 文件，当然实际项目的时候css和js是分开，且不需要自己下载和配置loader，</p>
+<p>main1.js</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">import &#39;.&#x2F;style.css&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><br>像vue、react都有loader</p>
+<h3 id="4-2-4-配置webpack-config-js"><a href="#4-2-4-配置webpack-config-js" class="headerlink" title="4.2.4 配置webpack.config.js"></a>4.2.4 配置webpack.config.js</h3><p>在更高层面，在 webpack 的配置中，loader 有两个属性：<br><br>test 属性，识别出哪些文件会被转换。<br><br>use 属性，定义出在进行转换时，应该使用哪个 loader。</p>
+<p>webpack.config.js</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const path &#x3D; require(&#39;path&#39;);
+
+module.exports &#x3D; &#123;
+    mode: &#39;production&#39;,
+    entry: &#123; a: &#39;.&#x2F;src&#x2F;main1.js&#39;, b: &#39;.&#x2F;src&#x2F;main.js&#39; &#125;,
+    module: &#123;
+        rules: [&#123; test: &#x2F;\.css$&#x2F;, use: [&#39;style-loader&#39;, &#39;css-loader&#39;] &#125;],
+    &#125;,
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="4-2-5-webpack命令打包"><a href="#4-2-5-webpack命令打包" class="headerlink" title="4.2.5 webpack命令打包"></a>4.2.5 webpack命令打包</h3><h3 id="4-2-6-常见loader"><a href="#4-2-6-常见loader" class="headerlink" title="4.2.6 常见loader"></a>4.2.6 常见loader</h3><p>包括不限于<br><br>1、file-loader：把⽂件输出到⼀个⽂件夹中，在代码中通过相对 URL 去引⽤输出的⽂件。<br>2、url-loader：和 file-loader 类似，但是能在⽂件很⼩的情况下以 base64 的⽅式把⽂件内容注⼊到代码中去。<br>3、source-map-loader：加载额外的 Source Map ⽂件，以⽅便断点调试。<br>4、image-loader：下载并且压缩图⽚⽂件。<br>5、babel-loader：将ES6转化为ES5。<br>6、css-loader：加载 CSS，⽀持模块化、压缩、⽂件导⼊等特性。<br>7、style-loader：把 CSS 代码注⼊到 JavaScript 中，通过 DOM 操作去加载 CSS。<br>8、eslint-loader:通过 ESLint 检查 JavaScript 代码。<br>9、ts-loader：ts转js<br>10、html-withimg-loader：让html支持图片的loader</p>
+<h1 id="5-plugin"><a href="#5-plugin" class="headerlink" title="5 plugin"></a>5 plugin</h1><p>loader用于转换某些类型的模块，而插件（plugin）则可以用于执行范围更广的任务。包括：打包优化，资源管理，注入环境变量。</p>
+<h2 id="5-1-html-webpack-plugin的使用"><a href="#5-1-html-webpack-plugin的使用" class="headerlink" title="5.1 html-webpack-plugin的使用"></a>5.1 html-webpack-plugin的使用</h2><p>plugin以html-webpack-plugin为例子<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wonyun/p/6030090.html">https://www.cnblogs.com/wonyun/p/6030090.html</a><br>\</p>
+<h3 id="5-1-1-下载"><a href="#5-1-1-下载" class="headerlink" title="5.1.1 下载"></a>5.1.1 下载</h3><p><br>cnpm i html-webpack-plugin -S<br>\</p>
+<h3 id="5-1-2-引入"><a href="#5-1-2-引入" class="headerlink" title="5.1.2 引入"></a>5.1.2 引入</h3><p><br>const HtmlWebpackPlugin &#x3D; require(‘html-webpack-plugin’);<br>\</p>
+<h3 id="5-1-3-配置"><a href="#5-1-3-配置" class="headerlink" title="5.1.3 配置"></a>5.1.3 配置</h3><p>\</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">plugins: [
+ new HtmlWebpackPlugin(&#123;
+     template: &#39;.&#x2F;src&#x2F;index.html&#39;
+     &#125;)
+ ],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="5-1-4-参数说明"><a href="#5-1-4-参数说明" class="headerlink" title="5.1.4 参数说明"></a>5.1.4 参数说明</h3><ol>
+<li><p>指定模板页面<br>(只有这样才会保留该文件的html结构)</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">template:&#39;.&#x2F;src&#x2F;index.html&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>修改默认输出文件名<br>(默认index.html，多文件时必须修改)</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">filename:&#39;xx.html&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>允许插入到模板的一些chunk(chunk是根据一个入口产生的module集合)</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">chunks：[&#39;jqeury&#39;,&#39;xx&#39;]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>配置不允许注入的chunk</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">excludeChunks:[&#39;xx&#39;]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>多页面打包</p>
+</li>
+</ol>
+<p>需要创建多个new htm-webpack-plugin<br>或者循环</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">plugins: [
+    new HtmlWebpackPlugin(&#123;
+        template: &#39;.&#x2F;src&#x2F;index.html&#39;,
+        excludeChunks: [&#39;a&#39;]
+    &#125;),
+    new HtmlWebpackPlugin(&#123;
+        template: &#39;.&#x2F;src&#x2F;detail.html&#39;,
+        filename: &#39;detail.html&#39;,
+        excludeChunks: [&#39;b&#39;]
+    &#125;),
+],<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="5-1-4-配置一览"><a href="#5-1-4-配置一览" class="headerlink" title="5.1.4 配置一览"></a>5.1.4 配置一览</h3><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const path &#x3D; require(&#39;path&#39;);
+const HtmlWebpackPlugin &#x3D; require(&#39;html-webpack-plugin&#39;);
+
+module.exports &#x3D; &#123;
+    mode: &#39;production&#39;,
+    entry: &#123; a: &#39;.&#x2F;src&#x2F;main.js&#39;, b: &#39;.&#x2F;src&#x2F;main.js&#39; &#125;,
+    module: &#123;
+        rules: [&#123; test: &#x2F;\.css$&#x2F;, use: [&#39;style-loader&#39;, &#39;css-loader&#39;] &#125;],
+    &#125;,
+    plugins: [
+        new HtmlWebpackPlugin(&#123;
+            template: &#39;.&#x2F;src&#x2F;index.html&#39;,
+            excludeChunks: [&#39;a&#39;]
+        &#125;),
+        new HtmlWebpackPlugin(&#123;
+            template: &#39;.&#x2F;src&#x2F;detail.html&#39;,
+            filename: &#39;detail.html&#39;,
+            excludeChunks: [&#39;b&#39;]
+        &#125;),
+    ],
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="6-webpack图片支持"><a href="#6-webpack图片支持" class="headerlink" title="6. webpack图片支持"></a>6. webpack图片支持</h1><p>先下载两个loader：<br><br>cnpm i file-loader html-withimg-loader</p>
+<h2 id="6-1-使用file-loader"><a href="#6-1-使用file-loader" class="headerlink" title="6.1 使用file-loader"></a>6.1 使用file-loader</h2><p>配置文件</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">&#123; test: &#x2F;\.(png|jpg|jpeg|gif)$&#x2F;, 
+use: [&#123;
+    loader:&#39;file-loader&#39;,
+    options:&#123;
+        esModule:false,
+        outputPath:&#39;img&#x2F;&#39;
+    &#125;
+&#125;]&#125;,<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="6-2-使用html-withimg-loader"><a href="#6-2-使用html-withimg-loader" class="headerlink" title="6.2 使用html-withimg-loader"></a>6.2 使用html-withimg-loader</h2><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">&#123;
+    test: &#x2F;\.html$&#x2F;,
+    use: &#39;html-withimg-loader&#39;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="6-3-总体配置"><a href="#6-3-总体配置" class="headerlink" title="6.3 总体配置"></a>6.3 总体配置</h2><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const path &#x3D; require(&#39;path&#39;);
+const HtmlWebpackPlugin &#x3D; require(&#39;html-webpack-plugin&#39;);
+
+module.exports &#x3D; &#123;
+    mode: &#39;production&#39;,
+    entry: &#123; a: &#39;.&#x2F;src&#x2F;main.js&#39;, b: &#39;.&#x2F;src&#x2F;main.js&#39; &#125;,
+    module: &#123;
+        rules: [
+            &#123; test: &#x2F;\.css$&#x2F;, use: [&#39;style-loader&#39;, &#39;css-loader&#39;] &#125;,
+            &#123;
+                test: &#x2F;\.(png|jpg|jpeg|gif)$&#x2F;,
+                use: [&#123;
+                    loader: &#39;file-loader&#39;,
+                    options: &#123;
+                        esModule: false,
+                        outputPath: &#39;img&#x2F;&#39;
+                    &#125;
+                &#125;]
+            &#125;,
+            &#123;
+                test: &#x2F;\.html$&#x2F;,
+                use: &#39;html-withimg-loader&#39;
+            &#125;
+        ],
+    &#125;,
+    plugins: [
+        new HtmlWebpackPlugin(&#123;
+            template: &#39;.&#x2F;src&#x2F;index.html&#39;,
+            excludeChunks: [&#39;a&#39;]
+        &#125;),
+        new HtmlWebpackPlugin(&#123;
+            template: &#39;.&#x2F;src&#x2F;detail.html&#39;,
+            filename: &#39;detail.html&#39;,
+            excludeChunks: [&#39;b&#39;]
+        &#125;),
+    ],
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="7-字体使用"><a href="#7-字体使用" class="headerlink" title="7. 字体使用"></a>7. 字体使用</h1><h2 id="7-1-发现iconfont不能使用在线链接了，将iconfont下载到本地"><a href="#7-1-发现iconfont不能使用在线链接了，将iconfont下载到本地" class="headerlink" title="7.1 发现iconfont不能使用在线链接了，将iconfont下载到本地"></a>7.1 发现iconfont不能使用在线链接了，将iconfont下载到本地</h2><h2 id="7-2-css里修改font图标的地址"><a href="#7-2-css里修改font图标的地址" class="headerlink" title="7.2 css里修改font图标的地址"></a>7.2 css里修改font图标的地址</h2><h2 id="7-3-用entry的js引用css"><a href="#7-3-用entry的js引用css" class="headerlink" title="7.3 用entry的js引用css"></a>7.3 用entry的js引用css</h2><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">import &#39;.&#x2F;css&#x2F;iconfont.css&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="7-4-在html插入Unicode方式的图标"><a href="#7-4-在html插入Unicode方式的图标" class="headerlink" title="7.4 在html插入Unicode方式的图标"></a>7.4 在html插入Unicode方式的图标</h2><p>实测不行，反而不用loader可以，这里仅做过程记录</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">&#123;
+    test: &#x2F;\.(woff2|woff|ttf)$&#x2F;,
+    use: &#39;file-loader?name&#x3D;.&#x2F;fonts&#x2F;[name].[ext]&#39;,
+&#125;,<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="7-5-webpack"><a href="#7-5-webpack" class="headerlink" title="7.5 webpack"></a>7.5 webpack</h2><h1 id="8-css的正确使用，分离-amp-压缩"><a href="#8-css的正确使用，分离-amp-压缩" class="headerlink" title="8. css的正确使用，分离&amp;压缩"></a>8. css的正确使用，分离&amp;压缩</h1><h2 id="8-1-分离css"><a href="#8-1-分离css" class="headerlink" title="8.1 分离css"></a>8.1 分离css</h2><p>将一个页面的css放到js中，并配置entry</p>
+<h3 id="8-1-1-下载插件mini-css-extract-plugin"><a href="#8-1-1-下载插件mini-css-extract-plugin" class="headerlink" title="8.1.1 下载插件mini-css-extract-plugin"></a>8.1.1 下载插件mini-css-extract-plugin</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cnpm i mini-css-extract-plugin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="8-1-2-引入plugin"><a href="#8-1-2-引入plugin" class="headerlink" title="8.1.2 引入plugin"></a>8.1.2 引入plugin</h3><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const miniCssExtractPlugin &#x3D; require(&#39;mini-css-extract-plugin&#39;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="8-1-3-配置mini-css-extract-plugin"><a href="#8-1-3-配置mini-css-extract-plugin" class="headerlink" title="8.1.3 配置mini-css-extract-plugin"></a>8.1.3 配置mini-css-extract-plugin</h3><p>module-&gt;rules-&gt;<br><br>要删除style-css</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">&#123; test: &#x2F;\.css$&#x2F;, use: [miniCssExtractPlugin.loader, &#39;css-loader&#39;] &#125;,<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>plugin-&gt;</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">new miniCssExtractPlugin(&#123;
+        filename: &#39;.&#x2F;css&#x2F;[name].css&#39;
+    &#125;),<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="8-2-压缩css"><a href="#8-2-压缩css" class="headerlink" title="8.2 压缩css"></a>8.2 压缩css</h2><p>css需要单独下载插件，而js原本就被webpack支持</p>
+<h3 id="8-2-1-下载optimize-css-assets-webpack-plugin"><a href="#8-2-1-下载optimize-css-assets-webpack-plugin" class="headerlink" title="8.2.1 下载optimize-css-assets-webpack-plugin"></a>8.2.1 下载optimize-css-assets-webpack-plugin</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cnpm i optimize-css-assets-webpack-plugin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="8-2-2-引入插件"><a href="#8-2-2-引入插件" class="headerlink" title="8.2.2 引入插件"></a>8.2.2 引入插件</h3><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const optimizeCss &#x3D; require(&#39;optimize-css-assets-webpack-plugin&#39;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="8-2-3-配置使用"><a href="#8-2-3-配置使用" class="headerlink" title="8.2.3 配置使用"></a>8.2.3 配置使用</h3><p>plugin-&gt;</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">new optimizeCss(&#123;
+
+&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="8-3-webpack打包"><a href="#8-3-webpack打包" class="headerlink" title="8.3 webpack打包"></a>8.3 webpack打包</h3><h3 id="8-4-总体配置"><a href="#8-4-总体配置" class="headerlink" title="8.4 总体配置"></a>8.4 总体配置</h3><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const path &#x3D; require(&#39;path&#39;);
+const HtmlWebpackPlugin &#x3D; require(&#39;html-webpack-plugin&#39;);
+const miniCssExtractPlugin &#x3D; require(&#39;mini-css-extract-plugin&#39;);
+const optimizeCss &#x3D; require(&#39;optimize-css-assets-webpack-plugin&#39;);
+
+module.exports &#x3D; &#123;
+    mode: &#39;production&#39;,
+    entry: &#123; a: &#39;.&#x2F;src&#x2F;main.js&#39;, b: &#39;.&#x2F;src&#x2F;main1.js&#39; &#125;,
+    module: &#123;
+        rules: [
+            &#123; test: &#x2F;\.css$&#x2F;, use: [miniCssExtractPlugin.loader, &#39;css-loader&#39;] &#125;,
+            &#123;
+                test: &#x2F;\.(png|jpg|jpeg|gif)$&#x2F;,
+                use: [&#123;
+                    loader: &#39;file-loader&#39;,
+                    options: &#123;
+                        esModule: false,
+                        outputPath: &#39;img&#x2F;&#39;
+                    &#125;
+                &#125;]
+            &#125;,
+
+            &#123;
+                test: &#x2F;\.html$&#x2F;,
+                use: &#39;html-withimg-loader&#39;
+            &#125;
+        ],
+    &#125;,
+    plugins: [
+        new HtmlWebpackPlugin(&#123;
+            template: &#39;.&#x2F;src&#x2F;index.html&#39;,
+            excludeChunks: [&#39;a&#39;]
+        &#125;),
+        new HtmlWebpackPlugin(&#123;
+            template: &#39;.&#x2F;src&#x2F;detail.html&#39;,
+            filename: &#39;detail.html&#39;,
+            excludeChunks: [&#39;b&#39;]
+        &#125;),
+        new miniCssExtractPlugin(&#123;
+            filename: &#39;.&#x2F;css&#x2F;[name].css&#39;
+        &#125;),
+        new optimizeCss()
+    ],
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="9-项目打包"><a href="#9-项目打包" class="headerlink" title="9. 项目打包"></a>9. 项目打包</h1><h2 id="9-1-引用配置"><a href="#9-1-引用配置" class="headerlink" title="9.1 引用配置"></a>9.1 引用配置</h2><pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const path &#x3D; require(&#39;path&#39;);
+const webpack &#x3D; require(&#39;webpack&#39;);
+const HtmlWebpackPlugin &#x3D; require(&#39;html-webpack-plugin&#39;);
+const miniCssExtractPlugin &#x3D; require(&#39;mini-css-extract-plugin&#39;);
+const optimizeCss &#x3D; require(&#39;optimize-css-assets-webpack-plugin&#39;);
+
+
+module.exports &#x3D; &#123;
+    &#x2F;&#x2F;对应生产模式
+    mode: &#39;production&#39;,
+    &#x2F;&#x2F;打包入口，索引是chunk名,为文件加载是左到右
+    entry: &#123; jquery: &#39;.&#x2F;src&#x2F;js&#x2F;jquery.js&#39;, common: &#39;.&#x2F;src&#x2F;js&#x2F;common.js&#39;, index: &#39;.&#x2F;src&#x2F;index.js&#39;, &#125;,
+    &#x2F;&#x2F;配置出口
+    output: &#123;
+        path: path.resolve(__dirname, &#39;dist&#x2F;&#39;)
+    &#125;,
+    &#x2F;&#x2F;module配置
+    module: &#123;
+        rules: [
+            &#123; test: &#x2F;\.css$&#x2F;, use: [miniCssExtractPlugin.loader, &#39;css-loader&#39;] &#125;,
+            &#x2F;&#x2F;配置图片打包loader
+            &#123;
+                test: &#x2F;\.(png|jpg|svg|gif|jpeg)$&#x2F;,
+                use: [&#123;
+                    loader: &#39;file-loader&#39;,
+                    options: &#123;
+                        esModule: false,
+                        outputPath: &#39;img&#x2F;&#39;
+                    &#125;
+                &#125;]
+            &#125;,
+            &#x2F;&#x2F;配置字体打包,需要webpack5+
+            &#123;
+                &#x2F;&#x2F;转换文件格式
+                test: &#x2F;\.(woff|woff2|eot|ttf|otf)$&#x2F;,
+                &#x2F;&#x2F;文件打包方式
+                type: &quot;asset&#x2F;resource&quot;,
+                generator: &#123;
+                    filename: &#96;.&#x2F;fonts&#x2F;[contenthash][ext]&#96;
+                &#125;
+            &#125;,
+            &#x2F;&#x2F;配置html文档的图片支持
+            &#123;
+                test: &#x2F;\.html$&#x2F;,
+                use: &#39;html-withimg-loader&#39;
+            &#125;
+        ],
+    &#125;,
+    plugins: [
+        new webpack.ProvidePlugin(&#123;
+            $: &#39;jquery&#39;,
+            jQuery: &#39;jquery&#39;,
+            &#39;window.jQuery&#39;: &#39;jquery&#39;,
+        &#125;),
+        &#x2F;&#x2F;配置插件对象
+        new HtmlWebpackPlugin(&#123;
+            template: &#39;.&#x2F;src&#x2F;index.html&#39;,
+            chunks: [&#39;jquery&#39;, &#39;common&#39;, &#39;index&#39;]
+        &#125;),
+        new HtmlWebpackPlugin(&#123;
+            template: &#39;.&#x2F;src&#x2F;detail.html&#39;,
+            filename: &#39;detail.html&#39;,
+            chunks: []
+        &#125;),
+        &#x2F;&#x2F;css抽离
+        new miniCssExtractPlugin(&#123;
+            filename: &#39;.&#x2F;css&#x2F;[name].css&#39;
+        &#125;),
+        &#x2F;&#x2F;压缩
+        new optimizeCss()
+    ],
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="9-2-配置jQuery"><a href="#9-2-配置jQuery" class="headerlink" title="9.2 配置jQuery"></a>9.2 配置jQuery</h2><p>jQuery打包后无法使用，jquery是自执行函数，再打包后就是模块又模块，自然全局就没$符号<br>\</p>
+<ol>
+<li><p>引入webpack</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">const webpack &#x3D; require(&#39;webpack&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>安装jquery</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cnpm i jquery <span class="token parameter variable">-S</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>配置</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">new webpack.providePlugin(&#123;
+    $:&#39;jquery&#39;,
+    jQuery:&#39;jquery&#39;,
+    &#39;window.jQuery&#39;:&#39;jquery&#39;,
+&#125;)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h2 id="9-3-打包页面css与内部js"><a href="#9-3-打包页面css与内部js" class="headerlink" title="9.3 打包页面css与内部js"></a>9.3 打包页面css与内部js</h2><ol>
+<li>为每个页面创建一个js文件，将css文件与内部js添加到里面，并删除在页面删除css与js的引用<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">import &#39;xxx.css&#39;;
+
+&#x2F;&#x2F;...javascript代码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li>将这个js文件添加到entry<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">entry: &#123; &#39;js&#x2F;main&#39;: &#39;.&#x2F;src&#x2F;main.js&#39; &#125;,<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>为HtmlWebpackPlugin<br>对象的plugin配置这个chunk</li>
+</ol>
+<h2 id="9-4-打包js文件"><a href="#9-4-打包js文件" class="headerlink" title="9.4 打包js文件"></a>9.4 打包js文件</h2><ol>
+<li>将所有外部js文件配置entry,页面加载顺序以entry左到右加载<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">entry: &#123; &#39;js&#x2F;main&#39;: &#39;.&#x2F;src&#x2F;main.js&#39; &#125;,<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>在html的html-plugin配置需要的chunk</li>
+</ol>
+<h2 id="9-5-webpack"><a href="#9-5-webpack" class="headerlink" title="9.5 webpack"></a>9.5 webpack</h2><h1 id="10-参考："><a href="#10-参考：" class="headerlink" title="10. 参考："></a>10. 参考：</h1><h2 id="10-1-官方文档"><a href="#10-1-官方文档" class="headerlink" title="10.1 官方文档"></a>10.1 官方文档</h2><p><a target="_blank" rel="noopener" href="https://webpack.docschina.org/concepts/">https://webpack.docschina.org/concepts/</a></p>
+<h2 id="10-2-对Chunk的理解"><a href="#10-2-对Chunk的理解" class="headerlink" title="10.2 对Chunk的理解"></a>10.2 对Chunk的理解</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/glenshappy/article/details/119642331">https://blog.csdn.net/glenshappy/article/details/119642331</a><br>&#x2F;<br>Chunk是Webpack打包过程中，一堆module的集合。&#x2F;<br>我们知道Webpack的打包是从一个入口文件开始，也可以说是入口模块，入口模块引用这其他模块，模块再引用模块。&#x2F;<br>Webpack通过引用关系逐个打包模块，这些module就形成了一个Chunk。</p>
+<h3 id="10-3-loader和plugin的区别"><a href="#10-3-loader和plugin的区别" class="headerlink" title="10.3 loader和plugin的区别"></a>10.3 loader和plugin的区别</h3><p>webpack出厂自身只能识别js和json，loader是将webpack不能识别的模块转换成webpack能识别的模块<br>而plugin插件会为webpack添加更强大的功能,同时也能和loader搭配，如miniCssExtractPlugin.loader</p>
+<h3 id="10-4-webpack5与iconfont打包"><a href="#10-4-webpack5与iconfont打包" class="headerlink" title="10.4 webpack5与iconfont打包"></a>10.4 webpack5与iconfont打包</h3><p>现在我们可以采用webpack5的方式使用资源类型模块，下面这个asset&#x2F;resource就相当于file-loader：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_49900295/article/details/124550743">https://blog.csdn.net/qq_49900295/article/details/124550743</a></p>
+<h3 id="10-5-webpack中的的坑"><a href="#10-5-webpack中的的坑" class="headerlink" title="10.5 webpack中的的坑"></a>10.5 webpack中的的坑</h3><p>webpack会对html进行页面优化，忽略它认为不重要的属性，这可能产生bug<br>如将input中的属性[type&#x3D;text]删除，导致无法使用[type&#x3D;text]属性选择器操作</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">iamfugui</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://iamfugui.github.io/2021/05/10/note/qian-duan-gong-cheng-hua-webpack-ji-ben-shi-yong/">https://iamfugui.github.io/2021/05/10/note/qian-duan-gong-cheng-hua-webpack-ji-ben-shi-yong/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">iamfugui</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%8D%B7/">
+                                    <span class="chip bg-color">卷</span>
+                                </a>
+                            
+                                <a href="/tags/webpack/">
+                                    <span class="chip bg-color">webpack</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'kaIDw2cxnayMKAN82EP5T3Ai-gzGzoHsz',
+        appKey: '9T5PEm7RJKjDgxgiaAXXCX8w',
+        serverURLs: 'https://kaidw2cx.lc-cn-n1-shared.com',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+<!--酷Q推送-->
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/05/12/note/vue-zhong-de/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="vue-中的$属性">
+                        
+                        <span class="card-title">vue-中的$属性</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-12
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/vue/" class="post-category">
+                                    vue
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/vue/">
+                        <span class="chip bg-color">vue</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/05/08/note/js-gai-nian-chang-yong-de-da-yin-fang-shi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="常用的打印方式">
+                        
+                        <span class="card-title">常用的打印方式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/js/" class="post-category">
+                                    js
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/js/">
+                        <span class="chip bg-color">js</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: iamfugui&#39; 小屋<br />'
+            + '文章作者: iamfugui<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="7498864383"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+            
+
+                <div class="container row center-align"
+                    style="margin-bottom: 15px !important;">
+                    <div class="col s12 m8 l8 copy-right">
+                        Copyright&nbsp;&copy;
+                        
+                            <span id="year">
+                                2020-2022
+                            </span>
+                            
+                                    <a href="/about" target="_blank">
+                                        iamfugui
+                                    </a>
+                                    |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+                                    |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery"
+                                        target="_blank">Matery</a>
+                                    <br>
+                                    
+                                        &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
+                                            :&nbsp;<span class="white-color">
+                                                106k
+                                            </span>
+                                            
+                                                
+                                                    
+                                                        
+                                                            
+                                                                
+                                                                    <span id="busuanzi_container_site_pv">
+                                                                        &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                                                                            <span id="busuanzi_value_site_pv"
+                                                                                class="white-color"></span>
+                                                                    </span>
+                                                                    
+                                                                        
+                                                                            <span id="busuanzi_container_site_uv">
+                                                                                &nbsp;|&nbsp;<i
+                                                                                    class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                                                                                    <span id="busuanzi_value_site_uv"
+                                                                                        class="white-color"></span>
+                                                                            </span>
+                                                                            
+                                                                                <br>
+
+                                                                                <!-- 运行天数提醒. -->
+                                                                                
+                                                                                    <span id="sitetime"> Loading
+                                                                                        ...</span>
+                                                                                    <script>
+                                                                                        var calcSiteTime = function () {
+                                                                                            var seconds = 1000;
+                                                                                            var minutes = seconds * 60;
+                                                                                            var hours = minutes * 60;
+                                                                                            var days = hours * 24;
+                                                                                            var years = days * 365;
+                                                                                            var today = new Date();
+                                                                                            var startYear = "2020";
+                                                                                            var startMonth = "8";
+                                                                                            var startDate = "14";
+                                                                                            var startHour = "12";
+                                                                                            var startMinute = "10";
+                                                                                            var startSecond = "50";
+                                                                                            var todayYear = today.getFullYear();
+                                                                                            var todayMonth = today.getMonth() + 1;
+                                                                                            var todayDate = today.getDate();
+                                                                                            var todayHour = today.getHours();
+                                                                                            var todayMinute = today.getMinutes();
+                                                                                            var todaySecond = today.getSeconds();
+                                                                                            var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                                                                                            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                                                                                            var diff = t2 - t1;
+                                                                                            var diffYears = Math.floor(diff / years);
+                                                                                            var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                                                                                            // 区分是否有年份.
+                                                                                            var language = 'zh-CN';
+                                                                                            if (startYear === String(todayYear)) {
+                                                                                                document.getElementById("year").innerHTML = todayYear;
+                                                                                                var daysTip = 'This site has been running for ' + diffDays + ' days';
+                                                                                                if (language === 'zh-CN') {
+                                                                                                    daysTip = '本站已运行 ' + diffDays + ' 天';
+                                                                                                } else if (language === 'zh-HK') {
+                                                                                                    daysTip = '本站已運行 ' + diffDays + ' 天';
+                                                                                                }
+                                                                                                document.getElementById("sitetime").innerHTML = daysTip;
+                                                                                            } else {
+                                                                                                document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                                                                                                var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                                                                                    + diffDays + ' days';
+                                                                                                if (language === 'zh-CN') {
+                                                                                                    yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                                                                                } else if (language === 'zh-HK') {
+                                                                                                    yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                                                                                }
+                                                                                                document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                                                                                            }
+                                                                                        }
+
+                                                                                        calcSiteTime();
+                                                                                    </script>
+                                                                                    
+                                                                                        <br>
+                                                                                        
+                    </div>
+                    <div class="col s12 m4 l4 social-link social-statis">
+                        
+    <a href="https://github.com/iamfugui" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:520071162@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=520071162" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 520071162" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="194589840" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

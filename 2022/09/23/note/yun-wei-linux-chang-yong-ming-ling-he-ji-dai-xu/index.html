@@ -1,0 +1,1451 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="iamfugui&#39; 小屋,iamfugui,小屋,iamfugui.github.io,博客,JavasSript,Vue,uni-app,React">
+    <meta name="description" content="杀进程
+如： 通过”netstat -anp | grep 端口号或其它信息”
+有显示： tcp 0 127.0.0.1:2121 0.0.0.0:* LISTEN 7546&amp;#x2F;ssh
+则： “kill -9 7546（PID）”
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>iamfugui&#39; 小屋</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                        <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                        
+                            <span class="logo-span">
+                                iamfugui&#39; 小屋
+                            </span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags/" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories/" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives/" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about/" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends/" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">iamfugui&#39; 小屋</div>
+        <div class="logo-desc">
+            
+            分享工作，分享生活，给世界留下足迹
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-09-23
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    10 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>杀进程</p>
+<p>如： 通过”netstat -anp | grep 端口号或其它信息”</p>
+<p>有显示： tcp 0 127.0.0.1:2121 0.0.0.0:* LISTEN 7546&#x2F;ssh</p>
+<p>则： “kill -9 7546（PID）”</p>
+<p>作为一名开发人员，不可避免的与服务器打交道，以下是我整理的一些linux常用命令:</p>
+<h1 id="添加一个名为-git-的用户"><a href="#添加一个名为-git-的用户" class="headerlink" title="添加一个名为 git 的用户"></a>添加一个名为 git 的用户</h1><p>linux 用户名建议符合[a-z_][a-z0-9_-]*[$]正则表达式，并且长度不超过 32 位</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">adduser userName<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="设置-git-用户的密码"><a href="#设置-git-用户的密码" class="headerlink" title="设置 git 用户的密码"></a>设置 git 用户的密码</h1><p>passwd git<br>复制代码<br>但是由于创建的用户权限较低，有的时候我们需要为用户提权，此时我们可以这样做：</p>
+<h1 id="会打开-sudoers-配置文件"><a href="#会打开-sudoers-配置文件" class="headerlink" title="会打开 sudoers 配置文件"></a>会打开 sudoers 配置文件</h1><p>sudo visudo<br>复制代码<br>注意同样是编辑 sudoers 配置文件，使用这个命令会比使用 sudo vim &#x2F;etc&#x2F; sudoers 更安全， 除了对语法有校验，并且还会在多用户编辑的时候锁住文件。<br>打开 sudoers 配置文件后，我们添加这样一行配置：</p>
+<h1 id="Allow-git-to-run-any-commands-anywhere"><a href="#Allow-git-to-run-any-commands-anywhere" class="headerlink" title="Allow git to run any commands anywhere"></a>Allow git to run any commands anywhere</h1><p>git ALL&#x3D;(ALL:ALL) ALL<br>复制代码<br>简单解释下这句话 git ALL&#x3D;(ALL:ALL) ALL ：</p>
+<p>git 表示规则应用的用户名<br>第一个 ALL 表示规则应用于所有 hosts<br>第二个 ALL 表示规则应用于所有 users<br>第三个 ALL 表示规则应用于所有 groups<br>第四个 ALL 表示规则应用于所有 commands</p>
+<p>我们保存退出后，git 用户就会获得 root 权限。<br>2. ls 列出文件和目录</p>
+<p>ls 列出文件和目录</p>
+<p>[root@iZ2ze learn-typescript.git]# ls<br>branches  config  description  HEAD  hooks  index  info  objects  refs<br>复制代码</p>
+<p>ls -la 由 -a 显示所有文件和目录（包括隐藏）和 -l 显示详细列表组成：</p>
+<p>[root@iZ2ze learn-typescript.git]# ls -la<br>总用量 20</p>
+<p>drwxrwxr-x  7 git git  132 12月 15 12:33 .<br>drwx——  3 git git  127 12月 15 14:51 ..<br>drwxrwxr-x  2 git git    6 12月 15 12:21 branches<br>-rw-rw-r–  1 git git   66 12月 15 12:21 config<br>-rw-rw-r–  1 git git   73 12月 15 12:21 description<br>-rw-rw-r–  1 git git   23 12月 15 12:21 HEAD<br>drwxrwxr-x  2 git git 4096 12月 15 13:10 hooks<br>-rw-rw-r–  1 git git  217 12月 15 12:33 index<br>drwxrwxr-x  2 git git   21 12月 15 12:21 info<br>drwxrwxr-x 10 git git   90 12月 15 12:33 objects<br>drwxrwxr-x  4 git git   31 12月 15 12:21 refs<br>复制代码<br>每一行都有 7 列，我们以 branches 为例讲解每列的含义：</p>
+<p>drwxrwxr-x2gitgit612月 15 12:21branches文件类型和权限信息链接数或者一级子目录数所有者所属组文件大小，单位字节最后修改时间文件名​<br>重点看第 1 列的内容，以 drwxrwxr-x 为例，这里一共 10 位，第 1 位表示文件类型，其中 - 表示普通文件，d 表示目录文件。<br>第 2 到第 4 位，表示所有者权限，其中 r 表示读权限，w 表示写权限，x 表示可执行权限， -表示无权限，第 2 到 5 位为 rwx，表示所有者可读可写可执行。<br>第 5 到第 7 位，表示组用户权限，这里也是 rwx。<br>第 8 到第 10 位，表示其他用户权限，这里是 r-x，表示有可读可执行权限，无写入权限。<br>这里再额外补充一点：<br>像 root 用户创建文件夹的默认权限为 rwxr-xr-x:<br>[root@iZ2ze www]# mkdir test<br>[root@iZ2ze www]# ls -l</p>
+<p>drwxr-xr-x  2 root root  6 12月 17 23:53 test<br>复制代码<br>而创建文件的默认权限是 rw-r–r–，注意创建文件默认会去掉 x 权限：<br>[root@iZ2ze www]# touch index.html<br>[root@iZ2ze www]# ls -l</p>
+<p>-rw-r–r–  1 root root  0 12月 17 23:54 index.html<br>复制代码<br>这就是为什么我们有的时候需要在创建文件后，又加上执行权限。<br>3. chown 更改文件属主，也可以同时更改文件属组<br>chown (change owner) 语法：</p>
+<h1 id="R：递归更改文件属组"><a href="#R：递归更改文件属组" class="headerlink" title="-R：递归更改文件属组"></a>-R：递归更改文件属组</h1><p>chown [–R] 属主名 文件名<br>chown [-R] 属主名：属组名 文件名<br>复制代码<br>将 index.html 的所有者更改为 git：<br>[root@iZ2ze www]# chown git index.html<br>[root@iZ2ze www]# ls -</p>
+<p>-rw-r–r– 1 git  root  0 12月 17 23:54 index.html<br>复制代码<br>将 index.html 的所有者和群组都改为 git：<br>[root@iZ2ze www]# chown git:git index.html<br>[root@iZ2ze www]# ls -l</p>
+<p>-rw-r–r– 1 git  git   0 12月 17 23:54 index.html<br>复制代码<br>4. chmod 更改文件权限<br>权限除了用 r w x 这种方式表示，也可以用数字表示，数字与字母的对应关系为：</p>
+<p>r:4<br>w:2<br>x:1</p>
+<p>之所有如此对应关系，主要还是为了方便推导，比如我们希望一个文件可读可写，那我们可以方便的设置权限为 6（4 + 2），同样，如果我们知道一个权限为 3，我们也可以推导出权限为可写可执行，因为只有 2 + 1 才可能等于 3。​<br>我们看下 chmod （change mode） 的具体语法：</p>
+<h1 id="R：递归更改文件属组-1"><a href="#R：递归更改文件属组-1" class="headerlink" title="-R：递归更改文件属组"></a>-R：递归更改文件属组</h1><p>chmod [-R] xyz 文件或目录<br>复制代码<br>其中 xyz 分别表示 Owner、Group、Others 的权限，如果我们这样设置一个文件的权限：<br>chmod 750 index.html<br>复制代码<br>我们可以得知，Owner 的权限为 7，为可读可写可执行，Group 的权限为 5，为可读可执行，Others 的权限为 0，表示不可读写不可执行。对应字母为：rwxr-x—。<br>除了这种数字的方式，还有一种使用符号类型改变权限的方式：<br>在这种方式里，我们将三种身份 Owner、Group、Others，分别简写为 u（User）、g、o，用 a 表示所有身份，再使用 + - &#x3D; 表示加入、去除、设定一个权限，r w x 则继续表示读，写，执行权限，举个例子：<br>chmod u+x,g-x,o-x index.html<br>复制代码<br>意思就是 Owner 加上执行权限，Group 和 Others 去除执行权限。<br>当然我们也可以直接设定权限<br>chmod u&#x3D;rwx,g&#x3D;rx,o&#x3D;r index.html<br>复制代码<br>此时文件的权限就相当于 -rwxr-xr–。<br>此外，我们还可以省略不写 ugoa 这类身份内容，直接写：<br>chmod +x index.html<br>复制代码<br>此时相当于使用了 a，会给所有身份添加执行权限。<br>5. su 切换身份</p>
+<h1 id="切换为-git-用户"><a href="#切换为-git-用户" class="headerlink" title="切换为 git 用户"></a>切换为 git 用户</h1><p>su git<br>复制代码<br>6. whoami 显示用户名</p>
+<h1 id="whoami"><a href="#whoami" class="headerlink" title="whoami"></a>whoami</h1><p>root<br>复制代码<br>7. pwd 显示当前目录<br>[git@iZ2ze www]$ pwd<br>&#x2F;home&#x2F;www<br>复制代码<br>9. cd 切换工作目录</p>
+<h1 id="进入-x2F-home-x2F-www-x2F"><a href="#进入-x2F-home-x2F-www-x2F" class="headerlink" title="进入 &#x2F;home&#x2F;www&#x2F;"></a>进入 &#x2F;home&#x2F;www&#x2F;</h1><p>cd &#x2F;home&#x2F;www</p>
+<h1 id="进入自己的主目录"><a href="#进入自己的主目录" class="headerlink" title="进入自己的主目录"></a>进入自己的主目录</h1><p>cd ~</p>
+<h1 id="进入当前目录的上上两层"><a href="#进入当前目录的上上两层" class="headerlink" title="进入当前目录的上上两层 :"></a>进入当前目录的上上两层 :</h1><p>cd ..&#x2F;..<br>复制代码<br>10. mkdir 创建目录</p>
+<p>mkdir 创建目录：</p>
+<p>mkdir new_folder<br>复制代码</p>
+<p>mkdir -p 递归创建目录：</p>
+<p>mkdir -p one&#x2F;two&#x2F;three<br>复制代码<br>11. touch 创建文件<br>用于修改文件或者目录的时间属性，当文件不存在，系统会创建空白文件<br>touch new_file<br>复制代码<br>12. echo 打印输出<br>echo 是 Shell 命令，用于打印输出：</p>
+<h1 id="显示转义字符"><a href="#显示转义字符" class="headerlink" title="显示转义字符"></a>显示转义字符</h1><p>echo “&quot;test content&quot;“<br>复制代码<br>创建或覆盖文件内容为 “test content”：<br>echo “test content” &gt; index.html<br>复制代码<br>如果是想追加内容，就用 &gt;&gt; ：<br>[root@iZ2ze www]# echo “test content” &gt; index.html<br>[root@iZ2ze www]# cat index.html<br>test content<br>[root@iZ2ze www]# echo “test content” &gt;&gt; index.html<br>[root@iZ2ze www]# cat index.html<br>test content<br>test content<br>复制代码<br>13. cat 连接文件并打印输出<br>查看文件内容：<br>cat ~&#x2F;.ssh&#x2F;id_rsa.pub<br>复制代码<br>清空 index.html 内容：<br>cat &#x2F;dev&#x2F;null &gt; index.html<br>复制代码<br>把 index.html 的内容写入 second.html：<br>cat index.html &gt; second.html<br>复制代码<br>把 index.html 的内容追加写入 second.html：<br>cat index.html &gt;&gt; second.html<br>复制代码<br>把 index.html 和 second.html 追加写入 third.html：<br>cat index.html second.html &gt;&gt; third.html<br>复制代码<br>14. cp 复制文件或目录<br>将目录 website&#x2F; 下的所有文件复制到新目录 static 下：</p>
+<h1 id="r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。"><a href="#r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。" class="headerlink" title="-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。"></a>-r：若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。</h1><p>cp –r website&#x2F; static<br>复制代码<br>15. mv 移动并重命名<br>文件改名：<br>mv index.html index2.html<br>复制代码<br>隐藏文件：</p>
+<h1 id="文件名上加上"><a href="#文件名上加上" class="headerlink" title="文件名上加上 ."></a>文件名上加上 .</h1><p>mv index.html .index.html<br>复制代码<br>移动文件：</p>
+<h1 id="仅仅移动"><a href="#仅仅移动" class="headerlink" title="仅仅移动"></a>仅仅移动</h1><p>mv  &#x2F;home&#x2F;www&#x2F;index.html   &#x2F;home&#x2F;static&#x2F;</p>
+<h1 id="移动又重命名"><a href="#移动又重命名" class="headerlink" title="移动又重命名"></a>移动又重命名</h1><p>mv &#x2F;home&#x2F;www&#x2F;index.html   &#x2F;home&#x2F;static&#x2F;index2.html<br>复制代码<br>批量移动：<br>mv  &#x2F;home&#x2F;www&#x2F;website&#x2F;*  &#x2F;home&#x2F;www&#x2F;static<br>复制代码<br>16. rm 删除一个文件或者目录</p>
+<h1 id="系统会询问"><a href="#系统会询问" class="headerlink" title="系统会询问"></a>系统会询问</h1><p>rm file</p>
+<h1 id="f-表示直接删除"><a href="#f-表示直接删除" class="headerlink" title="-f 表示直接删除"></a>-f 表示直接删除</h1><h1 id="r-表示目录下的所有文件删除"><a href="#r-表示目录下的所有文件删除" class="headerlink" title="-r 表示目录下的所有文件删除"></a>-r 表示目录下的所有文件删除</h1><h1 id="删除当前目录下的所有文件及目录"><a href="#删除当前目录下的所有文件及目录" class="headerlink" title="删除当前目录下的所有文件及目录"></a>删除当前目录下的所有文件及目录</h1><p>rm -r  * </p>
+<h1 id="跑路"><a href="#跑路" class="headerlink" title="跑路"></a>跑路</h1><p>rm -rf &#x2F;*<br>复制代码<br>17. vi&#x2F;vim<br>Linux 内建 vi 文书编辑器，Vim 是从 vi 发展出来的一个文本编辑器。<br>基本上 vi&#x2F;vim 共分为三种模式，分别是命令模式（Command mode），输入模式（Insert mode）和底线命令模式（Last line mode）。我们边操作边介绍这三种模式：<br>​<br>我们执行 vim index.html，如果没有该文件，则会创建文件：<br>vim index.html<br>复制代码<br>此时界面为：</p>
+<p>此时是命令模式，在命令模式下，输入的任何字符都会被视为命令，接下来几个常用的命令：​</p>
+<dl><dt>i  切换到输入模式。<br>x 删除当前光标所在处的字符。</dt><dd>切换到底线命令模式。</dd></dl><p>我们按下 i，便会进入输入模式：</p>
+<p>输入模式下，左下角有 – INSERT – 标志：<br>此时我们可以进行各种输入，当输入完毕后，按下 ESC 回到命令模式：</p>
+<p>此时左下角的 INSERT已经消失不见了，如果我们要保存退出，我们先输入 : ，进入底线命令模式：</p>
+<p>在底线命令模式中，常见的命令有：</p>
+<p>w 保存文件<br>q 退出程序</p>
+<p>我们输入 wq，表示保存并退出，此时我们就会发现并创建了一个 HTML 文件。<br>18. ssh 远程连接工具<br>注意 ssh 监听是 22 端口。<br>其基本语法为：<br>ssh [OPTIONS] [-p PORT] [USER@]HOSTNAME [COMMAND]<br>复制代码<br>监听端口示例：<br>ssh -p 300 <a href="mailto:&#103;&#x69;&#x74;&#x40;&#x38;&#x2e;&#56;&#46;&#56;&#46;&#56;">&#103;&#x69;&#x74;&#x40;&#x38;&#x2e;&#56;&#46;&#56;&#46;&#56;</a><br>复制代码<br>打开调试模式：</p>
+<h1 id="v-冗详模式，打印关于运行情况的调试信息"><a href="#v-冗详模式，打印关于运行情况的调试信息" class="headerlink" title="-v 冗详模式，打印关于运行情况的调试信息"></a>-v 冗详模式，打印关于运行情况的调试信息</h1><p>ssh -v <a href="mailto:&#x67;&#x69;&#x74;&#x40;&#56;&#46;&#x38;&#x2e;&#x38;&#46;&#56;">&#x67;&#x69;&#x74;&#x40;&#56;&#46;&#x38;&#x2e;&#x38;&#46;&#56;</a></p>
+<p>作者：冴羽<br>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7044099175838908424">https://juejin.cn/post/7044099175838908424</a><br>来源：稀土掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">iamfugui</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://iamfugui.github.io/2022/09/23/note/yun-wei-linux-chang-yong-ming-ling-he-ji-dai-xu/">https://iamfugui.github.io/2022/09/23/note/yun-wei-linux-chang-yong-ming-ling-he-ji-dai-xu/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">iamfugui</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'kaIDw2cxnayMKAN82EP5T3Ai-gzGzoHsz',
+        appKey: '9T5PEm7RJKjDgxgiaAXXCX8w',
+        serverURLs: 'https://kaidw2cx.lc-cn-n1-shared.com',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+<!--酷Q推送-->
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/09/24/note/readme/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            iamfugui
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/09/21/note/js-mian-shi-z-zai-zi-fu-chuan-zai-zhao-dao-chu-zui-duo-chu-xian-zi-fu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="在字符串找到出最多出现字符">
+                        
+                        <span class="card-title">在字符串找到出最多出现字符</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/js/" class="post-category">
+                                    js
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%8D%B7/">
+                        <span class="chip bg-color">卷</span>
+                    </a>
+                    
+                    <a href="/tags/js/">
+                        <span class="chip bg-color">js</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: iamfugui&#39; 小屋<br />'
+            + '文章作者: iamfugui<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="7498864383"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+            
+
+                <div class="container row center-align"
+                    style="margin-bottom: 15px !important;">
+                    <div class="col s12 m8 l8 copy-right">
+                        Copyright&nbsp;&copy;
+                        
+                            <span id="year">
+                                2020-2022
+                            </span>
+                            
+                                    <a href="/about" target="_blank">
+                                        iamfugui
+                                    </a>
+                                    |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+                                    |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery"
+                                        target="_blank">Matery</a>
+                                    <br>
+                                    
+                                        &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
+                                            :&nbsp;<span class="white-color">
+                                                106k
+                                            </span>
+                                            
+                                                
+                                                    
+                                                        
+                                                            
+                                                                
+                                                                    <span id="busuanzi_container_site_pv">
+                                                                        &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                                                                            <span id="busuanzi_value_site_pv"
+                                                                                class="white-color"></span>
+                                                                    </span>
+                                                                    
+                                                                        
+                                                                            <span id="busuanzi_container_site_uv">
+                                                                                &nbsp;|&nbsp;<i
+                                                                                    class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                                                                                    <span id="busuanzi_value_site_uv"
+                                                                                        class="white-color"></span>
+                                                                            </span>
+                                                                            
+                                                                                <br>
+
+                                                                                <!-- 运行天数提醒. -->
+                                                                                
+                                                                                    <span id="sitetime"> Loading
+                                                                                        ...</span>
+                                                                                    <script>
+                                                                                        var calcSiteTime = function () {
+                                                                                            var seconds = 1000;
+                                                                                            var minutes = seconds * 60;
+                                                                                            var hours = minutes * 60;
+                                                                                            var days = hours * 24;
+                                                                                            var years = days * 365;
+                                                                                            var today = new Date();
+                                                                                            var startYear = "2020";
+                                                                                            var startMonth = "8";
+                                                                                            var startDate = "14";
+                                                                                            var startHour = "12";
+                                                                                            var startMinute = "10";
+                                                                                            var startSecond = "50";
+                                                                                            var todayYear = today.getFullYear();
+                                                                                            var todayMonth = today.getMonth() + 1;
+                                                                                            var todayDate = today.getDate();
+                                                                                            var todayHour = today.getHours();
+                                                                                            var todayMinute = today.getMinutes();
+                                                                                            var todaySecond = today.getSeconds();
+                                                                                            var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                                                                                            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                                                                                            var diff = t2 - t1;
+                                                                                            var diffYears = Math.floor(diff / years);
+                                                                                            var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                                                                                            // 区分是否有年份.
+                                                                                            var language = 'zh-CN';
+                                                                                            if (startYear === String(todayYear)) {
+                                                                                                document.getElementById("year").innerHTML = todayYear;
+                                                                                                var daysTip = 'This site has been running for ' + diffDays + ' days';
+                                                                                                if (language === 'zh-CN') {
+                                                                                                    daysTip = '本站已运行 ' + diffDays + ' 天';
+                                                                                                } else if (language === 'zh-HK') {
+                                                                                                    daysTip = '本站已運行 ' + diffDays + ' 天';
+                                                                                                }
+                                                                                                document.getElementById("sitetime").innerHTML = daysTip;
+                                                                                            } else {
+                                                                                                document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                                                                                                var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                                                                                    + diffDays + ' days';
+                                                                                                if (language === 'zh-CN') {
+                                                                                                    yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                                                                                } else if (language === 'zh-HK') {
+                                                                                                    yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                                                                                }
+                                                                                                document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                                                                                            }
+                                                                                        }
+
+                                                                                        calcSiteTime();
+                                                                                    </script>
+                                                                                    
+                                                                                        <br>
+                                                                                        
+                    </div>
+                    <div class="col s12 m4 l4 social-link social-statis">
+                        
+    <a href="https://github.com/iamfugui" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:520071162@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=520071162" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 520071162" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="194589840" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
