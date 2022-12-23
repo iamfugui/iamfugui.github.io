@@ -4,10 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="token的使用, iamfugui&#39; 小屋,iamfugui,小屋,iamfugui.github.io,博客,JavasSript,Vue,uni-app,React">
-    <meta name="description" content="token的使用token是用于鉴权的标识符
-1. token的生成token由后端生成
-2. 如何判断token有效期1.如果存在cookie，可以设置cookie有效期，让cookie过期2.如果是localStorage，交给后端判断">
+    <meta name="keywords" content="session和token的使用, iamfugui&#39; 小屋,iamfugui,小屋,iamfugui.github.io,博客,JavasSript,Vue,uni-app,React">
+    <meta name="description" content="cookie在移动端兼容性不好，跨域也存在问题
+session的使用session存在于服务端内存，需要前端的cookie，也就是session-id配合获取信息
+1. session的生成session由后端生成，并会设置响应头Set-C">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>token的使用 | iamfugui&#39; 小屋</title>
+    <title>session和token的使用 | iamfugui&#39; 小屋</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -265,12 +265,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">token的使用</h1>
+                    <h1 class="description center-align post-title">session和token的使用</h1>
                 </div>
             </div>
         </div>
@@ -296,6 +296,10 @@
                         
                             <a href="/tags/%E5%8D%B7/">
                                 <span class="chip bg-color">卷</span>
+                            </a>
+                        
+                            <a href="/tags/session/">
+                                <span class="chip bg-color">session</span>
                             </a>
                         
                             <a href="/tags/%E6%A6%82%E5%BF%B5/">
@@ -336,7 +340,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    59
+                    453
                 </div>
                 
 
@@ -361,9 +365,24 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="token的使用"><a href="#token的使用" class="headerlink" title="token的使用"></a>token的使用</h2><p>token是用于鉴权的标识符</p>
+                <p>cookie在移动端兼容性不好，跨域也存在问题</p>
+<h2 id="session的使用"><a href="#session的使用" class="headerlink" title="session的使用"></a>session的使用</h2><p>session存在于服务端内存，需要前端的cookie，也就是session-id配合获取信息</p>
+<h3 id="1-session的生成"><a href="#1-session的生成" class="headerlink" title="1. session的生成"></a>1. session的生成</h3><p>session由后端生成，并会设置响应头Set-Cookie发送到浏览器或者其他客户端的一些信息,一般用于登陆成功的情况下返回给客户端的凭证信息,然后下次请求时会带上这个cookie,这样就能完成鉴权</p>
+<h3 id="2-如何判断session有效期"><a href="#2-如何判断session有效期" class="headerlink" title="2. 如何判断session有效期"></a>2. 如何判断session有效期</h3><p>1.后端可以设置session有效期，当然也能设置cookie的</p>
+<h2 id="token的使用"><a href="#token的使用" class="headerlink" title="token的使用"></a>token的使用</h2><p>token是用于鉴权的标识符</p>
 <h3 id="1-token的生成"><a href="#1-token的生成" class="headerlink" title="1. token的生成"></a>1. token的生成</h3><p>token由后端生成</p>
 <h3 id="2-如何判断token有效期"><a href="#2-如何判断token有效期" class="headerlink" title="2. 如何判断token有效期"></a>2. 如何判断token有效期</h3><p>1.如果存在cookie，可以设置cookie有效期，让cookie过期<br>2.如果是localStorage，交给后端判断</p>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><p>token往往更有优势，session在移动端兼容性不好，跨域也存在问题。</p>
+<p>例如，微信小程序就没有cookie，那它怎么可能会依据响应头来设置呢？</p>
+<p>例如，我们请求<a target="_blank" rel="noopener" href="https://www.google.com/">https://www.google.com/</a>时，浏览器会自动把google.com的Cookie带过去给google的服务器，而不会把<a target="_blank" rel="noopener" href="https://www.baidu.com/">https://www.baidu.com/</a>的Cookie带过去给google的服务器。<br>这就意味着，由于域名不同，用户向系统A登录后，系统A返回给浏览器的Cookie，用户再请求系统B的时候不会将系统A的Cookie带过去。<br>针对Cookie存在跨域问题，有几种解决方案：</p>
+<ul>
+<li><p>服务端将Cookie写到客户端后，客户端对Cookie进行解析，将Token解析出来，此后请求都把这个Token带上就行了</p>
+</li>
+<li><p>后端配置CORS时允许其跨域域名携带cookie</p>
+</li>
+<li><p>将token保存在SessionStroage中，不依赖Cookie就没有跨域的问题了。</p>
+</li>
+</ul>
 
                 
             </div>
@@ -430,6 +449,10 @@
                             
                                 <a href="/tags/%E5%8D%B7/">
                                     <span class="chip bg-color">卷</span>
+                                </a>
+                            
+                                <a href="/tags/session/">
+                                    <span class="chip bg-color">session</span>
                                 </a>
                             
                                 <a href="/tags/%E6%A6%82%E5%BF%B5/">
@@ -1125,7 +1148,7 @@
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                106.8k
+                                                114.7k
                                             </span>
                                             
                                                 

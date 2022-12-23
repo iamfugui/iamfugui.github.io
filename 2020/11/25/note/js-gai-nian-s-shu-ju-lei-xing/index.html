@@ -5,12 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="数据类型, iamfugui&#39; 小屋,iamfugui,小屋,iamfugui.github.io,博客,JavasSript,Vue,uni-app,React">
-    <meta name="description" content="&amp;lt;!DOCTYPE html&gt;
-&amp;lt;html lang=&#34;en&#34;&gt;
-
-&amp;lt;head&gt;
-    &amp;lt;meta charset=&#34;UTF-8&#34;&gt;
-    &amp;lt;meta http-equiv=&#34;X-UA-Compatible">
+    <meta name="description" content="数据类型如下：
+String Number null undefined Boolean Object Symbol Bigint
+JS是基于对象的语言除了null和undefined都基于Object
+基本数据基本数据类型存于栈  以栈[">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -335,7 +333,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    273
+                    405
                 </div>
                 
 
@@ -360,36 +358,25 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+                <p>数据类型如下：</p>
+<p>String Number null undefined Boolean Object Symbol Bigint</p>
+<p>JS是基于对象的语言除了null和undefined都基于Object</p>
+<h2 id="基本数据"><a href="#基本数据" class="headerlink" title="基本数据"></a>基本数据</h2><p>基本数据类型存于栈  以栈[变量,值]的形式 它们之间是相互独立的，修改一个变量不会影响其他的变量。需要注意的是 长字符串与双精度的数字是会被放到堆中的（可以f12控制台录制堆内存测试）</p>
+<p>基本类型是不可变的(immutable),只有对象是可变的(mutable). 有时我们会尝试“改变”字符串的内容,但在JS中,任何看似对string值的”修改”操作,实际都是创建新的string值。任何方法都无法改变一个基本类型的值 </p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+<span class="token comment">// (1)创建一个值（基本类型值直接存储在栈内存中即可）；</span>
+<span class="token comment">// (2)创建一个变量a ，把其储存到VO（GLOBAL）中；</span>
+<span class="token comment">// (3)让创建的变量a 和创建的值12 关联在一起 => =赋值的操作</span>
+<span class="token keyword">let</span> b <span class="token operator">=</span> a<span class="token punctuation">;</span>
+<span class="token comment">// 创建一个变量b，让其和a的值12关联</span>
+b <span class="token operator">=</span> <span class="token number">13</span><span class="token punctuation">;</span>
+<span class="token comment">// (1)创建一个值13,</span>
+<span class="token comment">// (2)让创建的变量b 和创建的值13 关联在一起 => =赋值的操作</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Document<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<p><img src="https://qiniu.guet.link/asset/202212211535928.png"></p>
+<h2 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h2><p>引用数据类型内容存于堆 以栈[变量,堆地址] &#x3D;》堆[内容]的形式 如果两个变量堆地址相同 那么某个变量修改变量属性时，另一个变量也会被影响</p>
+<p>对于引用数组类型重新赋值 相当于改变可堆地址 是不会影响到之前的堆内容的</p>
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
-        <span class="token comment">//String Number null undefined Boolean Object Symbol Bigint</span>
-
-        <span class="token comment">//JS是基于对象的语言除了null和undefined都基于Object</span>
-
-        <span class="token comment">//基本类型是不可变的(immutable),只有对象是可变的(mutable). 有时我们会尝试“改变”字符串的内容,但在JS中,任何看似对string值的"修改"操作,实际都是创建新的string值。任何方法都无法改变一个基本类型的值</span>
-
-        <span class="token comment">//基本数据类型存于栈     以栈[变量,值]     的形式 值和值之间是相互独立的</span>
-
-        <span class="token comment">//引用数据类型内容存于堆 以栈[变量,堆地址] =》堆[内容]的形式 如果两个变量堆地址相同 那么某个变量修改变量属性时，另一个变量也会被影响</span>
-
-        <span class="token comment">//对于引用数组类型重新赋值 相当于改变可堆地址 是不会影响到之前的堆内容的</span>
-
-
-
-    </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
-
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -1142,7 +1129,7 @@
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                106.8k
+                                                114.7k
                                             </span>
                                             
                                                 

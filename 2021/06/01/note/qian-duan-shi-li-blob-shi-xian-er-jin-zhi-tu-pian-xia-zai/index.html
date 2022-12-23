@@ -331,7 +331,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    304
+                    311
                 </div>
                 
 
@@ -375,7 +375,7 @@
         <span class="token comment">// 背景：</span>
         <span class="token comment">// 我看了一下报文，后端同样要配置响应头access-control-allow-origin: *</span>
         <span class="token comment">// 也就是说a标签的download属性不管你后端允许不允许跨域请求，只要你跨域了就会跳转到图片站点</span>
-        <span class="token comment">// 而xhr需要后端允许跨域访问，拿到二进制数组，在前端映射url完成下载</span>
+        <span class="token comment">// 而xhr需要后端允许跨域访问，拿到二进制数组，在前端映射url，通过download属性声明 完成下载</span>
 
         <span class="token keyword">function</span> <span class="token function">Download</span><span class="token punctuation">(</span><span class="token parameter">url</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
             <span class="token keyword">const</span> <span class="token constant">XHR</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1087,7 +1087,7 @@
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                106.8k
+                                                114.7k
                                             </span>
                                             
                                                 

@@ -1,0 +1,1645 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="常见问题总结, iamfugui&#39; 小屋,iamfugui,小屋,iamfugui.github.io,博客,JavasSript,Vue,uni-app,React">
+    <meta name="description" content="HTML51、HTML5的新特性？
+1、语义化标签，比如header、footer、main、article、section、nav、aside、hgroup、figure、figcaption
+
+a)这些功能都可以用div来实现，使用新标">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>常见问题总结 | iamfugui&#39; 小屋</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                        <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                        
+                            <span class="logo-span">
+                                iamfugui&#39; 小屋
+                            </span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags/" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories/" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives/" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about/" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends/" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">iamfugui&#39; 小屋</div>
+        <div class="logo-desc">
+            
+            分享工作，分享生活，给世界留下足迹
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '8f503367ee193c14e74be0f22ffa8b136cf41dee59fa91c67e8512d3b9c29298';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">常见问题总结</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/css/">
+                                <span class="chip bg-color">css</span>
+                            </a>
+                        
+                            <a href="/tags/html/">
+                                <span class="chip bg-color">html</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%80%BB%E7%BB%93/">
+                                <span class="chip bg-color">总结</span>
+                            </a>
+                        
+                            <a href="/tags/js/">
+                                <span class="chip bg-color">js</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A8%8B/" class="post-category">
+                                前端编程
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-12-23
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    7 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h2><h3 id="1、HTML5的新特性？"><a href="#1、HTML5的新特性？" class="headerlink" title="1、HTML5的新特性？"></a>1、HTML5的新特性？</h3><ul>
+<li>1、语义化标签，比如header、footer、main、article、section、nav、aside、hgroup、figure、figcaption</li>
+</ul>
+<p>a)这些功能都可以用div来实现，使用新标签，可以让页面更清晰，语意化<br>b)hgroup 大小标题组<br>c)article 独立内容<br>d)aside 辅助内容(侧边推荐这种)<br>e)section和article相似（常存在于article之中，代表每一项）<br>f)figure描述图像视频<br>g)figcaption描述图像视频标题（常被框于figure中）<br>r)略</p>
+<ul>
+<li>2、音视频，比如audio、video</li>
+<li>3、画布canvas、矢量图svg</li>
+<li>3、画布，canvas的api有getContext、fillStyle、fillRect等</li>
+<li>4、本地存储localStorage、sessionStorage</li>
+<li>5、web worker</li>
+</ul>
+<h3 id="2、语义化的好处？"><a href="#2、语义化的好处？" class="headerlink" title="2、语义化的好处？"></a>2、语义化的好处？</h3><ul>
+<li>1、代码分块清晰，便于维护</li>
+<li>2、页面结构清晰，便于浏览器、搜索引擎解析</li>
+<li>3、利于搜索引擎的爬取，利于SEO</li>
+</ul>
+<h3 id="3、canvas的常用api有哪些？"><a href="#3、canvas的常用api有哪些？" class="headerlink" title="3、canvas的常用api有哪些？"></a>3、canvas的常用api有哪些？</h3><ul>
+<li>getContext：返回一个指定canvas的绘画环境对象</li>
+<li>beginPath：开始绘制</li>
+<li>moveTo：移动画笔位置</li>
+<li>lineTo：用来画线段</li>
+<li>stroke：用来实施绘制的操作</li>
+<li>lineStyle：设置线段的样式</li>
+<li>closePath：结束绘制</li>
+</ul>
+<h3 id="4、web-worker有什么作用？应用场景有哪些？（新难）"><a href="#4、web-worker有什么作用？应用场景有哪些？（新难）" class="headerlink" title="4、web worker有什么作用？应用场景有哪些？（新难）"></a>4、web worker有什么作用？应用场景有哪些？（新难）</h3><p>开启一个子线程，且子线程的操作不受主线程的影响</p>
+<ul>
+<li>大数据处理</li>
+<li>耗费时间较长的操作</li>
+</ul>
+<h3 id="5、浏览器本地缓存localStorage与sessionStorage的区别？"><a href="#5、浏览器本地缓存localStorage与sessionStorage的区别？" class="headerlink" title="5、浏览器本地缓存localStorage与sessionStorage的区别？"></a>5、浏览器本地缓存localStorage与sessionStorage的区别？</h3><ul>
+<li>生命周期不同：前者一直存在浏览器，除非用户手动清除，后者生命周期结束于浏览器或者tab页的关闭</li>
+</ul>
+<h2 id="CSS3"><a href="#CSS3" class="headerlink" title="CSS3"></a>CSS3</h2><h3 id="1、有哪些新特性呢？"><a href="#1、有哪些新特性呢？" class="headerlink" title="1、有哪些新特性呢？"></a>1、有哪些新特性呢？</h3><p>flex、animation、transform、border-radius、box-shadow、opacity</p>
+<h3 id="2、背景毛玻璃的效果如何实现呢？"><a href="#2、背景毛玻璃的效果如何实现呢？" class="headerlink" title="2、背景毛玻璃的效果如何实现呢？"></a>2、背景毛玻璃的效果如何实现呢？</h3><p>filter：blur()</p>
+<h3 id="3、position有哪几种呢？"><a href="#3、position有哪几种呢？" class="headerlink" title="3、position有哪几种呢？"></a>3、position有哪几种呢？</h3><ul>
+<li>static：默认</li>
+<li>relative：相对于自身</li>
+<li>absolute：相对于最近的一个非static的祖先级元素进行定位</li>
+<li>fixed：相对于屏幕窗口进行定位</li>
+<li>sticky：用来实现吸顶效果</li>
+</ul>
+<h3 id="4、如何自己实现跟position：sticky的效果？"><a href="#4、如何自己实现跟position：sticky的效果？" class="headerlink" title="4、如何自己实现跟position：sticky的效果？"></a>4、如何自己实现跟position：sticky的效果？</h3><p>&#x2F;&#x2F;使用getBoundingClientRect或者IntersectionObserver计算指定元素位置，到达一定距离更改指定元素定位为fixed，从而实现sticky的效果</p>
+<h3 id="5、重绘回流是什么呢？"><a href="#5、重绘回流是什么呢？" class="headerlink" title="5、重绘回流是什么呢？"></a>5、重绘回流是什么呢？</h3><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6986416221323264030">文章链接</a></p>
+<h3 id="6、怎么降低重绘回流的次数呢？"><a href="#6、怎么降低重绘回流的次数呢？" class="headerlink" title="6、怎么降低重绘回流的次数呢？"></a>6、怎么降低重绘回流的次数呢？</h3><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6986416221323264030">文章链接</a></p>
+<h3 id="7、flex布局如何更改主轴方向？"><a href="#7、flex布局如何更改主轴方向？" class="headerlink" title="7、flex布局如何更改主轴方向？"></a>7、flex布局如何更改主轴方向？</h3><p>设置flex-direction样式属性</p>
+<h3 id="8、flex布局如何允许换行呢？"><a href="#8、flex布局如何允许换行呢？" class="headerlink" title="8、flex布局如何允许换行呢？"></a>8、flex布局如何允许换行呢？</h3><p>设置flex-wrap样式属性</p>
+<h3 id="9、flex布局实现水平垂直据居中？"><a href="#9、flex布局实现水平垂直据居中？" class="headerlink" title="9、flex布局实现水平垂直据居中？"></a>9、flex布局实现水平垂直据居中？</h3><p>设置justify-content和align-items都为center</p>
+<h3 id="10、flex：1的原理是什么呢？"><a href="#10、flex：1的原理是什么呢？" class="headerlink" title="10、flex：1的原理是什么呢？"></a>10、flex：1的原理是什么呢？</h3><p>flex-grow 、flex-shrink 、flex-basis这三个样式的合集，全写状态为flex:0 1 auto，简写为flex: 1</p>
+<h3 id="11、rem与em的区别是什么呢？"><a href="#11、rem与em的区别是什么呢？" class="headerlink" title="11、rem与em的区别是什么呢？"></a>11、rem与em的区别是什么呢？</h3><ul>
+<li>rem：相对于<html>标签的font-size去决定大小，例如html标签font-size为14px，则2rem &#x3D;&#x3D;&#x3D; 28px</li>
+<li>em：相对于自身的font-size去决定大小，自身没有font-size则继承祖先级元素的font-size</li>
+</ul>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><h3 id="1、原型链是什么呢？有什么作用吗"><a href="#1、原型链是什么呢？有什么作用吗" class="headerlink" title="1、原型链是什么呢？有什么作用吗"></a>1、原型链是什么呢？有什么作用吗</h3><ul>
+<li>原型链：原型链是一条对象隐式原型不断往上指向的一条指向链，尽头是Object的隐式原型，也就是null</li>
+<li>作用：构造函数原型上的东西可以让实例们共享，从而节省了空间</li>
+</ul>
+<h3 id="2、闭包是什么？有什么优缺点"><a href="#2、闭包是什么？有什么优缺点" class="headerlink" title="2、闭包是什么？有什么优缺点(*************)"></a>2、闭包是什么？有什么优缺点(*************)</h3><p>闭包是一个能让函数外部访问到函数内部的一个函数</p>
+<ul>
+<li>优点是：延长函数内部变量的寿命，使函数外部能访问到函数内部</li>
+<li>缺点是：滥用闭包导致内存溢出，页面卡顿</li>
+</ul>
+<h3 id="3、JavaScript总共有几种数据类型？"><a href="#3、JavaScript总共有几种数据类型？" class="headerlink" title="3、JavaScript总共有几种数据类型？"></a>3、JavaScript总共有几种数据类型？</h3><p>字符串、布尔值、数值、undefined、null、object、symbol、bigInt</p>
+<h3 id="4、JavaScript判断类型的方式是什么？"><a href="#4、JavaScript判断类型的方式是什么？" class="headerlink" title="4、JavaScript判断类型的方式是什么？"></a>4、JavaScript判断类型的方式是什么？</h3><ul>
+<li>typeof：只能判断 字符串、布尔值、数值、undefined、function、object、symbol、bigInt，不能区分判断 数组、null、对象</li>
+<li>A instanceof B：判断A是否为B的实例对象，从而判断A是否为B类型</li>
+<li>Object.prototype.toString.call()：可以判断所有的数据类型</li>
+</ul>
+<h3 id="6、JavaScript不同类型的存储方式有何区别？"><a href="#6、JavaScript不同类型的存储方式有何区别？" class="headerlink" title="6、JavaScript不同类型的存储方式有何区别？"></a>6、JavaScript不同类型的存储方式有何区别？</h3><p>普遍认为</p>
+<ul>
+<li>基础数据类型存于栈内存</li>
+<li>引用数据类型存于堆内存<br>我认为</li>
+<li>超过栈内存容量</li>
+</ul>
+<h3 id="7、你说字符串存储在栈内存，那如果字符串很长。超过了栈内存最大容量呢？"><a href="#7、你说字符串存储在栈内存，那如果字符串很长。超过了栈内存最大容量呢？" class="headerlink" title="7、你说字符串存储在栈内存，那如果字符串很长。超过了栈内存最大容量呢？"></a>7、你说字符串存储在栈内存，那如果字符串很长。超过了栈内存最大容量呢？</h3><p>所以说我觉得所有数据都存于堆内存，毕竟栈内存容量有限。</p>
+<h3 id="8、call、apply、bind的区别？"><a href="#8、call、apply、bind的区别？" class="headerlink" title="8、call、apply、bind的区别？***********"></a>8、call、apply、bind的区别？***********</h3><ul>
+<li>call于apply的区别在于传参，前者直接传参，后者传一个数组</li>
+<li>bind传参后不立即执行，而是会返回一个函数，这个函数可以继续传参，且执行（bind函数可以分两次传参）</li>
+</ul>
+<h3 id="9、bind返回的函数能作为构造函数吗？"><a href="#9、bind返回的函数能作为构造函数吗？" class="headerlink" title="9、bind返回的函数能作为构造函数吗？***********"></a>9、bind返回的函数能作为构造函数吗？***********</h3><p>不能哦，会报错的</p>
+<h3 id="10、赋值、深拷贝与浅拷贝有什么不同？"><a href="#10、赋值、深拷贝与浅拷贝有什么不同？" class="headerlink" title="10、赋值、深拷贝与浅拷贝有什么不同？"></a>10、赋值、深拷贝与浅拷贝有什么不同？</h3><ul>
+<li>赋值：赋值指针指向，还是用的同一个内存空间</li>
+<li>浅拷贝：只拷贝第一层</li>
+<li>深拷贝：所有层都会进行拷贝</li>
+</ul>
+<h3 id="11、怎么判断一个对象有环引用呢？"><a href="#11、怎么判断一个对象有环引用呢？" class="headerlink" title="11、怎么判断一个对象有环引用呢？***********"></a>11、怎么判断一个对象有环引用呢？***********</h3><p>定义一个空数组，且对于目标对象进行递归，每次都判断递归项是否为对象，是的话放进数组，且每次判断属性值是否在数组里，在的话说明环引用了</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">cycleDetector</span><span class="token punctuation">(</span><span class="token parameter">obj</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span>obj<span class="token punctuation">]</span>
+    <span class="token keyword">let</span> flag <span class="token operator">=</span> <span class="token boolean">false</span>
+
+    <span class="token keyword">function</span> <span class="token function">cycle</span><span class="token punctuation">(</span><span class="token parameter">o</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">const</span> keys <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> key <span class="token keyword">of</span> keys<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">const</span> temp <span class="token operator">=</span> o<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> temp <span class="token operator">===</span> <span class="token string">'object'</span> <span class="token operator">&amp;&amp;</span> temp <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>arr<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span> <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    flag <span class="token operator">=</span> <span class="token boolean">true</span>
+                    <span class="token keyword">return</span>
+                <span class="token punctuation">&#125;</span>
+                arr<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span>
+                <span class="token function">cycle</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token function">cycle</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> flag
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><h3 id="1、let、const的暂时性死区问题？"><a href="#1、let、const的暂时性死区问题？" class="headerlink" title="1、let、const的暂时性死区问题？***********"></a>1、let、const的暂时性死区问题？***********</h3><p>在一个作用域里如果存在let、const定义的一个变量之前使用该变量，则报错“cannot access xx before initialization”</p>
+<h3 id="2、Promise的then为什么可以链式调用？"><a href="#2、Promise的then为什么可以链式调用？" class="headerlink" title="2、Promise的then为什么可以链式调用？"></a>2、Promise的then为什么可以链式调用？</h3><p>Promise的then方法返回一个新的Promise对象，保证了then方法可以进行链式调用</p>
+<h3 id="3、async-x2F-await的用法？"><a href="#3、async-x2F-await的用法？" class="headerlink" title="3、async&#x2F;await的用法？"></a>3、async&#x2F;await的用法？</h3><ul>
+<li>async&#x2F;await的作用是：以同步的方式执行异步操作，实现排队效果</li>
+<li>async：async函数执行返回一个Promise</li>
+<li>await：await后接Promise则会等待Promise返回结果，接普通函数执行则会接收返回结果</li>
+<li>await只能在async中使用，但是浏览器调试中await可单独使用</li>
+</ul>
+<h3 id="4、Class的静态属性、继承？"><a href="#4、Class的静态属性、继承？" class="headerlink" title="4、Class的静态属性、继承？"></a>4、Class的静态属性、继承？</h3><ul>
+<li>静态属性：static关键字定义的变量属性，只能通过Class构造函数的属性的方式去访问</li>
+<li>继承：使用 Child extends Father {}，且配合super对象，完成继承</li>
+</ul>
+<h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><h3 id="1、Vue与React的区别在哪？"><a href="#1、Vue与React的区别在哪？" class="headerlink" title="1、Vue与React的区别在哪？"></a>1、Vue与React的区别在哪？</h3><p>比较的是Vue2<br>相同点：</p>
+<ul>
+<li>1.都使用了虚拟dom</li>
+<li>2.组件化开发</li>
+<li>3.都是单向数据流(父子组件之间，不建议子修改父传下来的数据)</li>
+<li>4.都支持服务端渲染<br>不同点：</li>
+<li>1.React的JSX，Vue的template</li>
+<li>2.数据变化，React手动(setState)，Vue自动(初始化已响应式处理，Object.defineProperty，Proxy)</li>
+<li>3.React单向绑定，Vue双向绑定</li>
+<li>4.React的Redux、mobx，Vue的Vuex、pinia</li>
+</ul>
+<h3 id="2、computed与watch的区别？"><a href="#2、computed与watch的区别？" class="headerlink" title="2、computed与watch的区别？"></a>2、computed与watch的区别？</h3><ul>
+<li>computed：多对一，多个值的变化决定一个目标值的变化</li>
+<li>watch：一对多，一个值的变化，引起多个目标值的变化</li>
+</ul>
+<h3 id="3、Vue的生命周期介绍一下？"><a href="#3、Vue的生命周期介绍一下？" class="headerlink" title="3、Vue的生命周期介绍一下？"></a>3、Vue的生命周期介绍一下？</h3><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/892fde0e56324868921d0e924c84858a~tplv-k3u1fbpfcp-watermark.image" alt="image.png"></p>
+<h3 id="4、Vue的实例加载完成在哪个生命周期呢？"><a href="#4、Vue的实例加载完成在哪个生命周期呢？" class="headerlink" title="4、Vue的实例加载完成在哪个生命周期呢？"></a>4、Vue的实例加载完成在哪个生命周期呢？</h3><p>beforeCreated</p>
+<h3 id="5、Vue的真实dom挂载完成在哪个生命周期呢？"><a href="#5、Vue的真实dom挂载完成在哪个生命周期呢？" class="headerlink" title="5、Vue的真实dom挂载完成在哪个生命周期呢？"></a>5、Vue的真实dom挂载完成在哪个生命周期呢？</h3><p>mounted</p>
+<h3 id="6、数据更改如何获取最新DOM"><a href="#6、数据更改如何获取最新DOM" class="headerlink" title="6、数据更改如何获取最新DOM"></a>6、数据更改如何获取最新DOM</h3><p>nextTick</p>
+<h3 id="7、路由有几种模式，有何区别？"><a href="#7、路由有几种模式，有何区别？" class="headerlink" title="7、路由有几种模式，有何区别？"></a>7、路由有几种模式，有何区别？</h3><ul>
+<li>hash模式：监听url中hash的变化来实现不同页面的展示，链接带#</li>
+<li>history模式：url中不带#，利用HTML5的history.pushState方法进行不刷新跳转页面，但需要后端配合404时的重定向</li>
+<li>abstract：使用在非浏览器的环境，例如node环境</li>
+</ul>
+<h3 id="8、路由有哪些钩子函数？"><a href="#8、路由有哪些钩子函数？" class="headerlink" title="8、路由有哪些钩子函数？"></a>8、路由有哪些钩子函数？</h3><p>全局钩子</p>
+<ul>
+<li>beforeEach：跳转路由前<ul>
+<li>to：将要跳转进入的路由对象</li>
+<li>from：将要离开的路由对象</li>
+<li>next：一个方法，执行则完成跳转</li>
+</ul>
+</li>
+<li>afterEach：跳转路由后<ul>
+<li>to：将要跳转进入的路由对象</li>
+</ul>
+</li>
+</ul>
+<p>路由独享钩子</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token literal-property property">routes</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">'/xxx'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">component</span><span class="token operator">:</span> xxx<span class="token punctuation">,</span>
+    <span class="token function-variable function">beforeEnter</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span> from<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>组件内路由钩子</p>
+<ul>
+<li>beforeRouteEnter(to, from, next)：跳转路由渲染组件时触发</li>
+<li>beforeRouteUpdate(to, from, next)：跳转路由且组件被复用时触发 (传参不同时)</li>
+<li>beforeRouteLeave(to, from, next)：跳转路由且离开组件时出触发</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">iamfugui</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://iamfugui.github.io/2022/12/23/note/qian-duan-bian-cheng-chang-jian-wen-ti-zong-jie/">https://iamfugui.github.io/2022/12/23/note/qian-duan-bian-cheng-chang-jian-wen-ti-zong-jie/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">iamfugui</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/css/">
+                                    <span class="chip bg-color">css</span>
+                                </a>
+                            
+                                <a href="/tags/html/">
+                                    <span class="chip bg-color">html</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%80%BB%E7%BB%93/">
+                                    <span class="chip bg-color">总结</span>
+                                </a>
+                            
+                                <a href="/tags/js/">
+                                    <span class="chip bg-color">js</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'kaIDw2cxnayMKAN82EP5T3Ai-gzGzoHsz',
+        appKey: '9T5PEm7RJKjDgxgiaAXXCX8w',
+        serverURLs: 'https://kaidw2cx.lc-cn-n1-shared.com',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+<!--酷Q推送-->
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/12/23/note/qian-duan-bian-cheng-chang-jian-wen-ti-zong-jie/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="常见问题总结">
+                        
+                        <span class="card-title">常见问题总结</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A8%8B/" class="post-category">
+                                    前端编程
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/css/">
+                        <span class="chip bg-color">css</span>
+                    </a>
+                    
+                    <a href="/tags/html/">
+                        <span class="chip bg-color">html</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%80%BB%E7%BB%93/">
+                        <span class="chip bg-color">总结</span>
+                    </a>
+                    
+                    <a href="/tags/js/">
+                        <span class="chip bg-color">js</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/12/23/note/html-css-zong-jie-cookie-localstorage-sessionstorage-bi-jiao/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="ookie-localStorage-sessionStorage比较">
+                        
+                        <span class="card-title">ookie-localStorage-sessionStorage比较</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/html-css/" class="post-category">
+                                    html&css
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%80%BB%E7%BB%93/">
+                        <span class="chip bg-color">总结</span>
+                    </a>
+                    
+                    <a href="/tags/session/">
+                        <span class="chip bg-color">session</span>
+                    </a>
+                    
+                    <a href="/tags/localStorage/">
+                        <span class="chip bg-color">localStorage</span>
+                    </a>
+                    
+                    <a href="/tags/sessionStorage/">
+                        <span class="chip bg-color">sessionStorage</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: iamfugui&#39; 小屋<br />'
+            + '文章作者: iamfugui<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="7498864383"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+            
+
+                <div class="container row center-align"
+                    style="margin-bottom: 15px !important;">
+                    <div class="col s12 m8 l8 copy-right">
+                        Copyright&nbsp;&copy;
+                        
+                            <span id="year">
+                                2020-2022
+                            </span>
+                            
+                                    <a href="/about" target="_blank">
+                                        iamfugui
+                                    </a>
+                                    |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+                                    |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery"
+                                        target="_blank">Matery</a>
+                                    <br>
+                                    
+                                        &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
+                                            :&nbsp;<span class="white-color">
+                                                114.7k
+                                            </span>
+                                            
+                                                
+                                                    
+                                                        
+                                                            
+                                                                
+                                                                    <span id="busuanzi_container_site_pv">
+                                                                        &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                                                                            <span id="busuanzi_value_site_pv"
+                                                                                class="white-color"></span>
+                                                                    </span>
+                                                                    
+                                                                        
+                                                                            <span id="busuanzi_container_site_uv">
+                                                                                &nbsp;|&nbsp;<i
+                                                                                    class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                                                                                    <span id="busuanzi_value_site_uv"
+                                                                                        class="white-color"></span>
+                                                                            </span>
+                                                                            
+                                                                                <br>
+
+                                                                                <!-- 运行天数提醒. -->
+                                                                                
+                                                                                    <span id="sitetime"> Loading
+                                                                                        ...</span>
+                                                                                    <script>
+                                                                                        var calcSiteTime = function () {
+                                                                                            var seconds = 1000;
+                                                                                            var minutes = seconds * 60;
+                                                                                            var hours = minutes * 60;
+                                                                                            var days = hours * 24;
+                                                                                            var years = days * 365;
+                                                                                            var today = new Date();
+                                                                                            var startYear = "2020";
+                                                                                            var startMonth = "8";
+                                                                                            var startDate = "14";
+                                                                                            var startHour = "12";
+                                                                                            var startMinute = "10";
+                                                                                            var startSecond = "50";
+                                                                                            var todayYear = today.getFullYear();
+                                                                                            var todayMonth = today.getMonth() + 1;
+                                                                                            var todayDate = today.getDate();
+                                                                                            var todayHour = today.getHours();
+                                                                                            var todayMinute = today.getMinutes();
+                                                                                            var todaySecond = today.getSeconds();
+                                                                                            var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                                                                                            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                                                                                            var diff = t2 - t1;
+                                                                                            var diffYears = Math.floor(diff / years);
+                                                                                            var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                                                                                            // 区分是否有年份.
+                                                                                            var language = 'zh-CN';
+                                                                                            if (startYear === String(todayYear)) {
+                                                                                                document.getElementById("year").innerHTML = todayYear;
+                                                                                                var daysTip = 'This site has been running for ' + diffDays + ' days';
+                                                                                                if (language === 'zh-CN') {
+                                                                                                    daysTip = '本站已运行 ' + diffDays + ' 天';
+                                                                                                } else if (language === 'zh-HK') {
+                                                                                                    daysTip = '本站已運行 ' + diffDays + ' 天';
+                                                                                                }
+                                                                                                document.getElementById("sitetime").innerHTML = daysTip;
+                                                                                            } else {
+                                                                                                document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                                                                                                var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                                                                                    + diffDays + ' days';
+                                                                                                if (language === 'zh-CN') {
+                                                                                                    yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                                                                                } else if (language === 'zh-HK') {
+                                                                                                    yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                                                                                }
+                                                                                                document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                                                                                            }
+                                                                                        }
+
+                                                                                        calcSiteTime();
+                                                                                    </script>
+                                                                                    
+                                                                                        <br>
+                                                                                        
+                    </div>
+                    <div class="col s12 m4 l4 social-link social-statis">
+                        
+    <a href="https://github.com/iamfugui" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:520071162@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=520071162" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 520071162" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="194589840" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

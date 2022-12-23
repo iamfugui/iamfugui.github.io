@@ -341,7 +341,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    222
+                    225
                 </div>
                 
 
@@ -388,10 +388,10 @@
 
 <span class="token comment">//模拟new定义</span>
 <span class="token keyword">function</span> <span class="token function">newFn</span><span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">let</span> newObj <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token comment">//1.设置新对象</span>
-    newObj<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> fn<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span><span class="token comment">//2.设置原型链 让新对象继承构造函数</span>
-    <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>newObj<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//3.将this指向新对象 并执行构造函数返回执行结果（一般没有结果）</span>
-    <span class="token keyword">return</span> <span class="token keyword">typeof</span> result <span class="token operator">===</span> <span class="token string">'object'</span> <span class="token operator">?</span> result <span class="token operator">:</span> newObj<span class="token punctuation">;</span><span class="token comment">//4.判断执行结果是否为 object，为object返回执行结果，不为返回新对象</span>
+    <span class="token keyword">let</span> newObj <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token comment">//1. 设置新对象</span>
+    newObj<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> fn<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span><span class="token comment">//2. 设置原型链 让新对象继承构造函数</span>
+    <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>newObj<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//3. 将this绑定新对象并执行构造函数，保存其结果（构造函数一般没有结果）</span>
+    <span class="token keyword">return</span> <span class="token keyword">typeof</span> result <span class="token operator">===</span> <span class="token string">'object'</span> <span class="token operator">?</span> result <span class="token operator">:</span> newObj<span class="token punctuation">;</span><span class="token comment">//4. 判断执行结果是否为 object，为object返回执行结果，不为返回新对象</span>
 <span class="token punctuation">&#125;</span>
 
 <span class="token comment">//new调用</span>
@@ -1158,7 +1158,7 @@ obj<span class="token punctuation">.</span><span class="token function">say</spa
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                106.8k
+                                                114.7k
                                             </span>
                                             
                                                 

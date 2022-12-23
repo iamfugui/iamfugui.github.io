@@ -4,11 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="问号点和双问号, iamfugui&#39; 小屋,iamfugui,小屋,iamfugui.github.io,博客,JavasSript,Vue,uni-app,React">
-    <meta name="description" content="let obj &amp;#x3D;&amp;#123;&amp;#125;;
-obj.name.age&amp;#x2F;&amp;#x2F;这种情况会报错
-
-obj.name?.age&amp;#x2F;&amp;#x2F;这样会事先询问被访问属性是否是 null或undefined，是就返">
+    <meta name="keywords" content="登录鉴权与动态路由, iamfugui&#39; 小屋,iamfugui,小屋,iamfugui.github.io,博客,JavasSript,Vue,uni-app,React">
+    <meta name="description" content="登录鉴权我们把重点放在动态路由上，先简单过一遍登录鉴权流程：
+（1）前端携带用户登录信息访问登录api
+（2）登录api会对信息进行校验，校验失败会返回失败信息，校验成功就返回包含token的成功信息
+（3）前端拿到token会将其保存起来">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +20,7 @@ obj.name?.age&amp;#x2F;&amp;#x2F;这样会事先询问被访问属性是否是 n
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>问号点和双问号 | iamfugui&#39; 小屋</title>
+    <title>登录鉴权与动态路由 | iamfugui&#39; 小屋</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -266,12 +266,12 @@ obj.name?.age&amp;#x2F;&amp;#x2F;这样会事先询问被访问属性是否是 n
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">问号点和双问号</h1>
+                    <h1 class="description center-align post-title">登录鉴权与动态路由</h1>
                 </div>
             </div>
         </div>
@@ -295,8 +295,8 @@ obj.name?.age&amp;#x2F;&amp;#x2F;这样会事先询问被访问属性是否是 n
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/js/">
-                                <span class="chip bg-color">js</span>
+                            <a href="/tags/vue/">
+                                <span class="chip bg-color">vue</span>
                             </a>
                         
                     </div>
@@ -307,8 +307,8 @@ obj.name?.age&amp;#x2F;&amp;#x2F;这样会事先询问被访问属性是否是 n
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/js/" class="post-category">
-                                js
+                            <a href="/categories/vue/" class="post-category">
+                                vue
                             </a>
                         
                     </div>
@@ -320,7 +320,7 @@ obj.name?.age&amp;#x2F;&amp;#x2F;这样会事先询问被访问属性是否是 n
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-02-22
+                    2022-04-22
                 </div>
                 
 
@@ -329,14 +329,14 @@ obj.name?.age&amp;#x2F;&amp;#x2F;这样会事先询问被访问属性是否是 n
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    68
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    5 分
                 </div>
                 
 
@@ -354,11 +354,109 @@ obj.name?.age&amp;#x2F;&amp;#x2F;这样会事先询问被访问属性是否是 n
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <pre class="line-numbers language-JS" data-language="JS"><code class="language-JS">let obj &#x3D;&#123;&#125;;
-obj.name.age&#x2F;&#x2F;这种情况会报错
+                <h2 id="登录鉴权"><a href="#登录鉴权" class="headerlink" title="登录鉴权"></a>登录鉴权</h2><p>我们把重点放在动态路由上，先简单过一遍登录鉴权流程：</p>
+<p>（1）前端携带用户登录信息访问登录api</p>
+<p>（2）登录api会对信息进行校验，校验失败会返回失败信息，校验成功就返回包含token的成功信息</p>
+<p>（3）前端拿到token会将其保存起来（localStorage），这是登录</p>
+<p>（4）那么用户的每次请求附带token，服务端就可以完成鉴权（判断有没有权限，什么样的权限）</p>
+<h2 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h2><p>现在重点讲讲动态路由：</p>
+<p>一般的后台数据库里面，就是分为一个user用户表，一个role权限路由表。在登录成功时，返回的成功信息包含routes信息，那么可以简单的分为用户和管理员两部分：</p>
+<p>用户:</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+        name<span class="token operator">:</span> <span class="token string">"普通用户"</span><span class="token punctuation">,</span>
+        avatar<span class="token operator">:</span> <span class="token string">"https://sf1-ttcdn-tos.pstatp.com/img/user-avatar/6364348965908f03e6a2dd188816e927~300x300.image"</span><span class="token punctuation">,</span>
+        desc<span class="token operator">:</span> <span class="token string">"普通用户 - people"</span><span class="token punctuation">,</span>
+        username<span class="token operator">:</span> <span class="token string">"people"</span><span class="token punctuation">,</span>
+        token<span class="token operator">:</span> <span class="token string">"4es8eyDwznXrCX3b3439EmTFnIkrBYWh"</span><span class="token punctuation">,</span>
+        routes<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">"/"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/"</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"Layout"</span><span class="token punctuation">,</span> redirect<span class="token operator">:</span> <span class="token string">"/index"</span><span class="token punctuation">,</span> hidden<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> children<span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"index"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/index"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"index"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"index/index"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">"/form"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/form"</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"Layout"</span><span class="token punctuation">,</span> redirect<span class="token operator">:</span> <span class="token string">"/form/index"</span><span class="token punctuation">,</span> hidden<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> children<span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"/form/index"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/form/index"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"form"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"form/index"</span> <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">"/example"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/example"</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"Layout"</span><span class="token punctuation">,</span> redirect<span class="token operator">:</span> <span class="token string">"/example/tree"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"example"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> hidden<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> children<span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"/tree"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/example/tree"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"tree"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"tree/index"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+                <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"/copy"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/example/copy"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"copy"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"tree/copy"</span> <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">]</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">"/table"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/table"</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"Layout"</span><span class="token punctuation">,</span> redirect<span class="token operator">:</span> <span class="token string">"/table/index"</span><span class="token punctuation">,</span> hidden<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> children<span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"/table/index"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/table/index"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"table"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"table/index"</span> <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">]</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">6</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">"/people"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/people"</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"Layout"</span><span class="token punctuation">,</span> redirect<span class="token operator">:</span> <span class="token string">"/people/index"</span><span class="token punctuation">,</span> hidden<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> children<span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"/people/index"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/people/index"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"people"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"people/index"</span> <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">]</span> <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-obj.name?.age&#x2F;&#x2F;这样会事先询问被访问属性是否是 null或undefined，是就返回undefined
-obj.name??&quot;李华&quot;&#x2F;&#x2F;这样会返回默认值 等于 obj.name || &quot;李华&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>管理员:</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    name<span class="token operator">:</span> <span class="token string">"管理员"</span><span class="token punctuation">,</span>
+    avatar<span class="token operator">:</span> <span class="token string">"https://sf3-ttcdn-tos.pstatp.com/img/user-avatar/ccb565eca95535ab2caac9f6129b8b7a~300x300.image"</span><span class="token punctuation">,</span>
+    desc<span class="token operator">:</span> <span class="token string">"管理员 - admin"</span><span class="token punctuation">,</span>
+    username<span class="token operator">:</span> <span class="token string">"admin"</span><span class="token punctuation">,</span>
+    token<span class="token operator">:</span> <span class="token string">"rtVrM4PhiFK8PNopqWuSjsc1n02oKc3f"</span><span class="token punctuation">,</span>
+    routes<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">"/"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/"</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"Layout"</span><span class="token punctuation">,</span> redirect<span class="token operator">:</span> <span class="token string">"/index"</span><span class="token punctuation">,</span> hidden<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> children<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"index"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/index"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"index"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"index/index"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">"/form"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/form"</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"Layout"</span><span class="token punctuation">,</span> redirect<span class="token operator">:</span> <span class="token string">"/form/index"</span><span class="token punctuation">,</span> hidden<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> children<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"/form/index"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/form/index"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"form"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"form/index"</span> <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">"/example"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/example"</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"Layout"</span><span class="token punctuation">,</span> redirect<span class="token operator">:</span> <span class="token string">"/example/tree"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"example"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> hidden<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> children<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"/tree"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/example/tree"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"tree"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"tree/index"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"/copy"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/example/copy"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"copy"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"tree/copy"</span> <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">]</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">"/table"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/table"</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"Layout"</span><span class="token punctuation">,</span> redirect<span class="token operator">:</span> <span class="token string">"/table/index"</span><span class="token punctuation">,</span> hidden<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> children<span class="token operator">:</span> <span class="token punctuation">[</span>
+           <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"/table/index"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/table/index"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"table"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"table/index"</span> <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">]</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">"/admin"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/admin"</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"Layout"</span><span class="token punctuation">,</span> redirect<span class="token operator">:</span> <span class="token string">"/admin/index"</span><span class="token punctuation">,</span> hidden<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> children<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"/admin/index"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/admin/index"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"admin"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"admin/index"</span> <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">]</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">6</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">"/people"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/people"</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"Layout"</span><span class="token punctuation">,</span> redirect<span class="token operator">:</span> <span class="token string">"/people/index"</span><span class="token punctuation">,</span> hidden<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> children<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">&#123;</span> name<span class="token operator">:</span> <span class="token string">"/people/index"</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">"/people/index"</span><span class="token punctuation">,</span> meta<span class="token operator">:</span> <span class="token punctuation">&#123;</span> title<span class="token operator">:</span> <span class="token string">"people"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> component<span class="token operator">:</span> <span class="token string">"people/index"</span> <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">]</span> <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>由此可以看出，routes就是admin管理员和people普通用户的差异化动态路由了，管理员多了一个admin的页面，而用户是没有的。</p>
+<p>其实这里是有多种思路的。有些开发者喜欢完整的静态路由都在前端里面，然后根据router的meta属性，写上对应user的role，登录的时候，再根据后端返回的权限，去过滤比对权限，把该用户角色所对应的路由处理好，渲染处理，这也是主流的一种处理方式。这种就等于是把所有的路由和权限业务处理都放在了前端，一旦上线发布后，想要修改就需要重新打包处理，而且不能经由后台动态新增删除</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> myRouter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">VueRouter</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+ <span class="token literal-property property">routes</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">'/login'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'login'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">meta</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+         <span class="token literal-property property">roles</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'admin'</span><span class="token punctuation">,</span> <span class="token string">'user'</span><span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token function-variable function">component</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'@/components/Login'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">'/home'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'home'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">meta</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">roles</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'admin'</span><span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token function-variable function">component</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'@/views/Home'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span>
+     <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">'/404'</span><span class="token punctuation">,</span>
+     <span class="token function-variable function">component</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'@/components/404'</span><span class="token punctuation">)</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">//假设通过接口从后台获取的用户角色，可以存储在token中</span>
+<span class="token keyword">const</span> role <span class="token operator">=</span> <span class="token string">'user'</span>
+ 
+myRouter<span class="token punctuation">.</span><span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">to<span class="token punctuation">,</span>from<span class="token punctuation">,</span>next</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+ <span class="token keyword">if</span><span class="token punctuation">(</span>to<span class="token punctuation">.</span>meta<span class="token punctuation">.</span>roles<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span>role<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">//放行</span>
+ <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+  <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">path</span><span class="token operator">:</span><span class="token string">"/404"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token comment">//跳到404页面</span>
+ <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>还有一种解法，就是所有的路由权限等，都交给后端，后端根据前端的账号密码，去获取角色权限，处理路由，丢出就是已经匹配对应角色的路由了。这种写法前端运算量不会太大，而且易于修改和后期维护以及动态的增删改查，本文就是以该种形式实现。</p>
+<p>总体思路是 </p>
+<p>路由跳转上 后端根据权限返回route 前端持久化存储route 利用全局路由守卫将route数据进行动态添加addRoute 那么只要将没有的路由规则的url跳转到403页面就好</p>
+<p>tml导航元素的显示上 没有路由权限的就不予显示。 因为前端持久化存储了route 那么可以进行一个route.include(‘xxx&#x2F;xx’)的判断 如果有这个路由就显示，没有就不显示</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7081517906026037284#heading-7">https://juejin.cn/post/7081517906026037284#heading-7</a></p>
+
                 
             </div>
             <hr/>
@@ -384,7 +482,7 @@ obj.name??&quot;李华&quot;&#x2F;&#x2F;这样会返回默认值 等于 obj.name
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://iamfugui.github.io/2022/02/22/note/js-gai-nian-wen-hao-dian-he-shuang-wen-hao/">https://iamfugui.github.io/2022/02/22/note/js-gai-nian-wen-hao-dian-he-shuang-wen-hao/</a>
+                    <a href="https://iamfugui.github.io/2022/04/22/note/vue-mian-shi-deng-lu-jian-quan-yu-dong-tai-lu-you-wei-wan-dai-xu/">https://iamfugui.github.io/2022/04/22/note/vue-mian-shi-deng-lu-jian-quan-yu-dong-tai-lu-you-wei-wan-dai-xu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -422,8 +520,8 @@ obj.name??&quot;李华&quot;&#x2F;&#x2F;这样会返回默认值 等于 obj.name
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/js/">
-                                    <span class="chip bg-color">js</span>
+                                <a href="/tags/vue/">
+                                    <span class="chip bg-color">vue</span>
                                 </a>
                             
                         </div>
@@ -775,13 +873,13 @@ obj.name??&quot;李华&quot;&#x2F;&#x2F;这样会返回默认值 等于 obj.name
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/03/01/note/vue-vuerouter-tiao-zhuan-yu-chuan-can/">
+                <a href="/2022/04/28/note/qian-duan-xiang-mu-chao-shi-qu-xiao-hou-de-touchend/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="vue中的动态路由与传参的两种方式">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="超时取消后的touchend">
                         
-                        <span class="card-title">vue中的动态路由与传参的两种方式</span>
+                        <span class="card-title">超时取消后的touchend</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -792,14 +890,14 @@ obj.name??&quot;李华&quot;&#x2F;&#x2F;这样会返回默认值 等于 obj.name
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-01
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-28
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/vue/" class="post-category">
-                                    vue
+                            <a href="/categories/%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE/" class="post-category">
+                                    前端项目
                                 </a>
                             
                             
@@ -809,28 +907,8 @@ obj.name??&quot;李华&quot;&#x2F;&#x2F;这样会返回默认值 等于 obj.name
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%8D%B7/">
-                        <span class="chip bg-color">卷</span>
-                    </a>
-                    
-                    <a href="/tags/vue/">
-                        <span class="chip bg-color">vue</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1/">
-                        <span class="chip bg-color">动态路由</span>
-                    </a>
-                    
-                    <a href="/tags/vueRouter/">
-                        <span class="chip bg-color">vueRouter</span>
-                    </a>
-                    
-                    <a href="/tags/%E4%BC%A0%E5%8F%82/">
-                        <span class="chip bg-color">传参</span>
-                    </a>
-                    
-                    <a href="/tags/history/">
-                        <span class="chip bg-color">history</span>
+                    <a href="/tags/%E9%A1%B9%E7%9B%AE/">
+                        <span class="chip bg-color">项目</span>
                     </a>
                     
                 </div>
@@ -844,13 +922,13 @@ obj.name??&quot;李华&quot;&#x2F;&#x2F;这样会返回默认值 等于 obj.name
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/02/15/note/html-css-zoom-he-scale-de-chai-yi/">
+                <a href="/2022/04/17/note/js-gai-nian-map-dui-xiang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="zoom和scale的差异">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Map对象">
                         
-                        <span class="card-title">zoom和scale的差异</span>
+                        <span class="card-title">Map对象</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -861,14 +939,14 @@ obj.name??&quot;李华&quot;&#x2F;&#x2F;这样会返回默认值 等于 obj.name
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-17
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/html-css/" class="post-category">
-                                    html&css
+                            <a href="/categories/js/" class="post-category">
+                                    js
                                 </a>
                             
                             
@@ -882,12 +960,12 @@ obj.name??&quot;李华&quot;&#x2F;&#x2F;这样会返回默认值 等于 obj.name
                         <span class="chip bg-color">卷</span>
                     </a>
                     
-                    <a href="/tags/css/">
-                        <span class="chip bg-color">css</span>
+                    <a href="/tags/js/">
+                        <span class="chip bg-color">js</span>
                     </a>
                     
-                    <a href="/tags/html/">
-                        <span class="chip bg-color">html</span>
+                    <a href="/tags/Map/">
+                        <span class="chip bg-color">Map</span>
                     </a>
                     
                 </div>
@@ -1127,7 +1205,7 @@ obj.name??&quot;李华&quot;&#x2F;&#x2F;这样会返回默认值 等于 obj.name
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                106.8k
+                                                114.7k
                                             </span>
                                             
                                                 

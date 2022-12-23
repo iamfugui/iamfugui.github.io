@@ -340,7 +340,7 @@ overflow-x:">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    330
+                    325
                 </div>
                 
 
@@ -376,9 +376,9 @@ overflow-x:">
 
 <p>但是，看到这个答案，又自然而然有两个疑问</p>
 <p>（1）为什么overflow：hidden&#x2F;auto 导致sticky不生效？</p>
-<p>overflow：hidden&#x2F;auto 会导致<strong>sticky期望父元素的滚动</strong>，而<strong>开发者却期望基于主页面的滚动</strong>，并且这个问题是很难被发现的。</p>
-<p>因为hidden直接让父元素无法滚动，auto在父元素高度足以容纳内容时也不会进行滚动，所以开发者（me）没有发现sticky的期望变了，还在傻傻的期望基于主页面的滚动。</p>
-<p>明白这点后，我们就知道<strong>overflow：scroll</strong>也会产生同样的问题，可能一些不常用overflow属性也是这样。这里就不再钻牛角尖了，我们只需要明白<strong>sticky期望父元素的滚动</strong>，而<strong>开发者却期望基于主页面的滚动</strong>这点即可。</p>
+<p>overflow：auto 会导致<strong>sticky期望父元素的滚动</strong>，而<strong>开发者期望基于主页面的滚动</strong>，并且这个问题是很难被发现的。</p>
+<p>hidden直接让父元素无法滚动，auto在父元素高度足以容纳内容时也不会进行滚动，所以开发者（me）没有发现sticky的期望变了，还在傻傻的期望基于主页面的滚动。</p>
+<p>明白这点后，我们就知道<strong>overflow：scroll</strong>也会产生同样的问题。可能一些不常用overflow属性也是这样，这里就不再钻牛角尖了，我们只需要明白<strong>sticky期望父元素的滚动</strong>，而<strong>开发者却期望基于主页面的滚动</strong>这点即可。</p>
 <p>（2）overflow-y会影响sticky垂直滚动吗？</p>
 <p>会，overflow-y:hidden改变overflow-x的值。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>sticky元素的父元素设置overflow：hidden&#x2F;auto&#x2F;scroll等属性 会导致<strong>sticky期望父元素的滚动</strong>，而<strong>开发者却期望基于主页面的滚动</strong>。</p>
@@ -1070,7 +1070,7 @@ overflow-x:">
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                106.8k
+                                                114.7k
                                             </span>
                                             
                                                 

@@ -306,16 +306,16 @@
                                                         <!-- 隐藏某个文章 -->
                                                         <div class="article col s12 m6 l4" data-aos="zoom-in">
                                                             <div class="card">
-                                                                <a href="/2021/01/30/note/js-mian-shi-s-shu-zu-shan-chu-de-ji-chong-fang-fa/">
+                                                                <a href="/2021/02/06/note/vue-mian-shi-yuan-ma-10-diff-suan-fa-shou-xie-patch-yu-patchvnode/">
                                                                     <div class="card-image">
                                                                         
                                                                                 
-                                                                                    <img src="/medias/featureimages/3.jpg"
+                                                                                    <img src="/medias/featureimages/10.jpg"
                                                                                         class="responsive-img"
-                                                                                        alt="数组删除的几种方法">
+                                                                                        alt="vue-diff算法-手写-patch与patchVnode">
                                                                                     
                                                                                         <span class="card-title">
-                                                                                            数组删除的几种方法
+                                                                                            vue-diff算法-手写-patch与patchVnode
                                                                                         </span>
                                                                     </div>
                                                                 </a>
@@ -323,23 +323,25 @@
                                                                 <div class="card-content article-content">
                                                                     <div class="summary block-with-text">
                                                                         
-                                                                                            1. splice()操作方法splice意为拼接，捻接（有一个api形近词意为slice 切片的单词，可用于软靠背）
-在JavaScript的Array对象中提供了一个splice()方法用于对数组进行特定的操作。splice()恐怕要算
+                                                                                            详细参考snabbdom的js&#x2F;src&#x2F;dom中的patch和patch.js
+1. 新老节点替换规则节点替换规则有以下三种情况，其中第三种情况最为复杂，并且分为有children和没有children情况
+
+如果新老节
                                                                                                 
                                                                     </div>
                                                                     <div class="publish-info">
                                                                         <span class="publish-date">
                                                                             <i class="far fa-clock fa-fw icon-date"></i>
-                                                                            2021-01-30
+                                                                            2021-02-06
                                                                         </span>
                                                                         <span class="publish-author">
                                                                             
                                                                                 <i
                                                                                     class="fas fa-bookmark fa-fw icon-category"></i>
                                                                                 
-                                                                                    <a href="/categories/js/"
+                                                                                    <a href="/categories/vue/"
                                                                                         class="post-category">
-                                                                                        js
+                                                                                        vue
                                                                                     </a>
                                                                                     
                                                                                         
@@ -350,15 +352,15 @@
                                                                 
                                                                     <div class="card-action article-tags">
                                                                         
-                                                                            <a href="/tags/%E5%8D%B7/">
+                                                                            <a href="/tags/vue/">
                                                                                 <span class="chip bg-color">
-                                                                                    卷
+                                                                                    vue
                                                                                 </span>
                                                                             </a>
                                                                             
-                                                                            <a href="/tags/js/">
+                                                                            <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
                                                                                 <span class="chip bg-color">
-                                                                                    js
+                                                                                    源码解析
                                                                                 </span>
                                                                             </a>
                                                                             
@@ -373,16 +375,16 @@
                                                         <!-- 隐藏某个文章 -->
                                                         <div class="article col s12 m6 l4" data-aos="zoom-in">
                                                             <div class="card">
-                                                                <a href="/2021/01/30/note/vue-mian-shi-vuex-mian-shi-ti-zong-he/">
+                                                                <a href="/2021/02/06/note/vue-mian-shi-yuan-ma-9-diff-suan-fa-shou-xie-sheng-cheng-xu-ni-dom/">
                                                                     <div class="card-image">
                                                                         
                                                                                 
-                                                                                    <img src="/medias/featureimages/23.jpg"
+                                                                                    <img src="/medias/featureimages/0.jpg"
                                                                                         class="responsive-img"
-                                                                                        alt="VueX面试题综合">
+                                                                                        alt="vue-diff算法-手写-生成虚拟dom">
                                                                                     
                                                                                         <span class="card-title">
-                                                                                            VueX面试题综合
+                                                                                            vue-diff算法-手写-生成虚拟dom
                                                                                         </span>
                                                                     </div>
                                                                 </a>
@@ -390,15 +392,153 @@
                                                                 <div class="card-content article-content">
                                                                     <div class="summary block-with-text">
                                                                         
-                                                                                            vuex概念:
-vuex是一个状态管理工具，将状态放在仓库中，让其它组件调用
-vue是单向数据流，子组件不能直接修改父组件的数据，而通过vuex状态管理实现：把组件的共享状态抽取出来，以一个全局单例模式管理。在这种模式下，我们的组件树构成了
+                                                                                            1. 搭建环境因为手写不安装snabbdom了。工程文件请看diff文件夹
+npm init -y  &#x2F;&#x2F;初始化
+npm install webpack@5 webpack-cli@3 webpack-dev-serve
                                                                                                 
                                                                     </div>
                                                                     <div class="publish-info">
                                                                         <span class="publish-date">
                                                                             <i class="far fa-clock fa-fw icon-date"></i>
-                                                                            2021-01-30
+                                                                            2021-02-06
+                                                                        </span>
+                                                                        <span class="publish-author">
+                                                                            
+                                                                                <i
+                                                                                    class="fas fa-bookmark fa-fw icon-category"></i>
+                                                                                
+                                                                                    <a href="/categories/vue/"
+                                                                                        class="post-category">
+                                                                                        vue
+                                                                                    </a>
+                                                                                    
+                                                                                        
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+                                                                
+                                                                    <div class="card-action article-tags">
+                                                                        
+                                                                            <a href="/tags/vue/">
+                                                                                <span class="chip bg-color">
+                                                                                    vue
+                                                                                </span>
+                                                                            </a>
+                                                                            
+                                                                            <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+                                                                                <span class="chip bg-color">
+                                                                                    源码解析
+                                                                                </span>
+                                                                            </a>
+                                                                            
+                                                                    </div>
+                                                                    
+                                                            </div>
+                                                        </div>
+                                                        
+                                                            <!-- 隐藏某个文章 -->
+                                                            
+                                                    
+                                                        <!-- 隐藏某个文章 -->
+                                                        <div class="article col s12 m6 l4" data-aos="zoom-in">
+                                                            <div class="card">
+                                                                <a href="/2021/02/06/note/vue-mian-shi-yuan-ma-8-diff-suan-fa-snabbdom/">
+                                                                    <div class="card-image">
+                                                                        
+                                                                                
+                                                                                    <img src="/medias/featureimages/23.jpg"
+                                                                                        class="responsive-img"
+                                                                                        alt="vue-diff算法-snabbdom">
+                                                                                    
+                                                                                        <span class="card-title">
+                                                                                            vue-diff算法-snabbdom
+                                                                                        </span>
+                                                                    </div>
+                                                                </a>
+
+                                                                <div class="card-content article-content">
+                                                                    <div class="summary block-with-text">
+                                                                        
+                                                                                            前言vue的diff算法参考自snabbdom
+本文将介绍snabbdom的使用 从而深入理解vue的diff算法，工程文件请参考snabbdom文件夹。
+1. 实例直接到github的snabbdom去复制实例来使用
+2. 真实dom和虚
+                                                                                                
+                                                                    </div>
+                                                                    <div class="publish-info">
+                                                                        <span class="publish-date">
+                                                                            <i class="far fa-clock fa-fw icon-date"></i>
+                                                                            2021-02-06
+                                                                        </span>
+                                                                        <span class="publish-author">
+                                                                            
+                                                                                <i
+                                                                                    class="fas fa-bookmark fa-fw icon-category"></i>
+                                                                                
+                                                                                    <a href="/categories/vue/"
+                                                                                        class="post-category">
+                                                                                        vue
+                                                                                    </a>
+                                                                                    
+                                                                                        
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+                                                                
+                                                                    <div class="card-action article-tags">
+                                                                        
+                                                                            <a href="/tags/vue/">
+                                                                                <span class="chip bg-color">
+                                                                                    vue
+                                                                                </span>
+                                                                            </a>
+                                                                            
+                                                                            <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+                                                                                <span class="chip bg-color">
+                                                                                    源码解析
+                                                                                </span>
+                                                                            </a>
+                                                                            
+                                                                    </div>
+                                                                    
+                                                            </div>
+                                                        </div>
+                                                        
+                                                            <!-- 隐藏某个文章 -->
+                                                            
+                                                    
+                                                        <!-- 隐藏某个文章 -->
+                                                        <div class="article col s12 m6 l4" data-aos="zoom-in">
+                                                            <div class="card">
+                                                                <a href="/2021/02/06/note/vue-mian-shi-yuan-ma-7-diff-suan-fa-kai-pian/">
+                                                                    <div class="card-image">
+                                                                        
+                                                                                
+                                                                                    <img src="/medias/featureimages/18.jpg"
+                                                                                        class="responsive-img"
+                                                                                        alt="vue-diff算法-开篇">
+                                                                                    
+                                                                                        <span class="card-title">
+                                                                                            vue-diff算法-开篇
+                                                                                        </span>
+                                                                    </div>
+                                                                </a>
+
+                                                                <div class="card-content article-content">
+                                                                    <div class="summary block-with-text">
+                                                                        
+                                                                                            diff算法1. diff算法概念功能：提升性能
+概括：diff全程difference，意为差异，顾名思义就是寻找不同。寻找不同这个过程需要一个本体和参照体，寻找不同的过程就是diff算法的本质。
+
+2. 衍生–虚拟dom在今天，前端领域
+                                                                                                
+                                                                    </div>
+                                                                    <div class="publish-info">
+                                                                        <span class="publish-date">
+                                                                            <i class="far fa-clock fa-fw icon-date"></i>
+                                                                            2021-02-06
                                                                         </span>
                                                                         <span class="publish-author">
                                                                             
@@ -430,76 +570,9 @@ vue是单向数据流，子组件不能直接修改父组件的数据，而通�
                                                                                 </span>
                                                                             </a>
                                                                             
-                                                                    </div>
-                                                                    
-                                                            </div>
-                                                        </div>
-                                                        
-                                                            <!-- 隐藏某个文章 -->
-                                                            
-                                                    
-                                                        <!-- 隐藏某个文章 -->
-                                                        <div class="article col s12 m6 l4" data-aos="zoom-in">
-                                                            <div class="card">
-                                                                <a href="/2021/01/29/note/html-css-chong-hui-hui-liu-yu-xing-neng-you-hua/">
-                                                                    <div class="card-image">
-                                                                        
-                                                                                
-                                                                                    <img src="/medias/featureimages/12.jpg"
-                                                                                        class="responsive-img"
-                                                                                        alt="重绘回流与性能优化">
-                                                                                    
-                                                                                        <span class="card-title">
-                                                                                            重绘回流与性能优化
-                                                                                        </span>
-                                                                    </div>
-                                                                </a>
-
-                                                                <div class="card-content article-content">
-                                                                    <div class="summary block-with-text">
-                                                                        
-                                                                                            1. 什么是重绘？重绘：当渲染树中的某些元素需要更新属性时，这些属性只影响元素的外观和样式，而不影响布局操作，例如background-color，我们称此类操作为重绘。
-2. 什么是回流？回流也叫重排：当渲染树的部分（或全部）因元素的大小
-                                                                                                
-                                                                    </div>
-                                                                    <div class="publish-info">
-                                                                        <span class="publish-date">
-                                                                            <i class="far fa-clock fa-fw icon-date"></i>
-                                                                            2021-01-29
-                                                                        </span>
-                                                                        <span class="publish-author">
-                                                                            
-                                                                                <i
-                                                                                    class="fas fa-bookmark fa-fw icon-category"></i>
-                                                                                
-                                                                                    <a href="/categories/html-css/"
-                                                                                        class="post-category">
-                                                                                        html&css
-                                                                                    </a>
-                                                                                    
-                                                                                        
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-
-                                                                
-                                                                    <div class="card-action article-tags">
-                                                                        
-                                                                            <a href="/tags/%E9%87%8D%E7%BB%98%E5%9B%9E%E6%B5%81/">
+                                                                            <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
                                                                                 <span class="chip bg-color">
-                                                                                    重绘回流
-                                                                                </span>
-                                                                            </a>
-                                                                            
-                                                                            <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                                                                                <span class="chip bg-color">
-                                                                                    性能优化
-                                                                                </span>
-                                                                            </a>
-                                                                            
-                                                                            <a href="/tags/%E5%8D%B7/">
-                                                                                <span class="chip bg-color">
-                                                                                    卷
+                                                                                    源码解析
                                                                                 </span>
                                                                             </a>
                                                                             
@@ -514,16 +587,16 @@ vue是单向数据流，子组件不能直接修改父组件的数据，而通�
                                                         <!-- 隐藏某个文章 -->
                                                         <div class="article col s12 m6 l4" data-aos="zoom-in">
                                                             <div class="card">
-                                                                <a href="/2021/01/24/note/qian-duan-gong-cheng-hua-npm-de-shi-yong/">
+                                                                <a href="/2021/02/06/note/vue-mian-shi-yuan-ma-6-shuang-xiang-bang-ding-yuan-li-v-model/">
                                                                     <div class="card-image">
                                                                         
                                                                                 
-                                                                                    <img src="/medias/featureimages/14.jpg"
+                                                                                    <img src="/medias/featureimages/23.jpg"
                                                                                         class="responsive-img"
-                                                                                        alt="npm的使用">
+                                                                                        alt="vue双向绑定原理v-model">
                                                                                     
                                                                                         <span class="card-title">
-                                                                                            npm的使用
+                                                                                            vue双向绑定原理v-model
                                                                                         </span>
                                                                     </div>
                                                                 </a>
@@ -531,23 +604,26 @@ vue是单向数据流，子组件不能直接修改父组件的数据，而通�
                                                                 <div class="card-content article-content">
                                                                     <div class="summary block-with-text">
                                                                         
-                                                                                            1. npm常用命令npm init –yes 初始化一些信息例如项目入口、作者、版本等 (npm必须，cnpm不需要)
-npm install module_name -S 即 –save ，写入package.json的dependen
+                                                                                            通过Object.defineProperty劫持数据发生的改变，如果数据发生改变了（在set中进行赋值的），触发update方法进行更新节点内容()，从而实现数据双向绑定的原理
+只保留重要代码
+class Vue &#123;
+
+    
                                                                                                 
                                                                     </div>
                                                                     <div class="publish-info">
                                                                         <span class="publish-date">
                                                                             <i class="far fa-clock fa-fw icon-date"></i>
-                                                                            2021-01-24
+                                                                            2021-02-06
                                                                         </span>
                                                                         <span class="publish-author">
                                                                             
                                                                                 <i
                                                                                     class="fas fa-bookmark fa-fw icon-category"></i>
                                                                                 
-                                                                                    <a href="/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"
+                                                                                    <a href="/categories/vue/"
                                                                                         class="post-category">
-                                                                                        前端工程化
+                                                                                        vue
                                                                                     </a>
                                                                                     
                                                                                         
@@ -558,15 +634,15 @@ npm install module_name -S 即 –save ，写入package.json的dependen
                                                                 
                                                                     <div class="card-action article-tags">
                                                                         
-                                                                            <a href="/tags/%E5%8D%B7/">
+                                                                            <a href="/tags/vue/">
                                                                                 <span class="chip bg-color">
-                                                                                    卷
+                                                                                    vue
                                                                                 </span>
                                                                             </a>
                                                                             
-                                                                            <a href="/tags/npm/">
+                                                                            <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
                                                                                 <span class="chip bg-color">
-                                                                                    npm
+                                                                                    源码解析
                                                                                 </span>
                                                                             </a>
                                                                             
@@ -581,16 +657,16 @@ npm install module_name -S 即 –save ，写入package.json的dependen
                                                         <!-- 隐藏某个文章 -->
                                                         <div class="article col s12 m6 l4" data-aos="zoom-in">
                                                             <div class="card">
-                                                                <a href="/2021/01/16/note/js-mian-shi-this-de-si-chong-bang-ding-mo-ren-new-xian-shi-yin-shi/">
+                                                                <a href="/2021/02/06/note/vue-mian-shi-yuan-ma-5-shi-tu-geng-xin-xiang-ying-shi-yuan-li/">
                                                                     <div class="card-image">
                                                                         
                                                                                 
-                                                                                    <img src="/medias/featureimages/22.jpg"
+                                                                                    <img src="/medias/featureimages/18.jpg"
                                                                                         class="responsive-img"
-                                                                                        alt="this的四种绑定：默认、new、显式、隐式">
+                                                                                        alt="视图更新（响应式原理）">
                                                                                     
                                                                                         <span class="card-title">
-                                                                                            this的四种绑定：默认、new、显式、隐式
+                                                                                            视图更新（响应式原理）
                                                                                         </span>
                                                                     </div>
                                                                 </a>
@@ -598,26 +674,30 @@ npm install module_name -S 即 –save ，写入package.json的dependen
                                                                 <div class="card-content article-content">
                                                                     <div class="summary block-with-text">
                                                                         
-                                                                                            概念this的四种绑定分别是：
-默认、new、显式、隐式
-这四种绑定分别与函数的四种调用相关联：
-默认绑定：函数直接调用。非严格模式下this指向window，严格是undefined
-new绑定：函数作为构造函数调用。this指向新建对象
+                                                                                            使用数据劫持配合观察者模式、发布订阅模式运行响应式
+&#x2F;**
+ * 仿写一个简单的Vue.js
+ * Vue使用层上是数据驱动，而源码上数据更新了，dom也要更新
+ *&#x2F;
+
+class Vue &#123;
+
+    &#
                                                                                                 
                                                                     </div>
                                                                     <div class="publish-info">
                                                                         <span class="publish-date">
                                                                             <i class="far fa-clock fa-fw icon-date"></i>
-                                                                            2021-01-16
+                                                                            2021-02-06
                                                                         </span>
                                                                         <span class="publish-author">
                                                                             
                                                                                 <i
                                                                                     class="fas fa-bookmark fa-fw icon-category"></i>
                                                                                 
-                                                                                    <a href="/categories/js/"
+                                                                                    <a href="/categories/vue/"
                                                                                         class="post-category">
-                                                                                        js
+                                                                                        vue
                                                                                     </a>
                                                                                     
                                                                                         
@@ -628,103 +708,15 @@ new绑定：函数作为构造函数调用。this指向新建对象
                                                                 
                                                                     <div class="card-action article-tags">
                                                                         
-                                                                            <a href="/tags/%E5%8D%B7/">
+                                                                            <a href="/tags/vue/">
                                                                                 <span class="chip bg-color">
-                                                                                    卷
+                                                                                    vue
                                                                                 </span>
                                                                             </a>
                                                                             
-                                                                            <a href="/tags/js/">
+                                                                            <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
                                                                                 <span class="chip bg-color">
-                                                                                    js
-                                                                                </span>
-                                                                            </a>
-                                                                            
-                                                                            <a href="/tags/this/">
-                                                                                <span class="chip bg-color">
-                                                                                    this
-                                                                                </span>
-                                                                            </a>
-                                                                            
-                                                                            <a href="/tags/call/">
-                                                                                <span class="chip bg-color">
-                                                                                    call
-                                                                                </span>
-                                                                            </a>
-                                                                            
-                                                                            <a href="/tags/apply/">
-                                                                                <span class="chip bg-color">
-                                                                                    apply
-                                                                                </span>
-                                                                            </a>
-                                                                            
-                                                                    </div>
-                                                                    
-                                                            </div>
-                                                        </div>
-                                                        
-                                                            <!-- 隐藏某个文章 -->
-                                                            
-                                                    
-                                                        <!-- 隐藏某个文章 -->
-                                                        <div class="article col s12 m6 l4" data-aos="zoom-in">
-                                                            <div class="card">
-                                                                <a href="/2021/01/13/note/html-css-mian-shi-import-he-link-de-qu-bie/">
-                                                                    <div class="card-image">
-                                                                        
-                                                                                
-                                                                                    <img src="/medias/featureimages/16.jpg"
-                                                                                        class="responsive-img"
-                                                                                        alt="\@import和link的区别">
-                                                                                    
-                                                                                        <span class="card-title">
-                                                                                            \@import和link的区别
-                                                                                        </span>
-                                                                    </div>
-                                                                </a>
-
-                                                                <div class="card-content article-content">
-                                                                    <div class="summary block-with-text">
-                                                                        
-                                                                                            &lt;!DOCTYPE html>
-&lt;html lang="en">
-&lt;head>
-    &lt;meta charset="UTF-8">
-    &lt;meta http-equiv="X-UA-Compatible"
-                                                                                                
-                                                                    </div>
-                                                                    <div class="publish-info">
-                                                                        <span class="publish-date">
-                                                                            <i class="far fa-clock fa-fw icon-date"></i>
-                                                                            2021-01-13
-                                                                        </span>
-                                                                        <span class="publish-author">
-                                                                            
-                                                                                <i
-                                                                                    class="fas fa-bookmark fa-fw icon-category"></i>
-                                                                                
-                                                                                    <a href="/categories/html-css/"
-                                                                                        class="post-category">
-                                                                                        html&css
-                                                                                    </a>
-                                                                                    
-                                                                                        
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-
-                                                                
-                                                                    <div class="card-action article-tags">
-                                                                        
-                                                                            <a href="/tags/%E5%8D%B7/">
-                                                                                <span class="chip bg-color">
-                                                                                    卷
-                                                                                </span>
-                                                                            </a>
-                                                                            
-                                                                            <a href="/tags/css/">
-                                                                                <span class="chip bg-color">
-                                                                                    css
+                                                                                    源码解析
                                                                                 </span>
                                                                             </a>
                                                                             
@@ -752,7 +744,7 @@ new绑定：函数作为构造函数调用。this指向新建对象
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">36 / 45</div>
+            <div class="center-align b-text-gray">36 / 46</div>
         </div>
         <div class="col s6 m4 l4">
             
@@ -843,7 +835,7 @@ new绑定：函数作为构造函数调用。this指向新建对象
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                106.8k
+                                                114.7k
                                             </span>
                                             
                                                 
